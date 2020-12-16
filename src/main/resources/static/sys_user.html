@@ -97,12 +97,12 @@
 </div>
 <div id="div_user_area" style="display:none;padding:2px 2px 2px 0">
     <form class="form-horizontal">
-        <div class="col-sm-12">
-            <select id="userPprovinceId" class="select" value='' onchange="jQArea.onSelectChange(this,'userCityId');"><option value=''>请选择省/市</option></select>
-            <select id="userCityId" class="select" value='' style="display:none" onchange="jQArea.onSelectChange(this,'userDistrictId');"><option value=''></option></select>
-            <select id="userDistrictId" class="select" value='' style="display:none;" onchange="jQArea.onSelectChange(this,'userTownsTd');"><option value=''></option></select>
-            <select id="userTownsTd" class="select" value='' style="display:none;" onchange="jQArea.onSelectChange(this,'userVallageId');"><option value=''></option></select>
-            <select id="userVallageId" class="select" value='' style="display:none;"><option value=''></option></select>
+        <div class="col-sm-6">
+            <select id="userProvinceId" value='' onchange="jQArea.onSelectChange(this,'userCityId');"><option value=''>请选择省/市</option></select>
+            <select id="userCityId" value='' style="display:none" onchange="jQArea.onSelectChange(this,'userDistrictId');"><option value=''></option></select>
+            <select id="userDistrictId" value='' style="display:none;" onchange="jQArea.onSelectChange(this,'userTownsTd');"><option value=''></option></select>
+            <select id="userTownsTd" value='' style="display:none;" onchange="jQArea.onSelectChange(this,'userVallageId');"><option value=''></option></select>
+            <select id="userVallageId" value='' style="display:none;" onchange="jQArea.onSelectChange(this,'userXxxx');"><option value=''></option></select><!--如果下面还有那继续加即可-->
         </div>
     </form>
 </div>
@@ -726,8 +726,8 @@
                     }
                     var row = thisJquery.fnGetData(index);
                     layerFn.addOrEdit('['+row.user_name+']员绑定划分区域','#div_user_area',['650px','450px'],(layerIndex)=>{
-                        var province_id = $("#userPprovinceId").attr('value');//省
-                        var province_text = $("#userPprovinceId").find("option:selected").text();
+                        var province_id = $("#userProvinceId").attr('value');//省
+                        var province_text = $("#userProvinceId").find("option:selected").text();
                         var city_id = $("#userCityId").attr('value');//市
                         var county_id = $("#userDistrictId").attr('value');//县
                         var towns = $("#userTownsTd").attr('value');//区

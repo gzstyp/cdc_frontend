@@ -1,6 +1,5 @@
 ;(function($){
 	var indexQuery = 0;
-	var _provinceDom = '';
     window.jQArea = {
 		province : "userProvinceId",//省
 		city : "userCityId",//市
@@ -15,16 +14,36 @@
 		onSelectChange : function(obj,dom){
 			var _self = this;
 			_self.queryArea(obj.value,dom);
-			$('#'+dom).attr('value',obj.value);
 		},
 		/**查询省市县区域列表*/
 		queryArea : function(pid,dom){
-            indexQuery++;
-            if(indexQuery ===1){
-                _provinceDom = dom;
+            indexQuery++;//第1此请求时是最最外层的父id
+            switch (indexQuery){
+                case 1://因为最最外层的父id
+                    break;
+                case 2:
+                    $('#userProvinceId').attr('value',pid);//省
+                    break;
+                case 3:
+                    $('#userCityId').attr('value',pid);//市
+                    break;
+                case 4:
+                    $('#userDistrictId').attr('value',pid);//县
+                    break;
+                case 5:
+                    $('#userTownsTd').attr('value',pid);//区
+                    break;
+                case 6:
+                    $('#userVallageId').attr('value',pid);//村
+                    break;
+                case 7:
+                    $('#area_organize').attr('value',pid);//组,这个不好使,但功能已足够用了
+                    break;
+                default:
+                    break;
             }
-            if(indexQuery ===2){
-                $('#'+_provinceDom).attr('value',pid);
+            if(dom == 'userXxxx'){//这个随便填即可,用于标识除了上面之外的最后一个区域节点,如果下面还有那继续加即可
+                $('#userVallageId').attr('value',pid);//组
             }
 			var _self = this;
 			if(pid != null && pid != ''){
