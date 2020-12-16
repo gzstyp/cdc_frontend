@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <title>首页</title>
+</head>
+<body>
+模块化开发,本前端模块frontend打包步骤:<br/>
+１.先注释掉web模块里的pom.xml里的<build></build>节点;<br/>
+２.双击父模块ace_admin里maven快捷键的install,不推荐双击package打包,因为可能打包后jar会很大;<br/>
+３.另外,web 、api等模块需要在单独的模块里打包jar才不被叠加jar文件才小;<br/>
+４.只打包web或api即可实现前后端分离;<br/>
+５.如果不想前后端分离则打包模块frontend,但务必要注释模块web模块里的pom.xml里的<build></build>节点;<br/>
+６.每次修改代码都要父模块install一下<br/>
+７.若是jsp页面则需要删除 < base href="<%=basePath%>"> 节点<br/><br/>
+<a href="/login.html" style="text-decoration:none">登录</a>
+</body>
+</html>

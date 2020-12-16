@@ -1,0 +1,32 @@
+<meta charset="utf-8"/>
+<script type="text/javascript">
+    //$('.breadcrumbs .breadcrumb').text('欢迎使用');
+</script>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                欢迎使用管理平台,如果页面往左边移且水平出现滚动条的话，一定是加了class="row"在最里层<br>
+                <br/>若是jsp页面则需要删除 base href=""> basePath 节点<br/>
+                <span class="red">
+                注意,在添加菜单url时,如果是html页面的,<br>
+                请写统一写在static目录下且该目录下不能含有目录,<br>
+                a连接的href必须带/斜杠的;<br>
+                如果是jsp页面,请在view目录下创建文件且不能在该目录创建文件夹,<br>
+                a连接的href不能带/斜杠的</span><br>
+                <br><br>
+                <h5 class="header smaller lighter orange">
+                    if(hash.indexOf("/") != -1){<br>
+                    var yy = hash.replace(/^page\//,'');<br>
+                    return yy+'.html';<br>
+                    }else{<br>
+                    return hash.replace(/^page\//,'');<br>
+                    }
+                </h5>
+                <h4 class="red2">
+                    在添加菜单时的按钮注意命名规则，如果是普通按钮则以模块和按钮类型,如用户模块:user:btn:add开头,若是行按钮则是以user:row:edit开头
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
