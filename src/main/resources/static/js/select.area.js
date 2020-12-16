@@ -1,13 +1,15 @@
 ;(function($){
-	window.jQArea = {
-		province : "userPprovinceId",//省
+	var indexQuery = 0;
+	var _provinceDom = '';
+    window.jQArea = {
+		province : "userProvinceId",//省
 		city : "userCityId",//市
 		district : "userDistrictId",//县
 		towns : "userTownsTd",//区
 		vallage : "userVallageId",//村
 		area_organize : "area_organize",//组的id
 		init:function(){
-			jQArea.queryArea('0',jQArea.province);
+			jQArea.queryArea('0',jQArea.province);//最外层的父级id
 		},
 		/**触发下拉事件处理*/
 		onSelectChange : function(obj,dom){
@@ -17,6 +19,13 @@
 		},
 		/**查询省市县区域列表*/
 		queryArea : function(pid,dom){
+            indexQuery++;
+            if(indexQuery ===1){
+                _provinceDom = dom;
+            }
+            if(indexQuery ===2){
+                $('#'+_provinceDom).attr('value',pid);
+            }
 			var _self = this;
 			if(pid != null && pid != ''){
 				$(dom).text('');
@@ -53,6 +62,7 @@
 				//正常显示
 				obj.style.display = 'block';
 				var nullOp = document.createElement("option");
+
 				nullOp.setAttribute("value","");
 				_self.selectDom(dom,nullOp);
 				obj.appendChild(nullOp);
