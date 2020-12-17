@@ -153,16 +153,65 @@ console.info(STATE);
             </button>
             <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:276px;min-width:276px;"><!--注意宽度-->
                 <li>
-                    <a href="javascript:winFn.dropdown('#dropdown_type','','#dropdownType','权限类型');">权限类型</a>
+                    <a id="" href="javascript:winFn.dropdown('#dropdown_type','','#dropdownType','权限类型');">权限类型</a>
                 </li>
                 <li>
-                    <a href="javascript:winFn.dropdown('#dropdown_type',1,'#dropdownType','查询权限');">查询权限</a>
+                    <a id="1当不是从后端获取时直接写value的值一样即可,也就是和第二参数一致即可,如果页面有多个id='1'相同的页面报错不用管!下面有例子" href="javascript:winFn.dropdown('#dropdown_type',1,'#dropdownType','查询权限');">查询权限</a>
                 </li>
                 <li>
-                    <a href="javascript:winFn.dropdown('#dropdown_type',2,'#dropdownType','编辑权限');">编辑权限</a>
+                    <a id="2" href="javascript:winFn.dropdown('#dropdown_type',2,'#dropdownType','编辑权限');">编辑权限</a>
                 </li>
             </ul>
             <input id="dropdown_type" type="hidden"><!--注意隐藏域-->
+        </span>
+    </div>
+</div>
+----------------------------------------例子,多个id的值相同值页面报错不用管----------------------------------------
+<label class="col-sm-3 control-label no-padding-right" for="entrance"><div class="hr-4"></div>是否有进口产品</label>
+<div class="col-sm-7">
+    <div class="hr-4"></div>
+    <div class="input-group">
+    <span class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+            <span id="dropdownLabelentrance">选择选项</span><!--注意显示文字-->
+            <i class="ace-icon fa fa-angle-down"></i>
+        </button>
+        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
+            <li>
+                <a id="" href="javascript:winFn.dropdown('#entrance','','#dropdownLabelentrance','选择选项');">选择选项</a>
+            </li>
+            <li>
+                <a id="1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','有');">有</a>
+            </li>
+            <li>
+                <a id="0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','无');">无</a>
+            </li>
+        </ul>
+        <input id="entrance" type="hidden"/>
+    </span>
+    </div>
+</div>
+<label class="col-sm-3 control-label no-padding-right" for="risk"><div class="hr-4"></div>是否有高中风险地区产品</label>
+<div class="col-sm-7">
+    <div class="hr-4"></div>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                <span id="dropdownLabelrisk">选择选项</span><!--注意显示文字-->
+                <i class="ace-icon fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
+                <li>
+                    <a id="" href="javascript:winFn.dropdown('#risk','','#dropdownLabelrisk','选择选项');">选择选项</a>
+                </li>
+                <li>
+                    <a id="1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','有');">有</a>
+                </li>
+                <li>
+                    <a id="0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','无');">无</a>
+                </li>
+            </ul>
+            <input id="risk" type="hidden">
         </span>
     </div>
 </div>
