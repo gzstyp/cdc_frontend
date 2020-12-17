@@ -727,30 +727,20 @@
                     var row = thisJquery.fnGetData(index);
                     layerFn.addOrEdit('['+row.user_name+']员绑定划分区域,若是不选则取消绑定区域','#div_user_area',['650px','450px'],(layerIndex)=>{
                         var province_id = $("#userProvinceId").attr('value');//省
-                        var province_text = $("#userProvinceId").find("option:selected").text();
                         var city_id = $("#userCityId").attr('value');//市
-                        var city_text = $("#userCityId").find("option:selected").text();
                         var county_id = $("#userCountyId").attr('value');//县
-                        var county_text = $("#userCountyId").find("option:selected").text();
                         var towns_id = $("#userTownsTd").attr('value');//区
-                        var towns_text = $("#userTownsTd").find("option:selected").text();
                         var vallage_id = $("#userVallageId").attr('value');//村
-                        var vallage_text = $("#userVallageId").find("option:selected").text();
                         if(verifyFn.inputRequired('#user_row_queryTreeArea')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
                         }
                         var params = {
                             province_id : province_id,
-                            province_text : province_text,
                             city_id : city_id,
-                            city_text : city_text,
                             county_id : county_id,
-                            county_text : county_text,
                             towns_id : towns_id,
-                            towns_text : towns_text,
                             vallage_id : vallage_id,
-                            vallage_text : vallage_text,
                             user_id : row.kid
                         };
                         layerFn.ajaxPost(urlSaveUserArea,params,(data)=>{
