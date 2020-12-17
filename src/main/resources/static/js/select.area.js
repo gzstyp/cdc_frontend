@@ -1,12 +1,11 @@
 ;(function($){
-	var indexQuery = 0;
     window.jQArea = {
 		province : "userProvinceId",//省
 		city : "userCityId",//市
-		district : "userDistrictId",//县
+		district : "userCountyId",//县
 		towns : "userTownsTd",//区
 		vallage : "userVallageId",//村
-		area_organize : "area_organize",//组的id
+		area_organize : "area_organize",//组的id,这个area_organize随便填写即可
 		init:function(){
 			jQArea.queryArea('0',jQArea.province);//最外层的父级id
 		},
@@ -17,60 +16,43 @@
 		},
 		/**查询省市县区域列表*/
 		queryArea : function(pid,dom){
-            indexQuery++;//第1此请求时是最最外层的父id
-            switch (indexQuery){
-                case 1://因为最最外层的父id
-                    break;
-                case 2:
-                    $('#userProvinceId').attr('value',pid);//省
-                    break;
-                case 3:
-                    $('#userCityId').attr('value',pid);//市
-                    break;
-                case 4:
-                    $('#userDistrictId').attr('value',pid);//县
-                    break;
-                case 5:
-                    $('#userTownsTd').attr('value',pid);//区
-                    break;
-                case 6:
-                    $('#userVallageId').attr('value',pid);//村
-                    break;
-                case 7:
-                    $('#area_organize').attr('value',pid);//组,这个不好使,但功能已足够用了
-                    break;
-                default:
-                    break;
+		    if(pid == null || pid == ''){//处理选择第一项的情况
+                this.createViewSelect('',dom);
+                if(dom == 'userCityId'){
+                    this.domAttrValue('#userProvinceId','');
+                }else if(dom == 'userCountyId'){
+                    this.domAttrValue('#userCityId','');
+                }else if(dom == 'userTownsTd'){
+                    this.domAttrValue('#userCountyId','');
+                }else if(dom == 'userVallageId'){
+                    this.domAttrValue('#userTownsTd','');
+                }else if(dom == 'area_organize'){//这个area_organize随便填写即可,用于标识除了上面之外的最后一个区域节点,如果下面还有那继续加即可
+                    this.domAttrValue('#userVallageId','');
+                }
+            }else{
+                if(dom == 'userCityId'){
+                    this.domAttrValue('#userProvinceId',pid);
+                    this.domValue(dom,'');
+                }else if(dom == 'userCountyId'){
+                    this.domAttrValue('#userCityId',pid);
+                    this.domValue(dom,'');
+                }else if(dom == 'userTownsTd'){
+                    this.domAttrValue('#userCountyId',pid);
+                    this.domValue(dom,'');
+                }else if(dom == 'userVallageId'){
+                    this.domAttrValue('#userTownsTd',pid);
+                }else if(dom == 'area_organize'){//这个area_organize随便填写即可,用于标识除了上面之外的最后一个区域节点,如果下面还有那继续加即可
+                    this.domAttrValue('#userVallageId',pid);
+                }
+                this.getAreaData(pid,dom);
             }
-            if(dom == 'userXxxx'){//这个随便填即可,用于标识除了上面之外的最后一个区域节点,如果下面还有那继续加即可
-                $('#userVallageId').attr('value',pid);//组
-            }
-			var _self = this;
-			if(pid != null && pid != ''){
-				$(dom).text('');
-                self.layerIndex = layerFn.loading('正在加载……');
-                $.ajax({
-                    type : "GET",
-                    url : urlPrefix + '/user/queryArea',
-                    dataType : "json",
-                    data : {pId : pid},
-                    headers : {'accessToken': sessionStorage.getItem('accessToken') || '',"refreshToken":sessionStorage.getItem('refreshToken') || ''},//好使
-                    crossDomain: true == !(document.all),
-                    success : function(data){
-                        if(data.code === AppKey.code.code200){
-                            _self.createViewSelect(data.data,dom);
-                        }
-                    },
-                    error : function(response,status){
-                        console.log(response,status);
-                    },
-                    statusCode : {},
-                    complete : function(response,status){
-                        layerFn.closeIndex(self.layerIndex);
-                    }
-                });
-			}
 		},
+        domValue(dom,value){
+            document.getElementById(dom).setAttribute("value",value);
+        },
+        domAttrValue : function(dom,value){
+            $(dom).attr('value',value);
+        },
 		/**动态创建下拉列表,data json数据;dom下拉控件名称*/
 		createViewSelect : function(data,dom){
 			var _self = this;
@@ -81,7 +63,6 @@
 				//正常显示
 				obj.style.display = 'block';
 				var nullOp = document.createElement("option");
-
 				nullOp.setAttribute("value","");
 				_self.selectDom(dom,nullOp);
 				obj.appendChild(nullOp);
@@ -125,43 +106,62 @@
 		resetDom : function(dom){
 			document.getElementById(dom).innerHTML = "";
 			document.getElementById(dom).style.display = 'none';
+            this.domValue(dom,'');
 		},
 		selectDom : function(dom,nullOp){
 			var _self = this;
-			if(dom == _self.province || dom == 'AREA_PROVINCE'){
+			if(dom == _self.province){
 				nullOp.appendChild(document.createTextNode("请选择省/市"));
 				_self.resetDom(_self.city);
 				_self.resetDom(_self.district);
 				_self.resetDom(_self.towns);
 				_self.resetDom(_self.vallage);
-			}else if(dom == _self.city || dom == 'AREA_CITY'){
+			}else if(dom == _self.city){
 				nullOp.appendChild(document.createTextNode("请选择市/区"));
-				_self.resetDom(_self.district);
-				_self.resetDom(_self.towns);
-				_self.resetDom(_self.vallage);
-			}else if(dom == _self.district || dom == 'AREA_COUNTY'){
+                _self.resetDom(_self.district);
+                _self.resetDom(_self.towns);
+                _self.resetDom(_self.vallage);
+			}else if(dom == _self.district){
 				nullOp.appendChild(document.createTextNode("请选择区/县"));
-			}else if(dom == _self.towns || dom == 'AREA_TOWN'){
+                _self.resetDom(_self.towns);
+                _self.resetDom(_self.vallage);
+			}else if(dom == _self.towns){
 				nullOp.appendChild(document.createTextNode("请选择乡/镇"));
-			}else if(dom == _self.vallage || dom == 'AREA_VILLAGE'){
+                _self.resetDom(_self.vallage);
+			}else if(dom == _self.vallage){
 				nullOp.appendChild(document.createTextNode("请选择村/组"));
+                this.domValue(dom,'');
 			}else if(dom == _self.area_organize){
 				nullOp.appendChild(document.createTextNode("请选择组"));
 			}else{
 				nullOp.appendChild(document.createTextNode("请选择"));
 			}
 		},
-		/**当选择改变时且有数据调用远程数据*/
-		selectChange:function(pid,textShow,empty,domId,select){
-			if(pid == null || pid == '')return;
-			jQArea.queryAreaByPid(pid,textShow,empty,domId,'id','name',select);
-		},
-		/**通用的区域查询*/
-		queryAreaByPid : function(pid,defaultText,emptyText,domId,value,showText,select){
-			if(pid == null || pid == '')return;
-			layerFn.ajaxHint('area/queryArea','正在读取……',{pId:pid},function(data){
-				winFn.setDataSelect(defaultText,emptyText,domId,data.listData,value,showText,select);
-			});
-		},
+        getAreaData : function(pid,dom){
+		    var _self = this;
+		    if(pid == null || pid == '')return;
+            $(dom).text('');
+            self.layerIndex = layerFn.loading('正在加载……');
+            $.ajax({
+                type : "GET",
+                url : urlPrefix + '/user/queryArea',
+                dataType : "json",
+                data : {pId : pid},
+                headers : {'accessToken': sessionStorage.getItem('accessToken') || '',"refreshToken":sessionStorage.getItem('refreshToken') || ''},//好使
+                crossDomain: true == !(document.all),
+                success : function(data){
+                    if(data.code === AppKey.code.code200){
+                        _self.createViewSelect(data.data,dom);
+                    }else if(data.code === AppKey.code.code205){
+                        layerFn.tokenLogin();return;
+                    }
+                },
+                error : function(response,status){},
+                statusCode : {},
+                complete : function(response,status){
+                    layerFn.closeIndex(self.layerIndex);
+                }
+            });
+        }
 	};
 })(jQuery);
