@@ -163,7 +163,7 @@
                     },
                     404 : function(response){
                         var json = eval('('+ response.responseText +')');
-                        layerFn.handleClose("请求"+json.path+"路径不存在");
+                        layerFn.handleClose("请求("+json.path+")路径不存在");
                     },
                     500 : function(response){
                         layerFn.handleClose("系统出现错误,稍候重试");
