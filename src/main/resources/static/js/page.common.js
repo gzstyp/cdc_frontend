@@ -937,8 +937,8 @@ var refreshFlag = true;
                 },
                 /*success : callback,//好使*/
                 statusCode : {
-                    404 : function(){
-                        status404();
+                    404 : function(response){
+                        status404(response);
                     },
                     500 : function(){
                         status500();
@@ -2169,8 +2169,8 @@ var refreshFlag = true;
                 }
             },
             statusCode : {
-                404 : function() {
-                    status404();
+                404 : function(response) {
+                    status404(response);
                 },
                 500 : function(){
                     status500();
@@ -2184,8 +2184,9 @@ var refreshFlag = true;
             }
         });
     }
-    function status404(){
-        layerFn.alert("访问的url不存在,你可以试试<a href='http://www.yinlz.com' target='_blank'>引路者</a>解决找不到网页问题",AppKey.code.code199);
+    function status404(response){
+        var json = eval('('+ response.responseText +')');
+        layerFn.alert("访问的"+json.path+"路径不存在,你可以试试<a href='http://www.dwz.cloud' target='_blank'>引路者</a>解决找不到网页问题",AppKey.code.code199);
     }
     function status500(){
         layerFn.alert(AppKey.msg.msg204,AppKey.code.code204);

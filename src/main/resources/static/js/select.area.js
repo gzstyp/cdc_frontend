@@ -144,7 +144,7 @@
             self.layerIndex = layerFn.loading('正在加载……');
             $.ajax({
                 type : "GET",
-                url : urlPrefix + '/user/queryArea',
+                url : urlPrefix + '/user/queryAreaSelect',
                 dataType : "json",
                 data : {pId : pid},
                 headers : {'accessToken': sessionStorage.getItem('accessToken') || '',"refreshToken":sessionStorage.getItem('refreshToken') || ''},//好使
@@ -157,7 +157,18 @@
                     }
                 },
                 error : function(response,status){},
-                statusCode : {},
+                statusCode : {
+                    401 : function(response){
+                        layerFn.handleClose("没有操作权限");
+                    },
+                    404 : function(response){
+                        var json = eval('('+ response.responseText +')');
+                        layerFn.handleClose("请求"+json.path+"路径不存在");
+                    },
+                    500 : function(response){
+                        layerFn.handleClose("系统出现错误,稍候重试");
+                    }
+                },
                 complete : function(response,status){
                     layerFn.closeIndex(self.layerIndex);
                 }
