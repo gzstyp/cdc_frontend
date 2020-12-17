@@ -725,7 +725,7 @@
                         return;
                     }
                     var row = thisJquery.fnGetData(index);
-                    layerFn.addOrEdit('['+row.user_name+']员绑定划分区域','#div_user_area',['650px','450px'],(layerIndex)=>{
+                    layerFn.addOrEdit('['+row.user_name+']员绑定划分区域,若是不选则取消绑定区域','#div_user_area',['650px','450px'],(layerIndex)=>{
                         var province_id = $("#userProvinceId").attr('value');//省
                         var province_text = $("#userProvinceId").find("option:selected").text();
                         var city_id = $("#userCityId").attr('value');//市
