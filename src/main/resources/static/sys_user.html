@@ -747,7 +747,15 @@
                             thisPage.complete(data,layerIndex,true);
                         });
                     });
-                    jQArea.init();
+                    jQArea.init();//调用时注意清空操作
+                    this.resetUserArea();
+                },
+                resetUserArea : function(){
+                    $("#userProvinceId").attr('value','');//省
+                    $("#userCityId").attr('value','');//市
+                    $("#userCountyId").attr('value','');//县
+                    $("#userTownsTd").attr('value','');//区
+                    $("#userVallageId").attr('value','');//村
                 },
                 //未使用,仅供参考
                 rowUserArea : function(){

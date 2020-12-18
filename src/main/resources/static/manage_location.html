@@ -563,7 +563,15 @@
 						winFn.addDropdown('#dropdownLabelrisk','选择选项');
                         winFn.addDropdown('#dropdownLabelsite_type','选择场所类型');
 				    }
-                    jQArea.init();
+                    jQArea.init();//调用时注意清空操作
+                    this.resetUserArea();
+                },
+                resetUserArea : function(){
+                    $("#userProvinceId").attr('value','');//省
+                    $("#userCityId").attr('value','');//市
+                    $("#userCountyId").attr('value','');//县
+                    $("#userTownsTd").attr('value','');//区
+                    $("#userVallageId").attr('value','');//村
                 },
                 rowEdit : function(index){
                     var row = thisJquery.fnGetData(index);
