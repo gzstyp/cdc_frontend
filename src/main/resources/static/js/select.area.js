@@ -6,7 +6,8 @@
 		towns : "userTownsTd",//区
 		vallage : "userVallageId",//村
 		area_organize : "area_organize",//组的id,这个area_organize随便填写即可
-		init:function(){
+        //调用时注意清空操作,放在后面即可;如：jQArea.init();this.resetUserArea();
+        init:function(){
 			jQArea.queryArea('0',jQArea.province);//最外层的父级id
 		},
 		/**触发下拉事件处理*/
