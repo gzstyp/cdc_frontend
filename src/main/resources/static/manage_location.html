@@ -1,0 +1,589 @@
+<meta charset="utf-8"/>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <table class="no-border" style="display:inline">
+                        <tr permission='manageLocation_btn_listData' style="display:none">
+                            <td style="padding: 0px 6px;">
+                                经营场所首写字母
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_site_letter" class="form-control search-query" placeholder="经营场所首写字母" style="width:140px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                联系人
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_linkman" class="form-control search-query" placeholder="经营场所联系人" style="width:140px"/>
+                                </div>
+                            </td>
+                            <td class="hidden-480" style="padding: 0px 6px;">
+                                登记人
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_craete_userid" class="form-control search-query hidden-480" placeholder="登记人|工作人员" style="width:140px"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='manageLocation_btn_listData' style="display:none">
+                                            <span class="ace-icon fa fa-search bigger-110"></span>
+                                            搜索
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnAdd" permission='manageLocation_btn_add' style="display:none">
+                                            <span class="ace-icon glyphicon glyphicon-plus bigger-110"></span>
+                                            添加
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnDel" permission='manageLocation_btn_delByKeys' style="display:none">
+                                            <span class="fa fa-trash red2 bigger-110"></span>
+                                            删除
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="hidden-480 pull-right tableTools-container" permission='manageLocation_btn_listData' style="display:none"></div>
+                </div>
+                <table id="tableListManageLocation" class="table table-striped table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="div_bs_manage_edit" style="display:none;padding-top:20px">
+    <form class="form-horizontal" id="form_bs_manage_edit" role="form">
+        <label class="col-sm-3 control-label no-padding-right" for="site_name"><div class="hr-4"></div>经营场所名称</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="site_name" placeholder="经营场所名称" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="site_letter"><div class="hr-4"></div>首写字母</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="site_letter" placeholder="经营场所首写字母" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="site_type"><div class="hr-4"></div>经营场所类型</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelsite_type">选择场所类型</span>
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:400px;min-width:400px;max-width:400px" id="dropdownOptionssite_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <input id="site_type" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="linkman"><div class="hr-4"></div>联系人</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="linkman" placeholder="联系人" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="mobile"><div class="hr-4"></div>联系电话</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="mobile" placeholder="联系电话" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>行政区域</label>
+        <div class="col-sm-7" title="编辑|修改时不选择则保持原数据原区域">
+            <div class="hr-4"></div>
+            <select class="col-sm-12" id="userProvinceId" value='' onchange="jQArea.onSelectChange(this,'userCityId');"><option value=''>请选择省/市</option></select>
+            <select class="col-sm-12" id="userCityId" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'userCountyId');"><option value=''></option></select>
+            <select class="col-sm-12" id="userCountyId" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'userTownsTd');"><option value=''></option></select>
+            <select class="col-sm-12" id="userTownsTd" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'userVallageId');"><option value=''></option></select>
+            <select class="col-sm-12" id="userVallageId" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'area_organize');"><option value=''></option></select><!--这个area_xxx随便填写,如果下面还有那继续加即可-->
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>场所地址</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="address" placeholder="场所地址" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="freeze"><div class="hr-4"></div>是否有冷冻冷藏产品</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelfreeze">选择选项</span><!--注意显示文字-->
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:400px;min-width:400px;max-width:400px">
+                        <li>
+                            <a id="" href="javascript:winFn.dropdown('#freeze','','#dropdownLabelfreeze','选择选项');">选择选项</a>
+                        </li>
+                        <li>
+                            <a id="1" href="javascript:winFn.dropdown('#freeze',1,'#dropdownLabelfreeze','有');">有</a>
+                        </li>
+                        <li>
+                            <a id="0" href="javascript:winFn.dropdown('#freeze',0,'#dropdownLabelfreeze','无');">无</a>
+                        </li>
+                    </ul>
+                    <input id="freeze" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="entrance"><div class="hr-4"></div>是否含有冷冻进口产品</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelentrance">选择选项</span><!--注意显示文字-->
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
+                        <li>
+                            <a id="" href="javascript:winFn.dropdown('#entrance','','#dropdownLabelentrance','选择选项');">选择选项</a>
+                        </li>
+                        <li>
+                            <a id="1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','有');">有</a>
+                        </li>
+                        <li>
+                            <a id="0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','无');">无</a>
+                        </li>
+                    </ul>
+                    <input id="entrance" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="risk"><div class="hr-4"></div>是否有高中风险地区产品</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelrisk">选择选项</span><!--注意显示文字-->
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
+                        <li>
+                            <a id="" href="javascript:winFn.dropdown('#risk','','#dropdownLabelrisk','选择选项');">选择选项</a>
+                        </li>
+                        <li>
+                            <a id="1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','有');">有</a>
+                        </li>
+                        <li>
+                            <a id="0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','无');">无</a>
+                        </li>
+                    </ul>
+                    <input id="risk" type="hidden">
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="remark"><div class="hr-4"></div>备注</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <textarea type="text" rows="2" id="remark" placeholder="备注" class="form-control"/>
+        </div>
+    </form>
+</div>
+<div id="divKeyColumns" style="display:none;padding:1px 0px;"></div>
+<input type="hidden" id="bs_manage_edit_keyId"/>
+<div style="display:none;">
+    <input type="hidden" id="manageLocation_btn_listData"/>
+    <input type="hidden" id="manageLocation_btn_add"/>
+    <input type="hidden" id="manageLocation_btn_delByKeys"/>
+    <input type="hidden" id="manageLocation_row_edit"/>
+    <input type="hidden" id="manageLocation_row_queryById"/>
+    <input type="hidden" id="manageLocation_row_delById"/>
+    <input type="hidden" id="manageLocation_btn_getManagerLocation"/>
+</div>
+<script type="text/javascript">
+    var scripts = [null,null];
+    $('.page-content-area').ace_ajax('loadScripts',scripts,function(){
+        var tableDom = '#tableListManageLocation';
+        var inputEditKeyId = '#bs_manage_edit_keyId';
+        $(function(){
+            var urlRoute = '/manageLocation/';/*请求controller层的url*/
+            var getList = urlRoute + 'listData';/*获取数据列表,此处不需要添加的,已在请求的url添加了前缀*/
+            var urlAdd = urlRoute + 'add';/*添加*/
+            var urlEdit = urlRoute + 'edit';/*编辑*/
+            var urlQueryById = urlRoute + 'queryById';/*根据id查询对应的数据*/
+            var urlGetManagerLocation = urlRoute + 'getManagerLocation';/*获取经营场所*/
+            var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
+            var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
+            var thisTable = pageDataTable.initDataTable({
+                tableDom : tableDom,
+                sAjaxSource: getList,
+                fnServerParams : function(params){
+                    params.push({"name":"site_letter","value":$("#key_site_letter").val()},{"name":"linkman","value":$("#key_linkman").val()},{"name":"craete_userid","value":$("#key_craete_userid").val()});
+                },
+                aoColumns : [
+                    {
+                        bSortable: false,
+                        mData : "kid",
+                        sWidth : "38px",
+                        sClass : "center",
+                        sTitle : '<label title="全选|不选"><input type="checkbox" class="ace" /><span class="lbl"></span></label>'
+                    },
+                    {
+                        mData : "site_name",
+                        sTitle : "经营场所名称"
+                    },
+                    {
+                        mData : "user_name",
+                        sTitle : "登记人"
+                    },
+                    {
+                        mData : "linkman",
+                        sTitle : "联系人"
+                    },
+                    {
+                        mData : "mobile",
+                        sTitle : "联系电话"
+                    },
+                    {
+                        mData : "site_type_label",
+                        sTitle : "场所类型"
+                    },
+                    {
+                        mData : "area_id_label",
+                        sTitle : "区域地址"
+                    },
+                    {
+                        mData : "entrance",
+                        sTitle : "是否有进口产品",
+                        render : function(value,type,row,meta){
+                            if(value == '0'){
+                                return '无';
+                            }else if(value == '1'){
+                                return '有';
+                            }else{
+                                return "";
+                            }
+                        }
+                    },
+                    {
+                        mData : "risk",
+                        sTitle : "是否含高中风险地区产品",
+                        render : function(value,type,row,meta){
+                            if(value == '0'){
+                                return '无';
+                            }else if(value == '1'){
+                                return '有';
+                            }else{
+                                return "";
+                            }
+                        },
+                        sWidth : "12%"
+                    },
+                    {
+                        mData : "address",
+                        sTitle : "场所地址",
+                        sWidth : "12%"
+                    },
+                    {
+                        mData : "remark",
+                        sTitle : "备注",
+                        sWidth : "12%"
+                    },
+                    {
+                        mData : "_kid_",
+                        sTitle : "<label style='color:#000;'>操作选项</label>",
+                        bSortable : false,
+                        sWidth : "8%"
+                    }
+                ],
+                columnDefs : [
+                    {
+                        targets : 0,//指定的列
+                        render : function(value,type,row,meta){//第1个参数可能会没有值!!!,当key不存在时就没有值
+                            return '<label title="选择|取消"><input type="checkbox" name="kid" value="'+value+'" style="cursor:pointer;text-decoration:none;outline:none;"/><span class="lbl"></span></label>';
+                        }
+                    },
+                    {
+                        targets : -1,
+                        render : function(value,type,row,meta){
+                            var html = "<a href='javascript:thisPage.rowEdit("+meta.row+");' style='outline:none;text-decoration: none;color:#3b8cff;margin-left:6px;display:none' permission='manageLocation_row_edit'>编辑</a>"+
+                                "<a class='hidden-xs' href='javascript:thisPage.rowDel("+meta.row+");' style='outline:none;text-decoration: none;color:#f00;margin-left:6px;display:none' permission='manageLocation_row_delById'>删除</a>";
+                            return html;
+                        }
+                    },
+                    {
+                        targets: [1,2,3,4,5,6,7,8],
+                        render: function (value,type,row,meta){
+                            return pageDataTable.formatColumn(value);
+                        }
+                    }
+                ]
+            });
+            pageDataTable.buttons(thisTable);
+            pageDataTable.action(thisTable);
+            pageDataTable.select(thisTable,tableDom);
+            pageDataTable.tooltip();
+            var thisJquery = $(tableDom).dataTable();
+            thisPage = {
+                init : function(){
+                    this.addEvent();
+                    this.initDom();
+                },
+                initDom : function(){
+                    layerFn.ajaxGet(urlGetManagerLocation,{},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionssite_type','#site_type','#dropdownLabelsite_type','选择场所类型');
+                        }
+                    });
+                },
+                addEvent : function(){
+                    this.btnEvent();
+                },
+                btnEvent : function(){
+                    $(tableDom +' tbody').on('dblclick','tr',function(){
+                        if(verifyFn.inputRequired('#manageLocation_row_edit')){
+                            return;
+                        }
+                        thisPage.trDblclick(thisTable.row(this).data());
+                    });
+                    $('#btnAdd').on('click',function(){
+                        thisPage.edit();
+                    });
+                    //搜索按钮
+                    $('#btnSearch').on('click',function(){
+                        thisPage.search();
+                    });
+                    //按钮组-自定义显示列
+                    $('#iconColumn').on('click',function(){
+                        pageDataTable.columnCustom(thisTable,tableDom,'#divKeyColumns');
+                    });
+                    //按钮组-搜索
+                    $('#iconRefresh').on('click',function(){
+                        thisPage.search();
+                    });
+                    $('#btnDel').on('click',function(){
+                        thisPage.delKeys();
+                    });
+                },
+                /*批量删除*/
+                delKeys : function(){
+                    var kids = '';
+                    var index = 0;
+                    $(tableDom + ' tbody input:checked').each(function(){
+                        index ++;
+                        var value = this.value;
+                        if(value != null && value != ''){
+                            if(kids.length > 0)
+                                kids += ",";
+                            kids += value;
+                        }
+                    });
+                    if(kids == ''){
+                        layerFn.alert('请选择要删除的数据!',AppKey.code.code199);
+                        return;
+                    }
+                    if(verifyFn.inputRequired('#manageLocation_btn_delByKeys')){
+                        layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                        return;
+                    }
+                    layerFn.confirm('将要准备删除['+index+']数据且是无法恢复,确定要继续吗?',function(){
+                        layerFn.delBatchHint(urlDelByKeys,kids,function(data){
+                            thisPage.complete(data,null,true);
+                        });
+                    });
+                },
+                trDblclick : function(data){
+                    thisPage.edit(data.kid);
+                },
+                search : function(){
+                    if(verifyFn.inputRequired('#manageLocation_btn_listData')){
+                        layerFn.alert('没有操作权限',AppKey.code.code199);
+                        return;
+                    }
+                    $(tableDom + ' input[type=checkbox]').prop('checked',false);
+                    thisTable.draw();
+                },
+                resetForm : function(){
+                    winFn.clearFormData('#form_bs_manage_edit');
+                },
+                edit : function(kid){
+                    var title = '添加';
+                    if(kid != null && kid.length >0){
+                        if(verifyFn.inputRequired('#manageLocation_row_queryById')){
+                            layerFn.alert('没有操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        title = '编辑';
+                        winFn.setDomValue(inputEditKeyId,kid);
+                        layerFn.queryByIdHint(urlQueryById,kid,function(data){
+                            thisPage.openDialog(title,kid,data);
+                        });
+                    }else{
+                        winFn.setDomValue(inputEditKeyId,'');
+                        thisPage.openDialog(title);
+                    }
+                },
+                openDialog : function(title,kid,map){
+                    var height = 330;
+                    var lines = 9;
+                    if(lines > 3){
+                        height = height + (lines - 3) * 40;
+                    }
+                    layerFn.addOrEdit(title,'#div_bs_manage_edit',['700px',height+'px'],function(index,layero){
+                        var editKey = winFn.getDomValue(inputEditKeyId);
+                        if(verifyFn.inputRequired('#site_name')){
+                            layerFn.alert('经营场所名称不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#site_letter')){
+                            layerFn.alert('经营场所首写字母不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#site_type')){
+                            layerFn.alert('请选择场所类型',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#linkman')){
+                            layerFn.alert('联系人不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#mobile')){
+                            layerFn.alert('联系电话不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(editKey == null){
+                            if(verifyFn.inputRequired('#userProvinceId')){
+                                layerFn.alert('请选择区域省|市',AppKey.code.code199);
+                                return;
+                            }
+                            if(verifyFn.inputRequired('#userCityId')){
+                                layerFn.alert('请选择区域市|区',AppKey.code.code199);
+                                return;
+                            }
+                            if(verifyFn.inputRequired('#userCountyId')){
+                                layerFn.alert('请选择区域区|县',AppKey.code.code199);
+                                return;
+                            }
+                        }
+                        if(verifyFn.inputRequired('#address')){
+                            layerFn.alert('场所地址不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#freeze')){
+                            layerFn.alert('请选择是否有冷冻冷藏产品',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#entrance')){
+                            layerFn.alert('请选择是否含有冷冻进口产品',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#risk')){
+                            layerFn.alert('请选择是否含有高中风险地区产品',AppKey.code.code199);
+                            return;
+                        }
+                        var province_id = $("#userProvinceId").attr('value');//省
+                        var city_id = $("#userCityId").attr('value');//市
+                        var county_id = $("#userCountyId").attr('value');//县
+                        var towns_id = $("#userTownsTd").attr('value');//区
+                        var vallage_id = $("#userVallageId").attr('value');//村
+                        var params = {
+                            site_name : winFn.getDomValue('#site_name'),
+                            site_letter : winFn.getDomValue('#site_letter'),
+                            site_type : winFn.getDomValue('#site_type'),
+                            linkman : winFn.getDomValue('#linkman'),
+                            mobile : winFn.getDomValue('#mobile'),
+                            province_id : province_id,
+                            city_id : city_id,
+                            county_id : county_id,
+                            towns_id : towns_id,
+                            vallage_id : vallage_id,
+                            address : winFn.getDomValue('#address'),
+                            freeze : winFn.getDomValue('#freeze'),
+                            entrance : winFn.getDomValue('#entrance'),
+                            risk : winFn.getDomValue('#risk'),
+                            remark : winFn.getDomValue('#remark'),
+                            kid : editKey
+                        };
+                        var url = urlAdd;
+                        if (kid != null && kid != ''){
+                            url = urlEdit;
+                            if(verifyFn.inputRequired('#manageLocation_row_edit')){
+                                layerFn.alert('没有编辑操作权限',AppKey.code.code199);
+                                return;
+                            }
+                        }else{
+                            if(verifyFn.inputRequired('#manageLocation_btn_add')){
+                                layerFn.alert('没有添加操作权限',AppKey.code.code199);
+                                return;
+                            }
+                        }
+                        layerFn.submit(url,params,function(data){
+                            thisPage.complete(data,index,true);
+                        });
+                    });
+                    thisPage.resetForm();//清空
+                    if(map != null){
+                        $.each(map.data,function(k,v){
+                            try{
+                                $('#'+k).val(v);
+                                if(k == 'freeze'){
+                                    winFn.editDropdown('#dropdownLabelfreeze',v);
+                                }
+                                if(k == 'entrance'){
+                                    winFn.editDropdown('#dropdownLabelentrance',v);
+                                }
+                                if(k == 'risk'){
+                                    winFn.editDropdown('#dropdownLabelrisk',v);
+                                }
+                                if(k == 'site_type'){
+                                    winFn.editDropdown('#dropdownLabelsite_type',v);
+                                }
+                            }catch(e){}
+                        });
+                    }else{
+						winFn.addDropdown('#dropdownLabelfreeze','选择选项');
+						winFn.addDropdown('#dropdownLabelentrance','选择选项');
+						winFn.addDropdown('#dropdownLabelrisk','选择选项');
+                        winFn.addDropdown('#dropdownLabelsite_type','选择场所类型');
+				    }
+                    jQArea.init();
+                },
+                rowEdit : function(index){
+                    var row = thisJquery.fnGetData(index);
+                    thisPage.edit(row.kid);
+                },
+                rowDel : function(index){
+                    var row = thisJquery.fnGetData(index);
+                    if(verifyFn.inputRequired('#manageLocation_row_delById')){
+                        layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                        return;
+                    }
+                    layerFn.confirm('删除后无法恢复,确定要删除吗?',function(){
+                        layerFn.delByIdHint(urlDelById,row.kid,function(data){
+                            thisPage.complete(data,null,true);
+                        });
+                    });
+                },
+                complete : function(data,index,search){
+                    try{
+                        if(index){
+                            layerFn.closeIndex(index);
+                        }
+                        if(search){
+                            thisPage.search();
+                        }
+                        if(data){
+                            layerFn.handleResult(data.msg,data.code);
+                        }
+                    }catch(e){}
+                }
+            };
+            thisPage.init();
+        });
+    });
+</script>
