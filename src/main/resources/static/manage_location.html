@@ -7,11 +7,11 @@
                     <table class="no-border" style="display:inline">
                         <tr permission='manageLocation_btn_listData' style="display:none">
                             <td style="padding: 0px 6px;">
-                                经营场所首写字母
+                                场所首写字母
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_site_letter" class="form-control search-query" placeholder="经营场所首写字母" style="width:140px"/>
+                                    <input type="text" id="key_site_letter" class="form-control search-query" placeholder="经营场所首字母" style="width:140px"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -234,8 +234,20 @@
                         sTitle : '<label title="全选|不选"><input type="checkbox" class="ace" /><span class="lbl"></span></label>'
                     },
                     {
+                        mData : "city",
+                        sTitle : "市|区级"
+                    },
+                    {
+                        mData : "county",
+                        sTitle : "区|县级"
+                    },
+                    {
                         mData : "site_name",
                         sTitle : "经营场所名称"
+                    },
+                    {
+                        mData : "site_type_label",
+                        sTitle : "场所类型"
                     },
                     {
                         mData : "user_name",
@@ -250,16 +262,12 @@
                         sTitle : "联系电话"
                     },
                     {
-                        mData : "site_type_label",
-                        sTitle : "场所类型"
-                    },
-                    {
                         mData : "area_id_label",
                         sTitle : "区域地址"
                     },
                     {
                         mData : "entrance",
-                        sTitle : "是否有进口产品",
+                        sTitle : "进口产品",
                         render : function(value,type,row,meta){
                             if(value == '0'){
                                 return '无';
@@ -272,12 +280,12 @@
                     },
                     {
                         mData : "risk",
-                        sTitle : "是否含高中风险地区产品",
+                        sTitle : "高中风险地区产品",
                         render : function(value,type,row,meta){
                             if(value == '0'){
-                                return '无';
+                                return '否';
                             }else if(value == '1'){
-                                return '有';
+                                return '是';
                             }else{
                                 return "";
                             }
@@ -296,7 +304,7 @@
                     },
                     {
                         mData : "_kid_",
-                        sTitle : "<label style='color:#000;'>操作选项</label>",
+                        sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作选项</label>",
                         bSortable : false,
                         sWidth : "8%"
                     }
@@ -317,10 +325,14 @@
                         }
                     },
                     {
-                        targets: [1,2,3,4,5,6,7,8],
+                        targets: [1,2,3,4,5,6,7,8,9,10,11,12],
                         render: function (value,type,row,meta){
                             return pageDataTable.formatColumn(value);
                         }
+                    },
+                    {
+                        "visible":false,//列的隐藏显示
+                        "targets": [5,7,9,10]
                     }
                 ]
             });
