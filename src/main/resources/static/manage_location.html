@@ -129,10 +129,10 @@
                             <a id="" href="javascript:winFn.dropdown('#freeze','','#dropdownLabelfreeze','选择选项');">选择选项</a>
                         </li>
                         <li>
-                            <a id="1" href="javascript:winFn.dropdown('#freeze',1,'#dropdownLabelfreeze','有');">有</a>
+                            <a id="1" href="javascript:winFn.dropdown('#freeze',1,'#dropdownLabelfreeze','是');">是</a>
                         </li>
                         <li>
-                            <a id="0" href="javascript:winFn.dropdown('#freeze',0,'#dropdownLabelfreeze','无');">无</a>
+                            <a id="0" href="javascript:winFn.dropdown('#freeze',0,'#dropdownLabelfreeze','否');">否</a>
                         </li>
                     </ul>
                     <input id="freeze" type="hidden"/>
@@ -153,10 +153,10 @@
                             <a id="" href="javascript:winFn.dropdown('#entrance','','#dropdownLabelentrance','选择选项');">选择选项</a>
                         </li>
                         <li>
-                            <a id="1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','有');">有</a>
+                            <a id="1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','是');">是</a>
                         </li>
                         <li>
-                            <a id="0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','无');">无</a>
+                            <a id="0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','否');">否</a>
                         </li>
                     </ul>
                     <input id="entrance" type="hidden"/>
@@ -177,10 +177,10 @@
                             <a id="" href="javascript:winFn.dropdown('#risk','','#dropdownLabelrisk','选择选项');">选择选项</a>
                         </li>
                         <li>
-                            <a id="1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','有');">有</a>
+                            <a id="1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','是');">是</a>
                         </li>
                         <li>
-                            <a id="0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','无');">无</a>
+                            <a id="0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','否');">否</a>
                         </li>
                     </ul>
                     <input id="risk" type="hidden">
@@ -242,16 +242,12 @@
                         sTitle : "区|县级"
                     },
                     {
-                        mData : "site_name",
-                        sTitle : "经营场所名称"
-                    },
-                    {
                         mData : "site_type_label",
                         sTitle : "场所类型"
                     },
                     {
-                        mData : "user_name",
-                        sTitle : "登记人"
+                        mData : "site_name",
+                        sTitle : "名称"
                     },
                     {
                         mData : "linkman",
@@ -259,20 +255,33 @@
                     },
                     {
                         mData : "mobile",
-                        sTitle : "联系电话"
+                        sTitle : "联系人手机号"
                     },
                     {
-                        mData : "area_id_label",
-                        sTitle : "区域地址"
+                        mData : "address",
+                        sTitle : "地址"
+                    },
+                    {
+                        mData : "freeze",
+                        sTitle : "是否有冷冻冷藏产品",
+                        render : function(value,type,row,meta){
+                            if(value == '0'){
+                                return '否';
+                            }else if(value == '1'){
+                                return '是';
+                            }else{
+                                return "";
+                            }
+                        }
                     },
                     {
                         mData : "entrance",
-                        sTitle : "进口产品",
+                        sTitle : "是否含有冷冻进口产品",
                         render : function(value,type,row,meta){
                             if(value == '0'){
-                                return '无';
+                                return '否';
                             }else if(value == '1'){
-                                return '有';
+                                return '是';
                             }else{
                                 return "";
                             }
@@ -280,7 +289,7 @@
                     },
                     {
                         mData : "risk",
-                        sTitle : "高中风险地区产品",
+                        sTitle : "是否含有高中风险地区产品",
                         render : function(value,type,row,meta){
                             if(value == '0'){
                                 return '否';
@@ -292,16 +301,15 @@
                         },
                         sWidth : "12%"
                     },
-                    {
-                        mData : "address",
-                        sTitle : "场所地址",
-                        sWidth : "12%"
+                    /*{
+                        mData : "user_name",
+                        sTitle : "登记人"
                     },
                     {
                         mData : "remark",
                         sTitle : "备注",
                         sWidth : "12%"
-                    },
+                    },*/
                     {
                         mData : "_kid_",
                         sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作选项</label>",
@@ -325,13 +333,13 @@
                         }
                     },
                     {
-                        targets: [1,2,3,4,5,6,7,8,9,10,11,12],
+                        targets: [1,2,3,4,5,6,7,8,9,10],
                         render: function (value,type,row,meta){
                             return pageDataTable.formatColumn(value);
                         }
                     },
                     {
-                        "visible":false,//列的隐藏显示
+                        "visible":true,//列的隐藏显示
                         "targets": [5,7,9,10]
                     }
                 ]
