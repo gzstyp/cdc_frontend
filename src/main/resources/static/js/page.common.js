@@ -987,7 +987,7 @@ var refreshFlag = true;
             });
             $(dropdownUlOptions).html(html);
         },
-        /* 新增时用,新增时直接是文字字符串: winFn.addDropdown('#dropdowncrowd_id','选择分类'); */
+        /* 新增恢复文本显示时用,新增时直接是文字字符串: winFn.addDropdown('#dropdowncrowd_id','选择分类'); */
         addDropdown(dropdownMenuId,showText){
             $(dropdownMenuId).html(showText);
         },
