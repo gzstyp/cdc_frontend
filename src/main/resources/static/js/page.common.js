@@ -974,12 +974,12 @@ var refreshFlag = true;
                 }
             });
         },
-        /*valueDom是隐藏域的值的dom,value的是隐藏域的值,textDom是显示文字的dom,text需要显示的文字:winFn.dropdown(valueDom,'',textDom,text)*/
-        dropdown : function(valueDom,value,textDom,text){
-            $(valueDom).val(value);
-            $(textDom).text(text);
+        /*前两个参数是隐藏的domId的属性对应的值是value,后两个参数是下拉列表的属性id为labelDom对应的text值是text;inputDom是隐藏域的值的dom,value的是隐藏域的值,labelDom是下拉显示文字的dom,text需要显示的文字:winFn.dropdown(inputDom,'',labelDom,text)*/
+        dropdown : function(inputDom,value,labelDom,text){
+            $(inputDom).val(value);
+            $(labelDom).text(text);
         },
-        /*dropdownUlOptions为ul的id,inputId为隐藏域的id,dropdownMenuId是显示选择后的文字id(即选项选择类别的dom),showText是默认显示的文字,用法:winFn.initDropdown(data.data,'#dropdownMenuOptions','#CATEGORY_ID','#dropdownCATEGORY_ID','选择分类');*/
+        /*下拉列表且数据从后端获取,最终是调用方法 winFn.dropdown()来实现;dropdownUlOptions为ul的id,inputId为隐藏域的id,dropdownMenuId是显示选择后的文字id(即选项选择类别的dom),showText是默认显示的文字,用法:winFn.initDropdown(data.data,'#dropdownMenuOptions','#CATEGORY_ID','#dropdownCATEGORY_ID','选择分类');*/
         initDropdown(data,dropdownUlOptions,inputId,dropdownMenuId,showText){
             var html = '<li><a href="javascript:winFn.dropdown(\''+inputId+'\',\'\',\''+dropdownMenuId+'\',\''+showText+'\');">'+showText+'</a></li>';
             $.each(data,function(index,item){
@@ -987,13 +987,13 @@ var refreshFlag = true;
             });
             $(dropdownUlOptions).html(html);
         },
-        /*  新增时用: winFn.addDropdown('#dropdowncrowd_id','选择分类'); */
+        /* 新增时用,新增时直接是文字字符串: winFn.addDropdown('#dropdowncrowd_id','选择分类'); */
         addDropdown(dropdownMenuId,showText){
             $(dropdownMenuId).html(showText);
         },
-        /* 编辑时用:winFn.editDropdown('#dropdowncrowd_id',v); 有几个就写几个*/
-        editDropdown(dropdownMenuId,idValue){
-            winFn.addDropdown(dropdownMenuId,$('#'+idValue).html());
+        /* 编辑时用,编辑是指定dom的id，从而获取dom的的文本:winFn.editDropdown('#dropdowncrowd_id',v); v是id值,若是v是页面的固定值则自行自定义;有几个就写几个*/
+        editDropdown(dropdownMenuId,domId){//第二个参数是id,是li下的a标签的id
+            winFn.addDropdown(dropdownMenuId,$('#'+domId).html());
         },
         /*根据不同的值显示对应的文字,其中:textDom是显示文字的dom,text需要显示的文字,winFn.writeBack('#xx','');*/
         writeBack: function(textDom,text){
