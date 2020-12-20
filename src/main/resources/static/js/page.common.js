@@ -974,7 +974,7 @@ var refreshFlag = true;
                 }
             });
         },
-        /*前两个参数是隐藏的domId的属性对应的值是value,后两个参数是下拉列表的属性id为labelDom对应的text值是text;inputDom是隐藏域的值的dom,value的是隐藏域的值,labelDom是下拉显示文字的dom,text需要显示的文字:winFn.dropdown(inputDom,'',labelDom,text)*/
+        /*前两个参数是input隐藏域的domId的属性对应的值是value,后两个参数是下拉列表的属性id为labelDom对应的text值是text;inputDom是隐藏域的值的dom,value的是隐藏域的值,labelDom是下拉显示文字的dom,text需要显示的文字:winFn.dropdown(inputDom,'',labelDom,text)*/
         dropdown : function(inputDom,value,labelDom,text){
             $(inputDom).val(value);
             $(labelDom).text(text);
