@@ -126,13 +126,13 @@
                     </button>
                     <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:400px;min-width:400px;max-width:400px">
                         <li>
-                            <a id="" href="javascript:winFn.dropdown('#freeze','','#dropdownLabelfreeze','选择选项');">选择选项</a>
+                            <a id="freeze_" href="javascript:winFn.dropdown('#freeze','','#dropdownLabelfreeze','选择选项');">选择选项</a>
                         </li>
                         <li>
-                            <a id="1" href="javascript:winFn.dropdown('#freeze',1,'#dropdownLabelfreeze','是');">是</a>
+                            <a id="freeze1" href="javascript:winFn.dropdown('#freeze',1,'#dropdownLabelfreeze','是');">是</a>
                         </li>
                         <li>
-                            <a id="0" href="javascript:winFn.dropdown('#freeze',0,'#dropdownLabelfreeze','否');">否</a>
+                            <a id="freeze0" href="javascript:winFn.dropdown('#freeze',0,'#dropdownLabelfreeze','否');">否</a>
                         </li>
                     </ul>
                     <input id="freeze" type="hidden"/>
@@ -148,15 +148,15 @@
                         <span id="dropdownLabelentrance">选择选项</span><!--注意显示文字-->
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:400px;min-width:400px;max-width:400px;"><!--注意宽度-->
                         <li>
-                            <a id="" href="javascript:winFn.dropdown('#entrance','','#dropdownLabelentrance','选择选项');">选择选项</a>
+                            <a id="entrance_" href="javascript:winFn.dropdown('#entrance','','#dropdownLabelentrance','选择选项');">选择选项</a>
                         </li>
                         <li>
-                            <a id="1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','是');">是</a>
+                            <a id="entrance0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','否');">否</a>
                         </li>
                         <li>
-                            <a id="0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','否');">否</a>
+                            <a id="entrance1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','是');">是</a>
                         </li>
                     </ul>
                     <input id="entrance" type="hidden"/>
@@ -174,13 +174,13 @@
                     </button>
                     <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
                         <li>
-                            <a id="" href="javascript:winFn.dropdown('#risk','','#dropdownLabelrisk','选择选项');">选择选项</a>
+                            <a id="risk_" href="javascript:winFn.dropdown('#risk','','#dropdownLabelrisk','选择选项');">选择选项</a>
                         </li>
                         <li>
-                            <a id="1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','是');">是</a>
+                            <a id="risk1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','是');">是</a>
                         </li>
                         <li>
-                            <a id="0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','否');">否</a>
+                            <a id="risk0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','否');">否</a>
                         </li>
                     </ul>
                     <input id="risk" type="hidden">
@@ -190,7 +190,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="remark"><div class="hr-4"></div>备注</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <textarea type="text" rows="2" id="remark" placeholder="备注" class="form-control"/>
+            <textarea type="text" rows="2" id="remark" placeholder="备注" class="form-control"></textarea>
         </div>
     </form>
 </div>
@@ -552,10 +552,10 @@
                             try{
                                 $('#'+k).val(v);
                                 if(k == 'freeze'){
-                                    winFn.editDropdown('#dropdownLabelfreeze',v);
+                                    winFn.editDropdown('#dropdownLabelfreeze','freeze'+v);
                                 }
                                 if(k == 'entrance'){
-                                    winFn.editDropdown('#dropdownLabelentrance',v);
+                                    winFn.editDropdown('#dropdownLabelentrance','entrance'+v);
                                 }
                                 if(k == 'risk'){
                                     winFn.editDropdown('#dropdownLabelrisk',v);

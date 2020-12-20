@@ -979,7 +979,7 @@ var refreshFlag = true;
             $(inputDom).val(value);
             $(labelDom).text(text);
         },
-        /*下拉列表且数据从后端获取,最终是调用方法 winFn.dropdown()来实现;dropdownUlOptions为ul的id,inputId为隐藏域的id,dropdownMenuId是显示选择后的文字id(即选项选择类别的dom),showText是默认显示的文字,用法:winFn.initDropdown(data.data,'#dropdownMenuOptions','#CATEGORY_ID','#dropdownCATEGORY_ID','选择分类');*/
+        /*下拉列表且数据从后端获取,最终是调用方法 winFn.dropdown()来实现;dropdownUlOptions为ul的下的a元素的id,inputId为隐藏域的id,dropdownMenuId是显示选择后的文字id(即选项选择类别的dom),showText是默认显示的文字,用法:winFn.initDropdown(data.data,'#dropdownMenuOptions','#CATEGORY_ID','#dropdownCATEGORY_ID','选择分类');*/
         initDropdown(data,dropdownUlOptions,inputId,dropdownMenuId,showText){
             var html = '<li><a href="javascript:winFn.dropdown(\''+inputId+'\',\'\',\''+dropdownMenuId+'\',\''+showText+'\');">'+showText+'</a></li>';
             $.each(data,function(index,item){
@@ -991,9 +991,15 @@ var refreshFlag = true;
         addDropdown(dropdownMenuId,showText){
             $(dropdownMenuId).html(showText);
         },
-        /* 编辑时用,编辑是指定dom的id，从而获取dom的的文本:winFn.editDropdown('#dropdowncrowd_id',v); v是id值,若是v是页面的固定值则自行自定义;有几个就写几个*/
-        editDropdown(dropdownMenuId,domId){//第二个参数是id,是li下的a标签的id
-            winFn.addDropdown(dropdownMenuId,$('#'+domId).html());
+        /* 仅作显示文字,第一个参数是指定下拉列表的dom的id,第二个参数是指定ul下的li的a标签的id从而获取该id的dom的的文本并显示在下拉文本,若是v是页面的固定值则自行自定义;用法:
+        if(k == 'result'){
+            winFn.editDropdown('#dropdownLabelresult','xxx'+v);//可以是自定义,也可以是字段,一般推荐是字段,空时用xxx_,其余xxx0;xxx1;v是从后端返回的值,如是对应的1;否对应的0
+        }
+        */
+        editDropdown(dropdownMenuId,domId){//第二个参数是id,是li下的a标签的id且无需添加#1前缀
+            try{
+                winFn.addDropdown(dropdownMenuId,$('#'+domId).html());
+            }catch(e){}
         },
         /*根据不同的值显示对应的文字,其中:textDom是显示文字的dom,text需要显示的文字,winFn.writeBack('#xx','');*/
         writeBack: function(textDom,text){
@@ -2098,7 +2104,6 @@ var refreshFlag = true;
                 success(data);
             },
             error : function(response,err){
-                console.log(response,err)
                 if(error !=null && error != undefined && error != ''){
                     error(response,err);
                 }

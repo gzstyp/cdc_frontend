@@ -1,0 +1,765 @@
+<meta charset="utf-8"/>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <table class="no-border" style="display:inline">
+                        <tr permission='environment_btn_listData' style="display:none">
+                            <td style="padding: 0px 6px;">
+                                标本实验编号
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_sample_code" class="form-control search-query" placeholder="标本实验编号" style="width:140px"/>
+                                </div>
+                            </td>
+                            <!--<td style="padding: 0px 6px;">
+                                省级
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_province_id" class="form-control search-query" placeholder="省级id[sys_area的kid]" style="width:140px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                市（州）[sys_area的kid]
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_city_id" class="form-control search-query" placeholder="市（州）[sys_area的kid]" style="width:140px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                县（区）[sys_area的kid]
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_county_id" class="form-control search-query" placeholder="县（区）[sys_area的kid]" style="width:140px"/>
+                                </div>
+                            </td>-->
+                            <td style="padding: 0px 6px;">
+                                市场名称
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em;width:99px;min-width:99px;"><!--注意宽度-->
+                                            <span id="searchDropdownmarket_name">市场名称</span><!--注意显示文字-->
+                                            <i class="ace-icon fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:99px;min-width:90px;"><!--注意宽度,2个字值是70,4个字值是99-->
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_market_name','','#searchDropdownmarket_name','市场名称');">市场名称</a><!--注意显示文字-->
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_market_name','类型值1','#searchDropdownmarket_name','类型1');">类型1</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_market_name','类型值2','#searchDropdownmarket_name','类型2');">类型2</a>
+                                            </li>
+                                        </ul>
+                                        <input id="key_market_name" type="hidden"/><!--注意搜索时隐藏域-->
+                                    </span>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                采样日期
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_sampling_date" class="form-control search-query" placeholder="采样日期" style="width:140px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                核酸检测结果
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em;width:99px;min-width:99px;"><!--注意宽度-->
+                                            <span id="searchDropdownresult">检测结果</span><!--注意显示文字-->
+                                            <i class="ace-icon fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:99px;min-width:90px;"><!--注意宽度,2个字值是70,4个字值是99-->
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_result','','#searchDropdownresult','检测结果');">检测结果</a><!--注意显示文字-->
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_result','1','#searchDropdownresult','未做');">未做</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_result','2','#searchDropdownresult','阴性');">阴性</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_result','3','#searchDropdownresult','阳性');">阳性</a>
+                                            </li>
+                                        </ul>
+                                        <input id="key_result" type="hidden"/><!--注意搜索时隐藏域-->
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="hidden-480" style="padding: 0px 6px;">
+                                监测场所类型
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                                            <span id="searchDropdownsite_type">监测场所类型</span><!--注意显示文字-->
+                                            <i class="ace-icon fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:270px;min-width:270px;max-width:270px"><!--注意宽度-->
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_site_type','','#searchDropdownsite_type','监测场所类型(场所类型)');">监测场所类型</a><!--注意显示文字-->
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_site_type','类型值1','#searchDropdownsite_type','类型1');">类型</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:winFn.dropdown('#key_site_type','类型值2','#searchDropdownsite_type','类型2');">类型2</a>
+                                            </li>
+                                        </ul>
+                                        <input id="key_site_type" type="hidden"/><!--注意搜索时隐藏域-->
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='environment_btn_listData' style="display:none">
+                                            <span class="ace-icon fa fa-search bigger-110"></span>
+                                            搜索
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnAdd" permission='environment_btn_add' style="display:none">
+                                            <span class="ace-icon glyphicon glyphicon-plus bigger-110"></span>
+                                            添加
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnDel" permission='environment_btn_delByKeys' style="display:none">
+                                            <span class="fa fa-trash red2 bigger-110"></span>
+                                            删除
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="hidden-480 pull-right tableTools-container" permission='environment_btn_listData' style="display:none"></div>
+                </div>
+                <table id="tableListEnvironment" class="table table-striped table-bordered table-hover"></table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="div_bs_environment_edit" style="display:none;padding:20px 0px;">
+    <form class="form-horizontal" id="form_bs_environment_edit" role="form">
+        <label class="col-sm-3 control-label no-padding-right" for="sample_code"><div class="hr-4"></div>标本实验编号</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="sample_code" placeholder="标本实验编号" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="site_type"><div class="hr-4"></div>监测场所类型</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelsite_type">监测场所类型</span><!--注意显示文字-->
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionssite_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <input id="site_type" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="freeze_type"><div class="hr-4"></div>冷库类型</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="freeze_type" placeholder="冷库类型" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="market_name"><div class="hr-4"></div>市场名称</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelmarket_name">市场名称</span><!--注意显示文字-->
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionsmarket_name"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <input id="market_name" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="vendor_name"><div class="hr-4"></div>摊主姓名</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="vendor_name" placeholder="摊主姓名" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="vendor_code"><div class="hr-4"></div>摊位编号</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="vendor_code" placeholder="摊位编号" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="source"><div class="hr-4"></div>产品来源地</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="source" placeholder="产品来源地（填写至国家、省、市）" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="entrance"><div class="hr-4"></div>是否为进口产品</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+            <span class="input-group-btn">
+                <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                    <span id="dropdownEntrance">选择选项</span><!--注意显示文字-->
+                    <i class="ace-icon fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px"><!--注意宽度-->
+                    <li>
+                        <a id="entrance_" href="javascript:winFn.dropdown('#entrance','','#dropdownEntrance','选择选项');">选择选项</a>
+                    </li>
+                    <li>
+                        <a id="entrance0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownEntrance','否');">否</a>
+                    </li>
+                    <li>
+                        <a id="entrance1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownEntrance','是');">是</a>
+                    </li>
+                </ul>
+                <input id="entrance" type="hidden"><!--注意隐藏域-->
+            </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="entrance_serial"><div class="hr-4"></div>进口产品批号</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="entrance_serial" placeholder="若为进口产品请填写批号" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="sample_name"><div class="hr-4"></div>标本名称</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="sample_name" placeholder="标本名称（写明具体标本名称，如三文鱼涂抹物）" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="freeze_related"><div class="hr-4"></div>是否冷链相关</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+            <span class="input-group-btn">
+                <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                    <span id="dropdownfreeze_related">选择选项</span><!--注意显示文字-->
+                    <i class="ace-icon fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px"><!--注意宽度-->
+                    <li>
+                        <a id="freeze_related_" href="javascript:winFn.dropdown('#freeze_related','','#dropdownfreeze_related','选择选项');">选择选项</a>
+                    </li>
+                    <li>
+                        <a id="freeze_related0" href="javascript:winFn.dropdown('#freeze_related',0,'#dropdownfreeze_related','否');">否</a>
+                    </li>
+                    <li>
+                        <a id="freeze_related1" href="javascript:winFn.dropdown('#freeze_related',1,'#dropdownfreeze_related','是');">是</a>
+                    </li>
+                </ul>
+                <input id="freeze_related" type="hidden">
+            </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="sample_type"><div class="hr-4"></div>标本类型</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelsample_type">标本类型</span><!--注意显示文字-->
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:331px;min-width:331px;max-width:331px" id="dropdownOptionssample_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <input id="sample_type" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-3 control-label no-padding-right" for="sampling_date"><div class="hr-4"></div>采样日期</div>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="sampling_date" placeholder="采样日期" class="form-control"/>
+        </div>
+        <div class="col-sm-3 control-label no-padding-right" for="detection_date"><div class="hr-4"></div>检测日期</div>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <input class="form-control date-picker" placeholder="检测日期" id="detection_date" type="text" data-date-format="yyyy-mm-dd" />
+                <span class="input-group-addon">
+                    <i class="fa fa-calendar bigger-110"></i>
+                </span>
+            </div>
+        </div>
+
+
+        <div class="col-sm-3 control-label no-padding-right" for="result"><div class="hr-4"></div>核酸检测结果</div>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+            <span class="input-group-btn">
+                <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                    <span id="dropdownLabelresult">选择检测结果</span><!--注意显示文字-->
+                    <i class="ace-icon fa fa-angle-down"></i>
+                </button>
+                <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
+                    <li>
+                        <a id="result_" href="javascript:winFn.dropdown('#result','','#dropdownLabelresult','选择检测结果');">选择检测结果</a>
+                    </li>
+                    <li>
+                        <a id="result1" href="javascript:winFn.dropdown('#result',1,'#dropdownLabelresult','未检测');">未检测</a>
+                    </li>
+                    <li>
+                        <a id="result2" href="javascript:winFn.dropdown('#result',2,'#dropdownLabelresult','阴性');">阴性</a>
+                    </li>
+                    <li>
+                        <a id="result3" href="javascript:winFn.dropdown('#result',3,'#dropdownLabelresult','阳性');">阳性</a>
+                    </li>
+                </ul>
+                <input id="result" type="hidden">
+            </span>
+            </div>
+        </div>
+        <div class="col-sm-3 control-label no-padding-right" for="remark"><div class="hr-4"></div>备注</div>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <textarea type="text" rows="2" id="remark" placeholder="备注" class="form-control"></textarea>
+        </div>
+    </form>
+</div>
+<div id="divKeyColumns" style="display:none;padding:1px 0px;"></div>
+<input type="hidden" id="bs_environment_edit_keyId"/>
+<div style="display:none;">
+    <input type="hidden" id="environment_btn_listData"/>
+    <input type="hidden" id="environment_btn_add"/>
+    <input type="hidden" id="environment_btn_delByKeys"/>
+    <input type="hidden" id="environment_row_edit"/>
+    <input type="hidden" id="environment_row_queryById"/>
+    <input type="hidden" id="environment_row_delById"/>
+</div>
+<script type="text/javascript">
+    var scripts = [null,null];
+    $('.page-content-area').ace_ajax('loadScripts',scripts,function(){
+        var tableDom = '#tableListEnvironment';
+        var inputEditKeyId = '#bs_environment_edit_keyId';
+        $(function(){
+            var urlRoute = '/environment/';/*请求controller层的url*/
+            var getList = urlRoute + 'listData';/*获取数据列表,此处不需要添加的,已在请求的url添加了前缀*/
+            var urlAdd = urlRoute + 'add';/*添加*/
+            var urlEdit = urlRoute + 'edit';/*编辑*/
+            var urlQueryById = urlRoute + 'queryById';/*根据id查询对应的数据*/
+            var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
+            var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
+            //根据字典父级id获取数据
+            var urlGetDicts = urlRoute + 'getDicts';
+            //市场名称
+            var urlQueryMarkeName = urlRoute + 'queryMarkeName';
+            var thisTable = pageDataTable.initDataTable({
+                tableDom : tableDom,
+                sAjaxSource: getList,
+                fnServerParams : function(params){
+                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"market_name","value":$("#key_market_name").val()},{"name":"sampling_date","value":$("#key_sampling_date").val()},{"name":"result","value":$("#key_result").val()},{"name":"site_type","value":$("#key_site_type").val()});
+                },
+                aoColumns : [
+                    {
+                        bSortable: false,
+                        mData : "kid",
+                        sWidth : "38px",
+                        sClass : "center",
+                        sTitle : '<label title="全选|不选"><input type="checkbox" class="ace" /><span class="lbl"></span></label>'
+                    },
+                    {
+                        mData : "sample_code",
+                        sTitle : "标本实验编号"
+                    },
+                    {
+                        mData : "city_id",
+                        sTitle : "市（州）"
+                    },
+                    {
+                        mData : "county_id",
+                        sTitle : "县（区）"
+                    },
+                    {
+                        mData : "site_type",
+                        sTitle : "监测场所类型"
+                    },
+                    {
+                        mData : "freeze_type",
+                        sTitle : "冷库类型"
+                    },
+                    {
+                        mData : "market_name",
+                        sTitle : "市场名称"
+                    },
+                    {
+                        mData : "vendor_name",
+                        sTitle : "摊主姓名"
+                    },
+                    {
+                        mData : "vendor_code",
+                        sTitle : "摊位编号"
+                    },
+                    {
+                        mData : "source",
+                        sTitle : "产品来源地"
+                    },
+                    {
+                        mData : "entrance",
+                        sTitle : "是否为进口产品"
+                    },
+                    {
+                        mData : "entrance_serial",
+                        sTitle : "进口产品批号"
+                    },
+                    {
+                        mData : "sample_name",
+                        sTitle : "标本名称"
+                    },
+                    {
+                        mData : "freeze_related",
+                        sTitle : "是否冷链相关"
+                    },
+                    {
+                        mData : "sample_type",
+                        sTitle : "标本类型"
+                    },
+                    {
+                        mData : "sampling_date",
+                        sTitle : "采样日期"
+                    },
+                    {
+                        mData : "detection_date",
+                        sTitle : "检测日期"
+                    },
+                    {
+                        mData : "result",
+                        sTitle : "核酸检测结果"
+                    },
+                    {
+                        mData : "remark",
+                        sTitle : "备注"
+                    },
+                    {
+                        mData : "_kid_",
+                        sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作选项</label>",
+                        bSortable : false,
+                        sWidth : "8%"
+                    }
+                ],
+                columnDefs : [
+                    {
+                        targets : 0,//指定的列
+                        render : function(value,type,row,meta){//第1个参数可能会没有值!!!,当key不存在时就没有值
+                            return '<label title="选择|取消"><input type="checkbox" name="kid" value="'+value+'" style="cursor:pointer;text-decoration:none;outline:none;"/><span class="lbl"></span></label>';
+                        }
+                    },
+                    {
+                        targets : -1,
+                        render : function(value,type,row,meta){
+                            var html = "<a href='javascript:thisPage.rowEdit("+meta.row+");' style='outline:none;text-decoration: none;color:#3b8cff;margin-left:6px;display:none' permission='environment_row_edit'>编辑</a>"+
+                                "<a class='hidden-xs' href='javascript:thisPage.rowDel("+meta.row+");' style='outline:none;text-decoration: none;color:#f00;margin-left:6px;display:none' permission='environment_row_delById'>删除</a>";
+                            return html;
+                        }
+                    },
+                    {
+                        targets: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+                        render: function (value,type,row,meta){
+                            return pageDataTable.formatColumn(value);
+                        }
+                    },
+                    {
+                        "visible":false,//列的隐藏显示
+                        "targets": []//指定列
+                    }
+                ]
+            });
+            pageDataTable.buttons(thisTable);
+            pageDataTable.action(thisTable);
+            pageDataTable.select(thisTable,tableDom);
+            pageDataTable.tooltip();
+            var thisJquery = $(tableDom).dataTable();
+            thisPage = {
+                init : function(){
+                    this.addEvent();
+                    this.initDom();
+                },
+                initDom : function(){
+                    //若有下拉列表且数据是从后端获取的话则需要初始化
+                    layerFn.ajaxGet(urlGetDicts,{pid:'fffffffffd06f648ffffffff98c8eec6'},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionssite_type','#site_type','#dropdownLabelsite_type','监测场所类型');
+                        }
+                    });
+                    /*layerFn.ajaxGet(urlQueryMarkeName,{},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionsmarket_name','#market_name','#dropdownLabelmarket_name','市场名称');
+                        }
+                    });*/
+                    layerFn.ajaxGet(urlGetDicts,{pid:'ffffffff85295a4c000000007b3ad237'},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionssample_type','#sample_type','#dropdownLabelsample_type','标本类型');
+                        }
+                    });
+                },
+                addEvent : function(){
+                    this.btnEvent();
+                },
+                btnEvent : function(){
+                    $(tableDom +' tbody').on('dblclick','tr',function(){
+                        if(verifyFn.inputRequired('#environment_row_edit')){
+                            return;
+                        }
+                        thisPage.trDblclick(thisTable.row(this).data());
+                    });
+                    $('#btnAdd').on('click',function(){
+                        thisPage.edit();
+                    });
+                    //搜索按钮
+                    $('#btnSearch').on('click',function(){
+                        thisPage.search();
+                    });
+                    //按钮组-自定义显示列
+                    $('#iconColumn').on('click',function(){
+                        pageDataTable.columnCustom(thisTable,tableDom,'#divKeyColumns');
+                    });
+                    //按钮组-搜索
+                    $('#iconRefresh').on('click',function(){
+                        thisPage.search();
+                    });
+                    $('#btnDel').on('click',function(){
+                        thisPage.delKeys();
+                    });
+                },
+                /*批量删除*/
+                delKeys : function(){
+                    var kids = '';
+                    var index = 0;
+                    $(tableDom + ' tbody input:checked').each(function(){
+                        index ++;
+                        var value = this.value;
+                        if(value != null && value != ''){
+                            if(kids.length > 0)
+                                kids += ",";
+                            kids += value;
+                        }
+                    });
+                    if(kids == ''){
+                        layerFn.alert('请选择要删除的数据!',AppKey.code.code199);
+                        return;
+                    }
+                    if(verifyFn.inputRequired('#environment_btn_delByKeys')){
+                        layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                        return;
+                    }
+                    layerFn.confirm('将要准备删除['+index+']数据且是无法恢复,确定要继续吗?',function(){
+                        layerFn.delBatchHint(urlDelByKeys,kids,function(data){
+                            thisPage.complete(data,null,true);
+                        });
+                    });
+                },
+                trDblclick : function(data){
+                    thisPage.edit(data.kid);
+                },
+                search : function(){
+                    if(verifyFn.inputRequired('#environment_btn_listData')){
+                        layerFn.alert('没有操作权限',AppKey.code.code199);
+                        return;
+                    }
+                    $(tableDom + ' input[type=checkbox]').prop('checked',false);
+                    thisTable.draw();
+                },
+                resetForm : function(){
+                    winFn.clearFormData('#form_bs_environment_edit');
+                },
+                edit : function(kid){
+                    var title = '添加';
+                    if(kid != null && kid.length >0){
+                        if(verifyFn.inputRequired('#environment_row_queryById')){
+                            layerFn.alert('没有操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        title = '编辑';
+                        winFn.setDomValue(inputEditKeyId,kid);
+                        layerFn.queryByIdHint(urlQueryById,kid,function(data){
+                            thisPage.openDialog(title,kid,data);
+                        });
+                    }else{
+                        winFn.setDomValue(inputEditKeyId,'');
+                        thisPage.openDialog(title);
+                    }
+                },
+                openDialog : function(title,kid,map){
+                    layerFn.addOrEdit(title,'#div_bs_environment_edit',['600px','500px'],function(index,layero){
+                        //var editKey = winFn.getDomValue(inputEditKeyId);//用于某些值在新增时必填,编辑时可填可不填,填时则更新,否则不更新
+                        //if(editKey == null){}
+                        if(verifyFn.inputRequired('#sample_code')){
+                            layerFn.alert('标本实验编号不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#site_type')){
+                            layerFn.alert('监测场所类型不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#market_name')){
+                            layerFn.alert('市场名称不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#vendor_name')){
+                            layerFn.alert('摊主姓名不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#vendor_code')){
+                            layerFn.alert('摊位编号不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#source')){
+                            layerFn.alert('产品来源地',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#entrance')){
+                            layerFn.alert('是否为进口产品不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#entrance_serial')){
+                            layerFn.alert('若为进口产品请填写批号不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#sample_name')){
+                            layerFn.alert('标本名称不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#freeze_related')){
+                            layerFn.alert('是否冷链相关不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#sample_type')){
+                            layerFn.alert('标本类型不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#sampling_date')){
+                            layerFn.alert('采样日期不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#detection_date')){
+                            layerFn.alert('检测日期不能为空',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#result')){
+                            layerFn.alert('请选择核酸检测结果',AppKey.code.code199);
+                            return;
+                        }
+                        var params = {
+                            sample_code : winFn.getDomValue('#sample_code'),
+                            site_type : winFn.getDomValue('#site_type'),
+                            freeze_type : winFn.getDomValue('#freeze_type'),
+                            market_name : winFn.getDomValue('#market_name'),
+                            vendor_name : winFn.getDomValue('#vendor_name'),
+                            vendor_code : winFn.getDomValue('#vendor_code'),
+                            source : winFn.getDomValue('#source'),
+                            entrance : winFn.getDomValue('#entrance'),
+                            entrance_serial : winFn.getDomValue('#entrance_serial'),
+                            sample_name : winFn.getDomValue('#sample_name'),
+                            freeze_related : winFn.getDomValue('#freeze_related'),
+                            sample_type : winFn.getDomValue('#sample_type'),
+                            sampling_date : winFn.getDomValue('#sampling_date'),
+                            detection_date : winFn.getDomValue('#detection_date'),
+                            result : winFn.getDomValue('#result'),
+                            remark : winFn.getDomValue('#remark'),
+                            kid : winFn.getDomValue(inputEditKeyId)
+                        };
+                        var url = urlAdd;
+                        if (kid != null && kid != ''){
+                            url = urlEdit;
+                            if(verifyFn.inputRequired('#environment_row_edit')){
+                                layerFn.alert('没有编辑操作权限',AppKey.code.code199);
+                                return;
+                            }
+                        }else{
+                            if(verifyFn.inputRequired('#environment_btn_add')){
+                                layerFn.alert('没有添加操作权限',AppKey.code.code199);
+                                return;
+                            }
+                        }
+                        layerFn.submit(url,params,function(data){
+                            thisPage.complete(data,index,true);
+                        });
+                    });
+                    thisPage.resetForm();//清空
+                    if(map != null){
+                        $.each(map.data,function(k,v){
+                            try{
+                                $('#'+k).val(v);
+                                if(k == 'site_type'){
+                                    winFn.editDropdown('#dropdownLabelsite_type',v);
+                                }
+                                if(k == 'market_name'){
+                                    winFn.editDropdown('#dropdownLabelmarket_name',v);
+                                }
+                                if(k == 'sample_type'){
+                                    winFn.editDropdown('#dropdownLabelsample_type',v);
+                                }
+                                if(k == 'result'){
+                                    winFn.editDropdown('#dropdownLabelresult','result'+v);//v是从后端返回的值
+                                }
+                                if(k == 'freeze_related'){
+                                    winFn.editDropdown('#dropdownfreeze_related','freeze_related'+v);
+                                }
+                                if(k == 'entrance'){
+                                    winFn.editDropdown('#dropdownEntrance','entrance'+v);
+                                }
+                            }catch(e){}
+                        });
+                    }else{
+						winFn.addDropdown('#dropdownLabelsite_type','监测场所类型');//选择选项
+						winFn.addDropdown('#dropdownLabelmarket_name','市场名称');//选择选项
+						winFn.addDropdown('#dropdownLabelsample_type','标本类型');//选择选项
+						winFn.addDropdown('#dropdownLabelresult','选择检测结果');
+						winFn.addDropdown('#dropdownfreeze_related','选择选项');
+						winFn.addDropdown('#dropdownEntrance','选择选项');
+				    }
+                },
+                rowEdit : function(index){
+                    var row = thisJquery.fnGetData(index);
+                    thisPage.edit(row.kid);
+                },
+                rowDel : function(index){
+                    var row = thisJquery.fnGetData(index);
+                    if(verifyFn.inputRequired('#environment_row_delById')){
+                        layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                        return;
+                    }
+                    layerFn.confirm('删除后无法恢复,确定要删除吗?',function(){
+                        layerFn.delByIdHint(urlDelById,row.kid,function(data){
+                            thisPage.complete(data,null,true);
+                        });
+                    });
+                },
+                complete : function(data,index,search){
+                    try{
+                        if(index){
+                            layerFn.closeIndex(index);
+                        }
+                        if(search){
+                            thisPage.search();
+                        }
+                        if(data){
+                            layerFn.handleResult(data.msg,data.code);
+                        }
+                    }catch(e){}
+                }
+            };
+            thisPage.init();
+        });
+    });
+</script>

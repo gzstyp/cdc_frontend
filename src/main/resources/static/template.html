@@ -166,52 +166,44 @@ console.info(STATE);
         </span>
     </div>
 </div>
-----------------------------------------例子,多个id的值相同值页面报错不用管----------------------------------------
-<label class="col-sm-3 control-label no-padding-right" for="entrance"><div class="hr-4"></div>是否有进口产品</label>
-<div class="col-sm-7">
-    <div class="hr-4"></div>
-    <div class="input-group">
-    <span class="input-group-btn">
-        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-            <span id="dropdownLabelentrance">选择选项</span><!--注意显示文字-->
-            <i class="ace-icon fa fa-angle-down"></i>
-        </button>
-        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
-            <li>
-                <a id="" href="javascript:winFn.dropdown('#entrance','','#dropdownLabelentrance','选择选项');">选择选项</a>
-            </li>
-            <li>
-                <a id="1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownLabelentrance','有');">有</a>
-            </li>
-            <li>
-                <a id="0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownLabelentrance','无');">无</a>
-            </li>
-        </ul>
-        <input id="entrance" type="hidden"/>
-    </span>
-    </div>
-</div>
-<label class="col-sm-3 control-label no-padding-right" for="risk"><div class="hr-4"></div>是否有高中风险地区产品</label>
+----------------------------------------例子,html----------------------------------------
+<div class="col-sm-3 control-label no-padding-right" for="result"><div class="hr-4"></div>核酸检测结果</div>
 <div class="col-sm-7">
     <div class="hr-4"></div>
     <div class="input-group">
         <span class="input-group-btn">
             <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                <span id="dropdownLabelrisk">选择选项</span><!--注意显示文字-->
+                <span id="dropdownLabelresult">选择检测结果</span><!--注意显示文字-->
                 <i class="ace-icon fa fa-angle-down"></i>
             </button>
-            <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:390px;min-width:390px;max-width:390px;"><!--注意宽度-->
+            <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
                 <li>
-                    <a id="" href="javascript:winFn.dropdown('#risk','','#dropdownLabelrisk','选择选项');">选择选项</a>
+                    <a id="result_" href="javascript:winFn.dropdown('#result','','#下拉列表的id','选择检测结果');">选择检测结果</a>
                 </li>
                 <li>
-                    <a id="1" href="javascript:winFn.dropdown('#risk',1,'#dropdownLabelrisk','有');">有</a>
+                    <a id="result1,其中1对应的第二个参数" href="javascript:winFn.dropdown('#result',1,'#下拉列表的id','下拉列表的文本');">下拉列表的文本</a>
                 </li>
                 <li>
-                    <a id="0" href="javascript:winFn.dropdown('#risk',0,'#dropdownLabelrisk','无');">无</a>
+                    <a id="result2,2的前缀推荐使用数据库表的列" href="javascript:winFn.dropdown('#result',2,'#dropdownLabelresult','阴性');">阴性</a>
+                </li>
+                <li>
+                    <a id="result3" href="javascript:winFn.dropdown('#result',3,'#dropdownLabelresult','阳性');">阳性</a>
                 </li>
             </ul>
-            <input id="risk" type="hidden">
+            <input id="result" type="hidden">
         </span>
     </div>
 </div>
+----------------------------------------例子,js代码----------------------------------------
+if(map != null){
+    $.each(map.data,function(k,v){
+        try{
+            $('#'+k).val(v);//负责赋值,下拉负责下列列表的赋值
+            if(k == 'result'){
+                winFn.editDropdown('#dropdownLabelresult下拉的domId','result'+v);//v是从后端返回的值,无需添加#前缀
+            }
+        }catch(e){}
+    });
+}else{
+    winFn.addDropdown('#dropdownLabelresult','选择检测结果');
+}
