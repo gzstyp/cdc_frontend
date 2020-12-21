@@ -68,7 +68,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_sampling_date" class="form-control search-query" placeholder="采样日期" style="width:140px"/>
+                                    <input type="text" id="key_sampling_date" class="form-control search-query date-picker" placeholder="采样日期" style="width:90px" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -289,17 +289,12 @@
         <div class="col-sm-3 control-label no-padding-right" for="sampling_date"><div class="hr-4"></div>采样日期</div>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <input type="text" id="sampling_date" placeholder="采样日期" class="form-control"/>
+            <input type="text" id="sampling_date" placeholder="采样日期" class="form-control date-picker" data-date-format="yyyy-mm-dd"/>
         </div>
         <div class="col-sm-3 control-label no-padding-right" for="detection_date"><div class="hr-4"></div>检测日期</div>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <div class="input-group">
-                <input class="form-control date-picker" placeholder="检测日期" id="detection_date" type="text" data-date-format="yyyy-mm-dd" />
-                <span class="input-group-addon">
-                    <i class="fa fa-calendar bigger-110"></i>
-                </span>
-            </div>
+            <input type="text" id="detection_date" placeholder="检测日期" class="form-control date-picker" data-date-format="yyyy-mm-dd"/>
         </div>
 
 
@@ -495,7 +490,10 @@
                     this.initDom();
                 },
                 initDom : function(){
-                    //若有下拉列表且数据是从后端获取的话则需要初始化
+                    winFn.initDate();
+                    this.createDropdown();
+                },
+                createDropdown : function(){
                     layerFn.ajaxGet(urlGetDicts,{pid:'fffffffffd06f648ffffffff98c8eec6'},function(data){
                         if(data.code === AppKey.code.code200){
                             winFn.initDropdown(data.data,'#dropdownOptionssite_type','#site_type','#dropdownLabelsite_type','监测场所类型');

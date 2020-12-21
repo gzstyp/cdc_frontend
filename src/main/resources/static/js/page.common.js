@@ -1021,8 +1021,22 @@ var refreshFlag = true;
                     layerFn.alert('请选择图片格式',AppKey.code.code199);
                 }
             });
+        },
+        /*默认初始化日期格式,属于bootstrap-datepicker.js;用法:winFn.initDate();或winFn.initDate('#id或.class');*/
+        initDate : function(dom){
+            if(dom == null || dom ==''){
+                $('.date-picker').datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                });
+            }else{
+                $(dom).datepicker({
+                    autoclose: true,
+                    todayHighlight: true
+                });
+            }
         }
-    },
+    }
     /**easyui专属方法,依赖easyui*/
     window.euiFn = {
         /**格式化日期YYYY-MM-DD;euiFn.dateFormatter(value);*/
@@ -1145,8 +1159,8 @@ var refreshFlag = true;
                 params = params+key+'='+object[key]+'&';
             }
             return params.substring(0,(params.length-1));
-        },
-    },
+        }
+    }
     /**依赖jQuery*/
     window.verifyFn = {
         /**验证是否指定的文件格式:verifyFn.checkFileType(this,'#excel','请选择Excel格式文件','xls,xlsx');*/
@@ -1259,8 +1273,8 @@ var refreshFlag = true;
                 });
                 return o;
             }
-        },
-    },
+        }
+    };
     /**layer专属方法:layerFn.queryXxx;layerFn.submit();layerFn.ajaxXxx,其他的不推荐使用*/
     window.layerFn = {
         /**确认操作,且取消按钮和右上角具有同一事件:layerFn.confirm(msg,function(){},function(){});如果需要调用到第2个方法则第1个方法是不能少的,写function(){}即可*/

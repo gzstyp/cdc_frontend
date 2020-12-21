@@ -16595,6 +16595,9 @@ img.editable-click:hover {
   background-color: #7d8893;
   color: #FFF;
 }
+table tr td.day{
+  cursor:pointer;
+}
 .bootstrap-timepicker-widget table td a:hover {
   border-radius: 0;
 }
