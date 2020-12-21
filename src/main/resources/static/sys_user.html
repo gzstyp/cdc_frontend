@@ -97,12 +97,12 @@
 </div>
 <div id="div_user_area" style="display:none;padding:2px 2px 2px 0">
     <form class="form-horizontal">
-        <div class="col-sm-12">
-            <select class="col-sm-12" id="userProvinceId" value='' onchange="jQArea.onSelectChange(this,'userCityId');"><option value=''>请选择省/市</option></select>
-            <select class="col-sm-12" id="userCityId" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'userCountyId');"><option value=''></option></select>
-            <select class="col-sm-12" id="userCountyId" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'userTownsTd');"><option value=''></option></select>
-            <select class="col-sm-12" id="userTownsTd" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'userVallageId');"><option value=''></option></select>
-            <select class="col-sm-12" id="userVallageId" value='' style="display:none;margin-top:4px;" onchange="jQArea.onSelectChange(this,'area_organize');"><option value=''></option></select><!--这个area_xxx随便填写,如果下面还有那继续加即可-->
+        <div class="col-sm-12" id="clsUser">
+            <select class="col-sm-12 clsProvince" id="userProvinceId" onchange="jQSelect.getAreaData(this.value,'#clsUser','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
+            <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;" onchange="jQSelect.getAreaData(this.value,'#clsUser','.clsCounty','请选择市|区');"><option value=''></option></select>
+            <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;" onchange="jQSelect.getAreaData(this.value,'#clsUser','.clsTowns','请选择区|县');"><option value=''></option></select>
+            <select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;" onchange="jQSelect.getAreaData(this.value,'#clsUser','.clsVallage','请选择乡|镇');"><option value=''></option></select>
+            <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;" onchange="jQSelect.getAreaData(this.value,'#clsUser','.clsXxx','请选择村|组');"><option value=''></option></select>
         </div>
     </form>
 </div>
@@ -726,15 +726,15 @@
                     }
                     var row = thisJquery.fnGetData(index);
                     layerFn.addOrEdit('['+row.user_name+']员绑定划分区域,若是不选则取消绑定区域','#div_user_area',['650px','450px'],(layerIndex)=>{
-                        var province_id = $("#userProvinceId").attr('value');//省
-                        var city_id = $("#userCityId").attr('value');//市
-                        var county_id = $("#userCountyId").attr('value');//县
-                        var towns_id = $("#userTownsTd").attr('value');//区
-                        var vallage_id = $("#userVallageId").attr('value');//村
                         if(verifyFn.inputRequired('#user_row_queryTreeArea')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
                         }
+                        var province_id = winFn.getDomValue('#userProvinceId');//省
+                        var city_id = winFn.getDomValue('#userCityId');//市
+                        var county_id = winFn.getDomValue('#userCountyId');//县
+                        var towns_id = winFn.getDomValue('#userTownsId');//区
+                        var vallage_id = winFn.getDomValue('#userVallageId');//村
                         var params = {
                             province_id : province_id,
                             city_id : city_id,
@@ -747,15 +747,8 @@
                             thisPage.complete(data,layerIndex,true);
                         });
                     });
-                    jQArea.init();//调用时注意清空操作
-                    this.resetUserArea();
-                },
-                resetUserArea : function(){
-                    $("#userProvinceId").attr('value','');//省
-                    $("#userCityId").attr('value','');//市
-                    $("#userCountyId").attr('value','');//县
-                    $("#userTownsTd").attr('value','');//区
-                    $("#userVallageId").attr('value','');//村
+                    jQSelect.resetAreaData('#clsUser');
+                    jQSelect.getAreaData('0','#clsUser','.clsProvince','选择省|市');
                 },
                 //未使用,仅供参考
                 rowUserArea : function(){
