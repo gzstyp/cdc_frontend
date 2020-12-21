@@ -14,30 +14,18 @@
                                     <input type="text" id="key_sample_code" class="form-control search-query" placeholder="标本实验编号" style="width:140px"/>
                                 </div>
                             </td>
-                            <!--<td style="padding: 0px 6px;">
+                            <td style="padding: 0px 6px;">
                                 省级
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_province_id" class="form-control search-query" placeholder="省级id[sys_area的kid]" style="width:140px"/>
+                                    <div id="environmentSearch">
+                                        <select class="clsProvince" id="key_province_id" style="height:33px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
+                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:33px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择市|区');"><option value=''></option></select>
+                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:33px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
+                                    </div>
                                 </div>
                             </td>
-                            <td style="padding: 0px 6px;">
-                                市（州）[sys_area的kid]
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" id="key_city_id" class="form-control search-query" placeholder="市（州）[sys_area的kid]" style="width:140px"/>
-                                </div>
-                            </td>
-                            <td style="padding: 0px 6px;">
-                                县（区）[sys_area的kid]
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" id="key_county_id" class="form-control search-query" placeholder="县（区）[sys_area的kid]" style="width:140px"/>
-                                </div>
-                            </td>-->
                             <td style="padding: 0px 6px;">
                                 市场名称
                             </td>
@@ -140,8 +128,6 @@
                             </td>
                         </tr>
                     </table>
-
-
                 </div>
                 <table id="tableListEnvironment" class="table table-striped table-bordered table-hover"></table>
             </div>
@@ -155,6 +141,17 @@
             <div class="hr-4"></div>
             <input type="text" id="sample_code" placeholder="标本实验编号" class="form-control"/>
         </div>
+
+        <label class="col-sm-3 control-label no-padding-right"><div class="hr-4"></div>行政区域</label>
+        <div class="col-sm-7" title="编辑|修改时不选择则保持原数据原区域">
+            <div class="hr-4"></div>
+            <div id="areaEnvironment">
+                <select class="col-sm-12 clsProvince" id="EnvironmentProvinceId" style="cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
+                <select class="col-sm-12 clsCity" id="EnvironmentCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsCounty','请选择市|区');"><option value=''></option></select>
+                <select class="col-sm-12 clsCounty" id="EnvironmentCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsTowns','请选择区|县');"><option value=''></option></select>
+            </div>
+        </div>
+
         <label class="col-sm-3 control-label no-padding-right" for="site_type"><div class="hr-4"></div>监测场所类型</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
@@ -510,6 +507,7 @@
                 initDom : function(){
                     winFn.initDate();
                     this.createDropdown();
+                    jQSelect.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
                 },
                 createDropdown : function(){
                     layerFn.ajaxGet(urlGetDicts,{pid:'fffffffffd06f648ffffffff98c8eec6'},function(data){
@@ -624,6 +622,18 @@
                             layerFn.alert('标本实验编号不能为空',AppKey.code.code199);
                             return;
                         }
+                        if(verifyFn.inputRequired('#EnvironmentProvinceId')){
+                            layerFn.alert('请选择省|市',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#EnvironmentCityId')){
+                            layerFn.alert('请选择市|区',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#EnvironmentCountyId')){
+                            layerFn.alert('请选择区|县',AppKey.code.code199);
+                            return;
+                        }
                         if(verifyFn.inputRequired('#site_type')){
                             layerFn.alert('监测场所类型不能为空',AppKey.code.code199);
                             return;
@@ -683,6 +693,9 @@
                             market_name : winFn.getDomValue('#market_name'),
                             vendor_name : winFn.getDomValue('#vendor_name'),
                             vendor_code : winFn.getDomValue('#vendor_code'),
+                            province_id : winFn.getDomValue('#EnvironmentProvinceId'),
+                            city_id : winFn.getDomValue('#EnvironmentCityId'),
+                            county_id : winFn.getDomValue('#EnvironmentCountyId'),
                             source : winFn.getDomValue('#source'),
                             entrance : winFn.getDomValue('#entrance'),
                             entrance_serial : winFn.getDomValue('#entrance_serial'),
@@ -745,6 +758,8 @@
 						winFn.addDropdown('#dropdownfreeze_related','选择选项');
 						winFn.addDropdown('#dropdownEntrance','选择选项');
 				    }
+                    jQSelect.resetAreaData('#areaEnvironment');
+                    jQSelect.getAreaData('0','#areaEnvironment','.clsProvince','选择省|市');
                 },
                 rowEdit : function(index){
                     var row = thisJquery.fnGetData(index);

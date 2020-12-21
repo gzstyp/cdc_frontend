@@ -65,6 +65,12 @@
                 $(containerDom +' '+ clsXxx).val('');
             }
         },
+        resetAreaData : function(containerDom){
+            this.setValue(containerDom,clsProvince);
+            $(containerDom +' '+ clsProvince).val('');
+            this.displayHide(containerDom,clsProvince);
+            $(containerDom +' '+ clsProvince).css({"display":"none"});
+        },
         getAreaData : function(pid,containerDom,selectDom,labelText){
             if(pid == null || pid == ''){
                 this.displayHide(containerDom,selectDom);

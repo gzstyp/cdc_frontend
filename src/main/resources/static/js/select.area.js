@@ -1,4 +1,5 @@
 ;(function($){
+    //已不好使,待删除
     window.jQArea = {
 		province : "userProvinceId",//省
 		city : "userCityId",//市
