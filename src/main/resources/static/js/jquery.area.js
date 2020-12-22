@@ -65,7 +65,7 @@
                 $(containerDom +' '+ clsXxx).val('');
             }
         },
-        //仅显示‘选择省|市’
+        //仅显示‘选择省|市’,隐藏其所有子节点
         resetAreaData : function(containerDom){
             this.setValue(containerDom,clsProvince);
             $(containerDom +' '+ clsProvince).val('');
