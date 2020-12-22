@@ -27,7 +27,8 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_sampling_date" class="form-control search-query date-picker" placeholder="采样日期" style="width:90px" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:90px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:90px;margin-left:4px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -35,7 +36,8 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_detection_date" class="form-control search-query date-picker" placeholder="检测日期" style="width:90px" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="detection_date_start" class="form-control search-query date-picker" placeholder="结束日期" style="width:90px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="detection_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:90px;margin-left:4px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -345,7 +347,7 @@
                 tableDom : tableDom,
                 sAjaxSource: getList,
                 fnServerParams : function(params){
-                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"market_name","value":$("#key_market_name").val()},{"name":"sampling_date","value":$("#key_sampling_date").val()},{"name":"detection_date","value":$("#key_detection_date").val()},{"name":"result","value":$("#key_result").val()},{"name":"site_type","value":$("#key_site_type").val()});
+                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"market_name","value":$("#key_market_name").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"site_type","value":$("#key_site_type").val()});
                 },
                 aoColumns : [
                     {
