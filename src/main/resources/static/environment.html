@@ -31,7 +31,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_market_name" class="form-control search-query" placeholder="市场名称关键字" style="width:140px"/>
+                                    <input type="text" id="key_market_name" class="form-control search-query" placeholder="市场名称关键字" style="width:150px;"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -79,7 +79,7 @@
                                                 <a href="javascript:winFn.dropdown('#key_result','3','#searchDropdownresult','阳性');">阳性</a>
                                             </li>
                                         </ul>
-                                        <input id="key_result" type="hidden"/><!--注意搜索时隐藏域-->
+                                        <input id="key_result" type="hidden"/>
                                     </span>
                                 </div>
                             </td>
@@ -159,7 +159,7 @@
                         <span id="dropdownLabelsite_type">场所类型</span><!--注意显示文字-->
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionssite_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionssite_type"></ul>
                     <input id="site_type" type="hidden"/>
                 </span>
             </div>
@@ -178,7 +178,7 @@
                         <span id="dropdownLabelmarket_name">市场名称</span>
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionsmarket_name"></ul>&lt;!&ndash;注意宽度,含有富文本编辑器宽度是448px&ndash;&gt;
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionsmarket_name"></ul>
                     <input id="market_name" type="hidden"/>
                 </span>
             </div>
@@ -754,7 +754,6 @@
 						winFn.addDropdown('#dropdownfreeze_related','选择选项');
 						winFn.addDropdown('#dropdownEntrance','选择选项');
 				    }
-                    jQSelect.resetAreaData('#areaEnvironment');
                     jQSelect.getAreaData('0','#areaEnvironment','.clsProvince','选择省|市');
                 },
                 rowEdit : function(index){
