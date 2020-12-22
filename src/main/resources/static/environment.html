@@ -512,11 +512,6 @@
                             winFn.initDropdown(data.data,'#dropdownOptionskey_site_type','#key_site_type','#dropdownLabelkey_site_type','场所类型');
                         }
                     });
-                    /*layerFn.ajaxGet(urlQueryMarkeName,{},function(data){
-                        if(data.code === AppKey.code.code200){
-                            winFn.initDropdown(data.data,'#dropdownOptionsmarket_name','#market_name','#dropdownLabelmarket_name','市场名称');
-                        }
-                    });*/
                     layerFn.ajaxGet(urlGetDicts,{pid:'ffffffff85295a4c000000007b3ad237'},function(data){
                         if(data.code === AppKey.code.code200){
                             winFn.initDropdown(data.data,'#dropdownOptionssample_type','#sample_type','#dropdownLabelsample_type','标本类型');

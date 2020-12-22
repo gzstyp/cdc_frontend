@@ -80,6 +80,9 @@
                     },
                     500 : function(response){
                         layerFn.handleClose("系统出现错误,稍候重试");
+                    },
+                    502 : function(response){
+                        layerFn.handleClose("网关代理出错请联系管理员");
                     }
                 },
                 complete : function(response,status){}
