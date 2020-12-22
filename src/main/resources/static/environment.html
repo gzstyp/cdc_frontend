@@ -15,18 +15,6 @@
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
-                                省级
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <div id="environmentSearch">
-                                        <select class="clsProvince" id="key_province_id" style="height:33px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
-                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:33px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择市|区');"><option value=''></option></select>
-                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:33px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
-                                    </div>
-                                </div>
-                            </td>
-                            <td style="padding: 0px 6px;">
                                 市场名称
                             </td>
                             <td>
@@ -48,6 +36,18 @@
                             <td>
                                 <div class="input-group">
                                     <input type="text" id="key_detection_date" class="form-control search-query date-picker" placeholder="检测日期" style="width:90px" data-date-format="yyyy-mm-dd"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                区域位置
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div id="environmentSearch" style="">
+                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
+                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择市|区');"><option value=''></option></select>
+                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
