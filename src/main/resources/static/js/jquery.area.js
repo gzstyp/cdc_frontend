@@ -65,6 +65,7 @@
                 $(containerDom +' '+ clsXxx).val('');
             }
         },
+        //仅显示‘选择省|市’
         resetAreaData : function(containerDom){
             this.setValue(containerDom,clsProvince);
             $(containerDom +' '+ clsProvince).val('');
@@ -72,6 +73,9 @@
             $(containerDom +' '+ clsProvince).css({"display":"none"});
         },
         getAreaData : function(pid,containerDom,selectDom,labelText){
+            if(selectDom == clsProvince){
+                this.resetAreaData(containerDom);
+            }
             if(pid == null || pid == ''){
                 this.displayHide(containerDom,selectDom);
                 this.setValue(containerDom,selectDom);
