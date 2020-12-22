@@ -6731,6 +6731,8 @@ button.close {
 tbody tr td.dataTables_empty{
     text-align:center;
     vertical-align:middle;
+    height: 38px;
+    line-height: 18px;
 }
 /*ajax区域里的操作按钮离顶部距离*/
 .clearfix{
