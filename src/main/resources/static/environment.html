@@ -23,6 +23,23 @@
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
+                                区域位置
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div id="environmentSearch" style="">
+                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
+                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择市|区');"><option value=''></option></select>
+                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="hidden-480 pull-right tableTools-container" permission='environment_btn_listData' style="display:none"></div>
+                    <table class="no-border">
+                        <tr permission='environment_btn_listData' style="display:none">
+                            <td style="padding: 0px 6px;">
                                 采样日期
                             </td>
                             <td>
@@ -40,23 +57,6 @@
                                     <input type="text" id="detection_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:90px;margin-left:4px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
-                            <td style="padding: 0px 6px;">
-                                区域位置
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <div id="environmentSearch" style="">
-                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
-                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择市|区');"><option value=''></option></select>
-                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="hidden-480 pull-right tableTools-container" permission='environment_btn_listData' style="display:none"></div>
-                    <table class="no-border">
-                        <tr permission='environment_btn_listData' style="display:none">
                             <td style="padding: 0px 6px;">
                                 检测结果
                             </td>
@@ -395,7 +395,7 @@
                     },
                     {
                         mData : "entrance",
-                        sTitle : "是否进口产品",
+                        sTitle : "是否进口",//产品
                         render : function(value,type,row,meta){
                             if(value == '0'){
                                 return '否';
@@ -441,7 +441,7 @@
                     },
                     {
                         mData : "result",
-                        sTitle : "核酸检测结果",
+                        sTitle : "检测结果",
                         render : function(value,type,row,meta){
                             if(value == '1'){
                                 return '未检测';
@@ -462,7 +462,7 @@
                         mData : "_kid_",
                         sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作选项</label>",
                         bSortable : false,
-                        sWidth : "7%"
+                        sWidth : "6%"
                     }
                 ],
                 columnDefs : [
