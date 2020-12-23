@@ -103,7 +103,7 @@
                                             <span id="searchDropdownprofession">全部</span>
                                             <i class="ace-icon fa fa-angle-down"></i>
                                         </button>
-                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:99px;min-width:99px;"></ul>
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:99px;min-width:99px;" id="dropdownLabelkey_profession"></ul>
                                         <input id="key_profession" type="hidden"/>
                                     </span>
                                 </div>
@@ -522,14 +522,15 @@
                     selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
                 },
                 createDropdown : function(){
+                    layerFn.ajaxGet(urlGetDicts,{"pid":"0000000071e57be5ffffffffd5c23562"},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionsprofession','#profession','#dropdownLabelprofession','工种');
+                            winFn.initDropdown(data.data,'#dropdownLabelkey_profession','#key_profession','#searchDropdownprofession','全部');
+                        }
+                    });
                     /*layerFn.ajaxGet('getUrl',{},function(data){
                         if(data.code === AppKey.code.code200){
                             winFn.initDropdown(data.data,'#dropdownOptionsfreeze_type','#freeze_type','#dropdownLabelfreeze_type','冷库类型');
-                        }
-                    });
-                    layerFn.ajaxGet('getUrl',{},function(data){
-                        if(data.code === AppKey.code.code200){
-                            winFn.initDropdown(data.data,'#dropdownOptionsprofession','#profession','#dropdownLabelprofession','工种');
                         }
                     });
                     layerFn.ajaxGet('getUrl',{},function(data){
