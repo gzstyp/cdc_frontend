@@ -1314,7 +1314,7 @@ var refreshFlag = true;
                 }
             });
         },
-        /**不带正在加载提示信息GET请求远程数据,已处理code为205业务,当然在调用时也可以处理code为205时在文本提示;layerFn.ajaxGetResult(url,params,succeed);*/
+        /**不推荐使用,不带正在加载提示信息GET请求远程数据,未处理code=401的情况需要自行处理,但已处理code为205业务,当然在调用时也可以处理code为205时在文本提示;layerFn.ajaxGetResult(url,params,succeed);*/
         ajaxGetResult : function(url,params,succeed){
             getQuery(url,params,function(data){
                 succeed(data);
@@ -1340,7 +1340,7 @@ var refreshFlag = true;
                 }
             });
         },
-        /**带动画的ajax的GET请求,已处理code为205业务,当然在调用时也可以处理code为205时在文本提示;layerFn.queryGetHintResult(url,params,fnSuccess);*/
+        /**不推荐使用,带动画的ajax的GET请求,未处理code=401的情况需要自行处理,但已处理code为205业务,当然在调用时也可以处理code为205时在文本提示;layerFn.queryGetHintResult(url,params,fnSuccess);*/
         queryGetHintResult : function(url,params,fnSuccess){
             getQueryHint(url,params,function(data){
                 fnSuccess(data);
