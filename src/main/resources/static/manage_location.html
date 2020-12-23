@@ -101,15 +101,15 @@
             <div class="hr-4"></div>
             <input type="text" id="mobile" placeholder="联系电话" class="form-control"/>
         </div>
-        <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>行政区域</label>
+        <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>区域位置</label>
         <div class="col-sm-7" title="编辑|修改时不选择则保持原数据原区域">
             <div class="hr-4"></div>
             <div id="manageLocation">
-                <select class="col-sm-12 clsProvince" id="userProvinceId" style="cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#manageLocation','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
-                <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#manageLocation','.clsCounty','请选择市|区');"><option value=''></option></select>
-                <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#manageLocation','.clsTowns','请选择区|县');"><option value=''></option></select>
-                <select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#manageLocation','.clsVallage','请选择乡|镇');"><option value=''></option></select>
-                <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#manageLocation','.clsXxx','请选择村|组');"><option value=''></option></select>
+                <select class="col-sm-12 clsProvince" id="userProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
+                <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCounty','请选择地州市');"><option value=''></option></select>
+                <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsTowns','请选择区|县');"><option value=''></option></select>
+                <select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsVallage','请选择乡|镇|社区');"><option value=''></option></select>
+                <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsXxx','请选择村|居委会');"><option value=''></option></select>
             </div>
         </div>
         <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>场所地址</label>
@@ -221,6 +221,7 @@
             var urlGetManagerLocation = urlRoute + 'getManagerLocation';/*获取经营场所*/
             var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
+            var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
             var thisTable = pageDataTable.initDataTable({
                 tableDom : tableDom,
                 sAjaxSource: getList,
@@ -365,6 +366,9 @@
                 },
                 addEvent : function(){
                     this.btnEvent();
+                },
+                getAreaData : function(pid,containerDom,selectDom,labelText){
+                    selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
                 },
                 btnEvent : function(){
                     $(tableDom +' tbody').on('dblclick','tr',function(){
@@ -573,7 +577,7 @@
 						winFn.addDropdown('#dropdownLabelrisk','选择选项');
                         winFn.addDropdown('#dropdownLabelsite_type','选择场所类型');
 				    }
-                    jQSelect.getAreaData('0','#manageLocation','.clsProvince','选择省|市');
+                    thisPage.getAreaData('0','#manageLocation','.clsProvince','选择省|市');
                 },
                 rowEdit : function(index){
                     var row = thisJquery.fnGetData(index);

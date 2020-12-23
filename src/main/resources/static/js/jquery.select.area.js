@@ -1,11 +1,11 @@
 ;(function($){
-    var clsProvince = '.clsProvince';
-    var clsCity = '.clsCity';
-    var clsCounty = '.clsCounty';
-    var clsTowns = '.clsTowns';
-    var clsVallage = '.clsVallage';
-    var clsXxx = '.clsXxx';
-    window.jQSelect = {
+    var clsProvince = '.clsProvince';//省|市
+    var clsCity = '.clsCity';//地州市
+    var clsCounty = '.clsCounty';//区|县
+    var clsTowns = '.clsTowns';//乡|镇|社区
+    var clsVallage = '.clsVallage';//村|居委会
+    var clsXxx = '.clsXxx';//组|街道
+    window.selectArea = {
         renderSelect(data,containerDom,selectDom,labelText){
             var html = "<option value=''>"+labelText+"</option>";
             $.each(data,function(index,item){
@@ -72,7 +72,7 @@
             this.displayHide(containerDom,clsProvince);
             $(containerDom +' '+ clsProvince).css({"display":"none"});
         },
-        getAreaData : function(pid,containerDom,selectDom,labelText){
+        getData : function(url,pid,containerDom,selectDom,labelText){
             if(selectDom == clsProvince){
                 this.resetAreaData(containerDom);
             }
@@ -87,7 +87,7 @@
             self.layerIndex = layerFn.loading('正在加载……');
             $.ajax({
                 type : "GET",
-                url : urlPrefix + '/user/queryAreaSelect',
+                url : urlPrefix + url,
                 dataType : "json",
                 data : {pId : pid},
                 headers : {'accessToken': sessionStorage.getItem('accessToken') || '',"refreshToken":sessionStorage.getItem('refreshToken') || ''},//好使

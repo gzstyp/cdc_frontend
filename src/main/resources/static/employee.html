@@ -36,9 +36,9 @@
                             <td>
                                 <div class="input-group">
                                     <div id="environmentSearch" style="">
-                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
-                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择市|区');"><option value=''></option></select>
-                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="jQSelect.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
+                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
+                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择地州市');"><option value=''></option></select>
+                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
                                     </div>
                                 </div>
                             </td>
@@ -168,9 +168,9 @@
         <div class="col-sm-7" title="编辑|修改时不选择则保持原数据原区域">
             <div class="hr-4"></div>
             <div id="areaEnvironment">
-                <select class="col-sm-12 clsProvince" id="EnvironmentProvinceId" style="cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsCity','请选择市|区');"><option value=''>请选择省|市</option></select>
-                <select class="col-sm-12 clsCity" id="EnvironmentCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsCounty','请选择市|区');"><option value=''></option></select>
-                <select class="col-sm-12 clsCounty" id="EnvironmentCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsTowns','请选择区|县');"><option value=''></option></select>
+                <select class="col-sm-12 clsProvince" id="EnvironmentProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#areaEnvironment','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
+                <select class="col-sm-12 clsCity" id="EnvironmentCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#areaEnvironment','.clsCounty','请选择地州市');"><option value=''></option></select>
+                <select class="col-sm-12 clsCounty" id="EnvironmentCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#areaEnvironment','.clsTowns','请选择区|县');"><option value=''></option></select>
             </div>
         </div>
         <label class="col-sm-3 control-label no-padding-right" for="real_name"><div class="hr-4"></div>人员姓名</label>
@@ -365,6 +365,7 @@
             var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
             var urlGetDicts = urlRoute + 'getDicts';
+            var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
             var thisTable = pageDataTable.initDataTable({
                 tableDom : tableDom,
                 sAjaxSource: getList,
@@ -514,8 +515,11 @@
                     this.initDom();
                 },
                 initDom : function(){
-                    jQSelect.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
+                    thisPage.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
                     this.createDropdown();
+                },
+                getAreaData : function(pid,containerDom,selectDom,labelText){
+                    selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
                 },
                 createDropdown : function(){
                     /*layerFn.ajaxGet('getUrl',{},function(data){
@@ -770,7 +774,7 @@
 						winFn.addDropdown('#dropdownLabelsample_type','样本类型');
 						winFn.addDropdown('#dropdownLabelwork_type','选择类型');
 				    }
-                    jQSelect.getAreaData('0','#areaEnvironment','.clsProvince','选择省|市');
+                    thisPage.getAreaData('0','#areaEnvironment','.clsProvince','选择省|市');
                 },
                 rowEdit : function(index){
                     var row = thisJquery.fnGetData(index);
