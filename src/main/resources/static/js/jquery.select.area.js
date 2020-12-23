@@ -14,7 +14,7 @@
             $(containerDom +' '+ selectDom).html(html);
             this.displayShow(containerDom,selectDom);
             this.displayHide(containerDom,selectDom);
-            this.setValue(containerDom,selectDom);
+            this.clearValue(containerDom,selectDom);
         },
         displayShow : function(containerDom,selectDom){
             $(containerDom +' '+ selectDom).css({"display":"inline"});
@@ -42,7 +42,7 @@
                 $(containerDom +' '+ clsXxx).css({"display":"none"});
             }
         },
-        setValue : function(containerDom,selectDom){
+        clearValue : function(containerDom,selectDom){
             if(selectDom == clsProvince){
                 $(containerDom +' '+ clsCity).val('');
                 $(containerDom +' '+ clsCounty).val('');
@@ -65,12 +65,12 @@
                 $(containerDom +' '+ clsXxx).val('');
             }
         },
-        //仅显示‘选择省|市’,隐藏其所有子节点
+        //仅显示‘选择省|市’
         resetAreaData : function(containerDom){
-            this.setValue(containerDom,clsProvince);
+            this.clearValue(containerDom,clsProvince);
             $(containerDom +' '+ clsProvince).val('');
             this.displayHide(containerDom,clsProvince);
-            $(containerDom +' '+ clsProvince).css({"display":"none"});
+            //$(containerDom +' '+ clsProvince).css({"display":"none"});弹出框时取消其注释在没有操作权限时会导致排版错乱
         },
         getData : function(url,pid,containerDom,selectDom,labelText){
             if(selectDom == clsProvince){
@@ -78,45 +78,23 @@
             }
             if(pid == null || pid == ''){
                 this.displayHide(containerDom,selectDom);
-                this.setValue(containerDom,selectDom);
+                this.clearValue(containerDom,selectDom);
                 $(containerDom +' '+ selectDom).val('');
                 $(containerDom +' '+ selectDom).css({"display":"none"});
                 return;
             }
             var _self = this;
-            self.layerIndex = layerFn.loading('正在加载……');
-            $.ajax({
-                type : "GET",
-                url : urlPrefix + url,
-                dataType : "json",
-                data : {pId : pid},
-                headers : {'accessToken': sessionStorage.getItem('accessToken') || '',"refreshToken":sessionStorage.getItem('refreshToken') || ''},//好使
-                crossDomain: true == !(document.all),
-                success : function(data){
-                    if(data.code === AppKey.code.code200){
-                        _self.renderSelect(data.data,containerDom,selectDom,labelText);
-                    }else if(data.code === AppKey.code.code205){
-                        layerFn.tokenLogin();
-                    }
-                },
-                error : function(response,status){},
-                statusCode : {
-                    401 : function(response){
-                        layerFn.handleClose("没有操作权限");
-                    },
-                    404 : function(response){
-                        var json = eval('('+ response.responseText +')');
-                        layerFn.handleClose("请求("+json.path+")路径不存在");
-                    },
-                    500 : function(response){
-                        layerFn.handleClose("系统出现错误,稍候重试");
-                    },
-                    502 : function(response){
-                        layerFn.handleClose("网关代理出错请联系管理员");
-                    }
-                },
-                complete : function(response,status){
-                    layerFn.closeIndex(self.layerIndex);
+            layerFn.queryGetHintResult(url,{pId : pid},function(data){
+                if(data.code === AppKey.code.code200){
+                    _self.renderSelect(data.data,containerDom,selectDom,labelText);
+                }else if(data.code === AppKey.code.code201){
+                    _self.displayHide(containerDom,selectDom);
+                    _self.clearValue(containerDom,selectDom);
+                    $(containerDom +' '+ selectDom).val('');
+                    $(containerDom +' '+ selectDom).css({"display":"none"});
+                }else{
+                    _self.displayHide(containerDom,selectDom);
+                    $(containerDom +' '+ selectDom).find("option:selected").text(data.msg);
                 }
             });
         }

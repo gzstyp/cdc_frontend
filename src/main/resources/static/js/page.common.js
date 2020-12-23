@@ -1314,6 +1314,12 @@ var refreshFlag = true;
                 }
             });
         },
+        /**不带正在加载提示信息GET请求远程数据,已处理code为205业务,当然在调用时也可以处理code为205时在文本提示;layerFn.ajaxGetResult(url,params,succeed);*/
+        ajaxGetResult : function(url,params,succeed){
+            getQuery(url,params,function(data){
+                succeed(data);
+            });
+        },
         /**带动画的ajax的POST提交,仅适用于增、删、改操作且已做请求失败的处理;layerFn.submit(url,params,fnSuccess);成功时才关闭对话框,所以不需要处理失败的回调及code为200以外的数据处理*/
         submit : function(url,params,fnSuccess){
             postRowHint(url,params,function(data){
@@ -1332,6 +1338,12 @@ var refreshFlag = true;
                 }else{
                     layerFn.alert(data.msg,data.code);
                 }
+            });
+        },
+        /**带动画的ajax的GET请求,已处理code为205业务,当然在调用时也可以处理code为205时在文本提示;layerFn.queryGetHintResult(url,params,fnSuccess);*/
+        queryGetHintResult : function(url,params,fnSuccess){
+            getQueryHint(url,params,function(data){
+                fnSuccess(data);
             });
         },
         /**以id查询单条数据的全部字段信息,适用于存在就查看或编辑否则就添加,带正在加载的提示信息,无需处理失败的回调及code为200及201以外的数据处理,用法:layerFn.queryByIdHint(url,id,function(data){编辑},function(data){添加});*/
@@ -2193,6 +2205,9 @@ var refreshFlag = true;
                 },
                 500 : function(){
                     status500();
+                },
+                502 : function(response){
+                    layerFn.alert('网关代理出错,稍候重试');
                 }
             },
             complete : function(response,status){
