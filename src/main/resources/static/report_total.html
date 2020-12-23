@@ -1,0 +1,88 @@
+<meta charset="utf-8"/>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <table class="no-border" style="display:inline">
+                        <tr>
+                            <td class="hidden-480" style="padding: 0px 6px;">
+                                登记日期
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="crowd_date" class="form-control search-query date-picker" placeholder="选择日期" style="width:90px;" data-date-format="yyyy-mm-dd"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                区域位置
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div id="environmentSearch" style="">
+                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
+                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择地州市');"><option value=''></option></select>
+                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch">
+                                            <span class="fa fa-eye bigger-110"></span>
+                                            查看
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var scripts = [null,null];
+    $('.page-content-area').ace_ajax('loadScripts',scripts,function(){
+        $(function(){
+            var urlRoute = '/reportTotal/';/*请求controller层的url*/
+            var urlGetView = urlRoute + 'getView';/*查看报表*/
+            var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
+            thisPage = {
+                init : function(){
+                    this.addEvent();
+                    winFn.initDate();
+                    this.initDom();
+                },
+                initDom : function(){
+                    thisPage.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
+                },
+                getAreaData : function(pid,containerDom,selectDom,labelText){
+                    selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
+                },
+                addEvent : function(){
+                    this.btnEvent();
+                },
+                btnEvent : function(){
+                    $('#btnSearch').on('click',function(){
+                        thisPage.viewReport();
+                    });
+                },
+                viewReport : function(){
+                    var params = {
+                        province_id : winFn.getDomValue('#key_province_id'),
+                        city_id : winFn.getDomValue('#key_city_id'),
+                        county_id : winFn.getDomValue('#key_county_id'),
+                        crowd_date : winFn.getDomValue('#crowd_date')
+                    };
+                    layerFn.queryGetHintResult(urlGetView,params,(data)=>{
+                        console.log(data);
+                    });
+                }
+            };
+            thisPage.init();
+        });
+    });
+</script>
