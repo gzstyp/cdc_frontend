@@ -5,21 +5,29 @@
             <div class="col-xs-12">
                 <div class="clearfix">
                     <table class="no-border" style="display:inline">
-                        <tr permission='environment_btn_listData' style="display:none">
+                        <tr permission='employee_btn_listData' style="display:none">
                             <td style="padding: 0px 6px;">
                                 标本实验编号
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_sample_code" class="form-control search-query" placeholder="标本实验编号" style="width:140px"/>
+                                    <input type="text" id="key_sample_code" class="form-control search-query" placeholder="标本实验编号" style="width:120px"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
-                                市场名称
+                                姓名
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_market_name" class="form-control search-query" placeholder="市场名称关键字" style="width:150px;"/>
+                                    <input type="text" id="key_real_name" class="form-control search-query" placeholder="从业人员姓名" style="width:100px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
+                                从业场所名称
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_work_site" class="form-control search-query" placeholder="从业场所名称" style="width:140px"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -36,9 +44,9 @@
                             </td>
                         </tr>
                     </table>
-                    <div class="hidden-480 pull-right tableTools-container" permission='environment_btn_listData' style="display:none"></div>
-                    <table class="no-border">
-                        <tr permission='environment_btn_listData' style="display:none">
+                    <div class="hidden-480 pull-right tableTools-container" permission='employee_btn_listData' style="display:none"></div>
+                    <table class="no-border" style="display:inline">
+                        <tr permission='employee_btn_listData' style="display:none">
                             <td style="padding: 0px 6px;">
                                 采样日期
                             </td>
@@ -63,13 +71,13 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em;width:99px;min-width:99px;"><!--注意宽度-->
-                                            <span id="searchDropdownresult">全部</span><!--注意显示文字-->
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em;width:70px;min-width:70px;">
+                                            <span id="searchDropdownresult">全部</span>
                                             <i class="ace-icon fa fa-angle-down"></i>
                                         </button>
-                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:99px;min-width:90px;"><!--注意宽度,2个字值是70,4个字值是99-->
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:71px;min-width:71px;">
                                             <li>
-                                                <a href="javascript:winFn.dropdown('#key_result','','#searchDropdownresult','全部');">全部</a><!--注意显示文字-->
+                                                <a href="javascript:winFn.dropdown('#key_result','','#searchDropdownresult','全部');">全部</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:winFn.dropdown('#key_result','1','#searchDropdownresult','未做');">未做</a>
@@ -86,20 +94,35 @@
                                 </div>
                             </td>
                             <td class="hidden-480" style="padding: 0px 6px;">
-                                场所类型
+                                工种
                             </td>
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                                            <span id="dropdownLabelkey_site_type">全部类型</span>
+                                            <span id="searchDropdownprofession">全部</span>
                                             <i class="ace-icon fa fa-angle-down"></i>
                                         </button>
-                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:270px;min-width:270px;max-width:270px" id="dropdownOptionskey_site_type"></ul>
-                                        <input id="key_site_type" type="hidden"/>
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:99px;min-width:99px;"></ul>
+                                        <input id="key_profession" type="hidden"/>
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="hidden-480" style="padding: 0px 6px;">
+                                从业场所类型
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                                            <span id="searchDropdownwork_type">从业场所类型</span>
+                                            <i class="ace-icon fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:270px;min-width:270px;max-width:270px" id="dropdownOptionskey_work_type"></ul>
+                                        <input id="key_work_type" type="hidden"/><!--注意搜索时隐藏域-->
                                     </span>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='environment_btn_listData' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='employee_btn_listData' style="display:none">
                                             <span class="ace-icon fa fa-search bigger-110"></span>
                                             搜索
                                         </button>
@@ -109,7 +132,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnAdd" permission='environment_btn_add' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnAdd" permission='employee_btn_add' style="display:none">
                                             <span class="ace-icon glyphicon glyphicon-plus bigger-110"></span>
                                             添加
                                         </button>
@@ -119,7 +142,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnDel" permission='environment_btn_delByKeys' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnDel" permission='employee_btn_delByKeys' style="display:none">
                                             <span class="fa fa-trash red2 bigger-110"></span>
                                             删除
                                         </button>
@@ -129,19 +152,18 @@
                         </tr>
                     </table>
                 </div>
-                <table id="tableListEnvironment" class="table table-striped table-bordered table-hover"></table>
+                <table id="tableListEmployee" class="table table-striped table-bordered table-hover"></table>
             </div>
         </div>
     </div>
 </div>
-<div id="div_bs_environment_edit" style="display:none;padding:20px 0px;">
-    <form class="form-horizontal" id="form_bs_environment_edit" role="form">
+<div id="div_bs_employee_edit" style="display:none;padding:20px 0px;">
+    <form class="form-horizontal" id="form_bs_employee_edit" role="form">
         <label class="col-sm-3 control-label no-padding-right" for="sample_code"><div class="hr-4"></div>标本实验编号</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
             <input type="text" id="sample_code" placeholder="标本实验编号" class="form-control"/>
         </div>
-
         <label class="col-sm-3 control-label no-padding-right"><div class="hr-4"></div>区域位置</label>
         <div class="col-sm-7" title="编辑|修改时不选择则保持原数据原区域">
             <div class="hr-4"></div>
@@ -151,203 +173,203 @@
                 <select class="col-sm-12 clsCounty" id="EnvironmentCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="jQSelect.getAreaData(this.value,'#areaEnvironment','.clsTowns','请选择区|县');"><option value=''></option></select>
             </div>
         </div>
-
-        <label class="col-sm-3 control-label no-padding-right" for="site_type"><div class="hr-4"></div>监测场所类型</label>
+        <label class="col-sm-3 control-label no-padding-right" for="real_name"><div class="hr-4"></div>人员姓名</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="real_name" placeholder="人员姓名" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="phone"><div class="hr-4"></div>联系电话</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="phone" placeholder="联系电话" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="gender"><div class="hr-4"></div>性别</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
             <div class="input-group">
                 <span class="input-group-btn">
                     <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                        <span id="dropdownLabelsite_type">场所类型</span><!--注意显示文字-->
+                        <span id="dropdownLabelgender">选择性别</span>
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionssite_type"></ul>
-                    <input id="site_type" type="hidden"/>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
+                        <li>
+                            <a id="gender_" href="javascript:winFn.dropdown('#gender','','#dropdownLabelgender','选择性别');">选择性别</a>
+                        </li>
+                        <li>
+                            <a id="gender1" href="javascript:winFn.dropdown('#gender',1,'#dropdownLabelgender','男');">男</a>
+                        </li>
+                        <li>
+                            <a id="gender2" href="javascript:winFn.dropdown('#gender',2,'#dropdownLabelgender','女');">女</a>
+                        </li>
+                    </ul>
+                    <input id="gender" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="age"><div class="hr-4"></div>年龄</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="age" placeholder="年龄" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="work_site"><div class="hr-4"></div>从业场所名称</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <input type="text" id="work_site" placeholder="从业场所名称" class="form-control"/>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="work_type"><div class="hr-4"></div>从业场所类型</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelwork_type">从业场所类型</span>
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionswork_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <input id="work_type" type="hidden"/>
                 </span>
             </div>
         </div>
         <label class="col-sm-3 control-label no-padding-right" for="freeze_type"><div class="hr-4"></div>冷库类型</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <input type="text" id="freeze_type" placeholder="冷库类型" class="form-control"/>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="market_name"><div class="hr-4"></div>市场名称</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
             <div class="input-group">
                 <span class="input-group-btn">
                     <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                        <span id="dropdownLabelmarket_name">市场名称</span>
+                        <span id="dropdownLabelfreeze_type">冷库类型</span>
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px" id="dropdownOptionsmarket_name"></ul>
-                    <input id="market_name" type="hidden"/>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:275px;min-width:275px;max-width:275px" id="dropdownOptionsfreeze_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
+                    <input id="freeze_type" type="hidden"/>
                 </span>
             </div>
         </div>
-        <label class="col-sm-3 control-label no-padding-right" for="vendor_name"><div class="hr-4"></div>摊主姓名</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <input type="text" id="vendor_name" placeholder="摊主姓名" class="form-control"/>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="vendor_code"><div class="hr-4"></div>摊位编号</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <input type="text" id="vendor_code" placeholder="摊位编号" class="form-control"/>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="source"><div class="hr-4"></div>产品来源地</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <input type="text" id="source" placeholder="产品来源地（填写至国家、省、市）" class="form-control"/>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="entrance"><div class="hr-4"></div>是否为进口产品</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <div class="input-group">
-            <span class="input-group-btn">
-                <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                    <span id="dropdownEntrance">选择选项</span><!--注意显示文字-->
-                    <i class="ace-icon fa fa-angle-down"></i>
-                </button>
-                <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px"><!--注意宽度-->
-                    <li>
-                        <a id="entrance_" href="javascript:winFn.dropdown('#entrance','','#dropdownEntrance','选择选项');">选择选项</a>
-                    </li>
-                    <li>
-                        <a id="entrance0" href="javascript:winFn.dropdown('#entrance',0,'#dropdownEntrance','否');">否</a>
-                    </li>
-                    <li>
-                        <a id="entrance1" href="javascript:winFn.dropdown('#entrance',1,'#dropdownEntrance','是');">是</a>
-                    </li>
-                </ul>
-                <input id="entrance" type="hidden"><!--注意隐藏域-->
-            </span>
-            </div>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="entrance_serial"><div class="hr-4"></div>进口产品批号</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <input type="text" id="entrance_serial" placeholder="若为进口产品请填写批号" class="form-control"/>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="sample_name"><div class="hr-4"></div>标本名称</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <input type="text" id="sample_name" placeholder="标本名称（写明具体标本名称，如三文鱼涂抹物）" class="form-control"/>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="freeze_related"><div class="hr-4"></div>是否冷链相关</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <div class="input-group">
-            <span class="input-group-btn">
-                <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                    <span id="dropdownfreeze_related">选择选项</span><!--注意显示文字-->
-                    <i class="ace-icon fa fa-angle-down"></i>
-                </button>
-                <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px"><!--注意宽度-->
-                    <li>
-                        <a id="freeze_related_" href="javascript:winFn.dropdown('#freeze_related','','#dropdownfreeze_related','选择选项');">选择选项</a>
-                    </li>
-                    <li>
-                        <a id="freeze_related0" href="javascript:winFn.dropdown('#freeze_related',0,'#dropdownfreeze_related','否');">否</a>
-                    </li>
-                    <li>
-                        <a id="freeze_related1" href="javascript:winFn.dropdown('#freeze_related',1,'#dropdownfreeze_related','是');">是</a>
-                    </li>
-                </ul>
-                <input id="freeze_related" type="hidden">
-            </span>
-            </div>
-        </div>
-        <label class="col-sm-3 control-label no-padding-right" for="sample_type"><div class="hr-4"></div>标本类型</label>
+        <label class="col-sm-3 control-label no-padding-right" for="profession"><div class="hr-4"></div>工种</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
             <div class="input-group">
                 <span class="input-group-btn">
                     <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                        <span id="dropdownLabelsample_type">标本类型</span><!--注意显示文字-->
+                        <span id="dropdownLabelprofession">工种</span>
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:331px;min-width:331px;max-width:331px" id="dropdownOptionssample_type"></ul>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:275px;min-width:275px;max-width:275px" id="dropdownOptionsprofession"></ul>
+                    <input id="profession" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="cold_chain"><div class="hr-4"></div>是否冷链相关从业人员</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelcold_chain">选择选项</span>
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
+                        <li>
+                            <a id="cold_chain_" href="javascript:winFn.dropdown('#cold_chain','','#dropdownLabelcold_chain','选择选项');">选择选项</a>
+                        </li>
+                        <li>
+                            <a id="cold_chain0" href="javascript:winFn.dropdown('#cold_chain',0,'#dropdownLabelcold_chain','否|无');">否|无</a>
+                        </li>
+                        <li>
+                            <a id="cold_chain1" href="javascript:winFn.dropdown('#cold_chain',1,'#dropdownLabelcold_chain','是|有');">是|有</a>
+                        </li>
+                    </ul>
+                    <input id="cold_chain" type="hidden"/>
+                </span>
+            </div>
+        </div>
+        <label class="col-sm-3 control-label no-padding-right" for="sample_type"><div class="hr-4"></div>样本类型</label>
+        <div class="col-sm-7">
+            <div class="hr-4"></div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelsample_type">样本类型</span>
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:275px;min-width:275px;max-width:275px" id="dropdownOptionssample_type"></ul><!--注意宽度,含有富文本编辑器宽度是448px-->
                     <input id="sample_type" type="hidden"/>
                 </span>
             </div>
         </div>
-        <div class="col-sm-3 control-label no-padding-right" for="sampling_date"><div class="hr-4"></div>采样日期</div>
+        <label class="col-sm-3 control-label no-padding-right" for="sampling_date"><div class="hr-4"></div>采样日期</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <input type="text" id="sampling_date" placeholder="采样日期" class="form-control date-picker" data-date-format="yyyy-mm-dd"/>
+            <input type="text" id="sampling_date" placeholder="采样日期" class="form-control"/>
         </div>
-        <div class="col-sm-3 control-label no-padding-right" for="detection_date"><div class="hr-4"></div>检测日期</div>
+        <label class="col-sm-3 control-label no-padding-right" for="detection_date"><div class="hr-4"></div>检测日期</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <input type="text" id="detection_date" placeholder="检测日期" class="form-control date-picker" data-date-format="yyyy-mm-dd"/>
+            <input type="text" id="detection_date" placeholder="检测日期" class="form-control"/>
         </div>
-        <div class="col-sm-3 control-label no-padding-right" for="result"><div class="hr-4"></div>核酸检测结果</div>
+        <label class="col-sm-3 control-label no-padding-right" for="result"><div class="hr-4"></div>核酸检测结果</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
             <div class="input-group">
-            <span class="input-group-btn">
-                <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                    <span id="dropdownLabelresult">选择检测结果</span><!--注意显示文字-->
-                    <i class="ace-icon fa fa-angle-down"></i>
-                </button>
-                <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
-                    <li>
-                        <a id="result_" href="javascript:winFn.dropdown('#result','','#dropdownLabelresult','选择检测结果');">选择检测结果</a>
-                    </li>
-                    <li>
-                        <a id="result1" href="javascript:winFn.dropdown('#result',1,'#dropdownLabelresult','未检测');">未检测</a>
-                    </li>
-                    <li>
-                        <a id="result2" href="javascript:winFn.dropdown('#result',2,'#dropdownLabelresult','阴性');">阴性</a>
-                    </li>
-                    <li>
-                        <a id="result3" href="javascript:winFn.dropdown('#result',3,'#dropdownLabelresult','阳性');">阳性</a>
-                    </li>
-                </ul>
-                <input id="result" type="hidden">
-            </span>
+                <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
+                        <span id="dropdownLabelresult">选择检测结果</span>
+                        <i class="ace-icon fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
+                        <li>
+                            <a id="result_" href="javascript:winFn.dropdown('#result','','#dropdownLabelresult','选择检测结果');">选择检测结果</a>
+                        </li>
+                        <li>
+                            <a id="result1" href="javascript:winFn.dropdown('#result',1,'#dropdownLabelresult','未检测');">未检测</a>
+                        </li>
+                        <li>
+                            <a id="result2" href="javascript:winFn.dropdown('#result',2,'#dropdownLabelresult','阴性');">阴性</a>
+                        </li>
+                        <li>
+                            <a id="result3" href="javascript:winFn.dropdown('#result',3,'#dropdownLabelresult','阳性');">阳性</a>
+                        </li>
+                    </ul>
+                    <input id="result" type="hidden"/>
+                </span>
             </div>
         </div>
-        <div class="col-sm-3 control-label no-padding-right" for="remark"><div class="hr-4"></div>备注</div>
+        <label class="col-sm-3 control-label no-padding-right" for="remark"><div class="hr-4"></div>备注</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
-            <textarea type="text" rows="2" id="remark" placeholder="备注" class="form-control"></textarea>
+            <input type="text" id="remark" placeholder="备注" class="form-control"/>
         </div>
     </form>
 </div>
 <div id="divKeyColumns" style="display:none;padding:1px 0px;"></div>
-<input type="hidden" id="bs_environment_edit_keyId"/>
+<input type="hidden" id="bs_employee_edit_keyId"/>
 <div style="display:none;">
-    <input type="hidden" id="environment_btn_listData"/>
-    <input type="hidden" id="environment_btn_add"/>
-    <input type="hidden" id="environment_btn_delByKeys"/>
-    <input type="hidden" id="environment_row_edit"/>
-    <input type="hidden" id="environment_row_queryById"/>
-    <input type="hidden" id="environment_row_delById"/>
+    <input type="hidden" id="employee_btn_listData"/>
+    <input type="hidden" id="employee_btn_add"/>
+    <input type="hidden" id="employee_btn_delByKeys"/>
+    <input type="hidden" id="employee_row_edit"/>
+    <input type="hidden" id="employee_row_queryById"/>
+    <input type="hidden" id="employee_row_delById"/>
 </div>
 <script type="text/javascript">
     var scripts = [null,null];
     $('.page-content-area').ace_ajax('loadScripts',scripts,function(){
-        var tableDom = '#tableListEnvironment';
-        var inputEditKeyId = '#bs_environment_edit_keyId';
+        var tableDom = '#tableListEmployee';
+        var inputEditKeyId = '#bs_employee_edit_keyId';
         $(function(){
-            var urlRoute = '/environment/';/*请求controller层的url*/
+            var urlRoute = '/employee/';/*请求controller层的url*/
             var getList = urlRoute + 'listData';/*获取数据列表,此处不需要添加的,已在请求的url添加了前缀*/
             var urlAdd = urlRoute + 'add';/*添加*/
             var urlEdit = urlRoute + 'edit';/*编辑*/
             var urlQueryById = urlRoute + 'queryById';/*根据id查询对应的数据*/
             var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
-            //根据字典父级id获取数据
             var urlGetDicts = urlRoute + 'getDicts';
-            //市场名称
-            var urlQueryMarkeName = urlRoute + 'queryMarkeName';
             var thisTable = pageDataTable.initDataTable({
                 tableDom : tableDom,
                 sAjaxSource: getList,
                 fnServerParams : function(params){
-                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"market_name","value":$("#key_market_name").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"site_type","value":$("#key_site_type").val()});
+                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"work_site","value":$("#key_work_site").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"work_type","value":$("#key_work_type").val()},{"name":"real_name","value":$("#key_real_name").val()},{"name":"profession","value":$("#key_profession").val()});
                 },
                 aoColumns : [
                     {
@@ -370,58 +392,50 @@
                         sTitle : "县（区）"
                     },
                     {
-                        mData : "site_type",
-                        sTitle : "监测场所类型"
+                        mData : "real_name",
+                        sTitle : "姓名"
                     },
                     {
-                        mData : "freeze_type",
-                        sTitle : "冷库类型"
-                    },
-                    {
-                        mData : "market_name",
-                        sTitle : "市场名称"
-                    },
-                    {
-                        mData : "vendor_name",
-                        sTitle : "摊主姓名"
-                    },
-                    {
-                        mData : "vendor_code",
-                        sTitle : "摊位编号"
-                    },
-                    {
-                        mData : "source",
-                        sTitle : "产品来源地"
-                    },
-                    {
-                        mData : "entrance",
-                        sTitle : "是否进口",//产品
+                        mData : "gender",
+                        sTitle : "性别",
                         render : function(value,type,row,meta){
-                            if(value == '0'){
-                                return '否';
-                            }else if(value == '1'){
-                                return '是';
+                            if(value == '1'){
+                                return '男性';
+                            }else if(value == '2'){
+                                return '女性';
                             }else{
                                 return "";
                             }
                         }
                     },
                     {
-                        mData : "entrance_serial",
-                        sTitle : "进口产品批号"
+                        mData : "age",
+                        sTitle : "年龄"
                     },
                     {
-                        mData : "sample_name",
-                        sTitle : "标本名称"
+                        mData : "work_site",
+                        sTitle : "从业场所名称"
                     },
                     {
-                        mData : "freeze_related",
-                        sTitle : "冷链相关",
+                        mData : "work_type",
+                        sTitle : "从业场所类型"
+                    },
+                    {
+                        mData : "freeze_type",
+                        sTitle : "冷库类型"
+                    },
+                    {
+                        mData : "profession",
+                        sTitle : "工种"
+                    },
+                    {
+                        mData : "cold_chain",
+                        sTitle : "是否冷链相关从业",
                         render : function(value,type,row,meta){
-                            if(value == '0'){
-                                return '否';
-                            }else if(value == '1'){
+                            if(value == '1'){
                                 return '是';
+                            }else if(value == '0'){
+                                return '否';
                             }else{
                                 return "";
                             }
@@ -429,7 +443,7 @@
                     },
                     {
                         mData : "sample_type",
-                        sTitle : "标本类型"
+                        sTitle : "样本类型"
                     },
                     {
                         mData : "sampling_date",
@@ -455,10 +469,6 @@
                         }
                     },
                     {
-                        mData : "remark",
-                        sTitle : "备注"
-                    },
-                    {
                         mData : "_kid_",
                         sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作选项</label>",
                         bSortable : false,
@@ -475,13 +485,13 @@
                     {
                         targets : -1,
                         render : function(value,type,row,meta){
-                            var html = "<a href='javascript:thisPage.rowEdit("+meta.row+");' style='outline:none;text-decoration: none;color:#3b8cff;margin-left:6px;display:none' permission='environment_row_edit'>编辑</a>"+
-                                "<a class='hidden-xs' href='javascript:thisPage.rowDel("+meta.row+");' style='outline:none;text-decoration: none;color:#f00;margin-left:6px;display:none' permission='environment_row_delById'>删除</a>";
+                            var html = "<a href='javascript:thisPage.rowEdit("+meta.row+");' style='outline:none;text-decoration: none;color:#3b8cff;margin-left:6px;display:none' permission='employee_row_edit'>编辑</a>"+
+                                "<a class='hidden-xs' href='javascript:thisPage.rowDel("+meta.row+");' style='outline:none;text-decoration: none;color:#f00;margin-left:6px;display:none' permission='employee_row_delById'>删除</a>";
                             return html;
                         }
                     },
                     {
-                        targets: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+                        targets: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
                         render: function (value,type,row,meta){
                             return pageDataTable.formatColumn(value);
                         }
@@ -500,23 +510,33 @@
             thisPage = {
                 init : function(){
                     this.addEvent();
+                    winFn.initDate();
                     this.initDom();
                 },
                 initDom : function(){
-                    winFn.initDate();
-                    this.createDropdown();
                     jQSelect.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
+                    this.createDropdown();
                 },
                 createDropdown : function(){
-                    layerFn.ajaxGet(urlGetDicts,{pid:'fffffffffd06f648ffffffff98c8eec6'},function(data){
+                    /*layerFn.ajaxGet('getUrl',{},function(data){
                         if(data.code === AppKey.code.code200){
-                            winFn.initDropdown(data.data,'#dropdownOptionssite_type','#site_type','#dropdownLabelsite_type','场所类型');
-                            winFn.initDropdown(data.data,'#dropdownOptionskey_site_type','#key_site_type','#dropdownLabelkey_site_type','场所类型');
+                            winFn.initDropdown(data.data,'#dropdownOptionsfreeze_type','#freeze_type','#dropdownLabelfreeze_type','冷库类型');
                         }
                     });
-                    layerFn.ajaxGet(urlGetDicts,{pid:'ffffffff85295a4c000000007b3ad237'},function(data){
+                    layerFn.ajaxGet('getUrl',{},function(data){
                         if(data.code === AppKey.code.code200){
-                            winFn.initDropdown(data.data,'#dropdownOptionssample_type','#sample_type','#dropdownLabelsample_type','标本类型');
+                            winFn.initDropdown(data.data,'#dropdownOptionsprofession','#profession','#dropdownLabelprofession','工种');
+                        }
+                    });
+                    layerFn.ajaxGet('getUrl',{},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionssample_type','#sample_type','#dropdownLabelsample_type','样本类型');
+                        }
+                    });*/
+                    layerFn.ajaxGet(urlGetDicts,{pid:'fffffffffd06f648ffffffff98c8eec6'},function(data){
+                        if(data.code === AppKey.code.code200){
+                            winFn.initDropdown(data.data,'#dropdownOptionswork_type','#work_type','#dropdownLabelwork_type','从业场所类型');
+                            winFn.initDropdown(data.data,'#dropdownOptionskey_work_type','#key_work_type','#dropdownLabelkey_work_type','从业场所类型');
                         }
                     });
                 },
@@ -525,7 +545,7 @@
                 },
                 btnEvent : function(){
                     $(tableDom +' tbody').on('dblclick','tr',function(){
-                        if(verifyFn.inputRequired('#environment_row_edit')){
+                        if(verifyFn.inputRequired('#employee_row_edit')){
                             return;
                         }
                         thisPage.trDblclick(thisTable.row(this).data());
@@ -566,7 +586,7 @@
                         layerFn.alert('请选择要删除的数据!',AppKey.code.code199);
                         return;
                     }
-                    if(verifyFn.inputRequired('#environment_btn_delByKeys')){
+                    if(verifyFn.inputRequired('#employee_btn_delByKeys')){
                         layerFn.alert('没有删除操作权限',AppKey.code.code199);
                         return;
                     }
@@ -580,7 +600,7 @@
                     thisPage.edit(data.kid);
                 },
                 search : function(){
-                    if(verifyFn.inputRequired('#environment_btn_listData')){
+                    if(verifyFn.inputRequired('#employee_btn_listData')){
                         layerFn.alert('没有操作权限',AppKey.code.code199);
                         return;
                     }
@@ -588,12 +608,12 @@
                     thisTable.draw();
                 },
                 resetForm : function(){
-                    winFn.clearFormData('#form_bs_environment_edit');
+                    winFn.clearFormData('#form_bs_employee_edit');
                 },
                 edit : function(kid){
                     var title = '添加';
                     if(kid != null && kid.length >0){
-                        if(verifyFn.inputRequired('#environment_row_queryById')){
+                        if(verifyFn.inputRequired('#employee_row_queryById')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
                         }
@@ -608,63 +628,59 @@
                     }
                 },
                 openDialog : function(title,kid,map){
-                    layerFn.addOrEdit(title,'#div_bs_environment_edit',['600px','500px'],function(index,layero){
+                    layerFn.addOrEdit(title,'#div_bs_employee_edit',['600px','500px'],function(index,layero){
                         //var editKey = winFn.getDomValue(inputEditKeyId);//用于某些值在新增时必填,编辑时可填可不填,填时则更新,否则不更新
                         //if(editKey == null){}
                         if(verifyFn.inputRequired('#sample_code')){
                             layerFn.alert('标本实验编号不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#EnvironmentProvinceId')){
-                            layerFn.alert('请选择省|市',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#province_id')){
+                            layerFn.alert('请选择省级区域',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#EnvironmentCityId')){
-                            layerFn.alert('请选择市|区',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#city_id')){
+                            layerFn.alert('市（州）不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#EnvironmentCountyId')){
-                            layerFn.alert('请选择区|县',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#county_id')){
+                            layerFn.alert('县（区）不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#site_type')){
-                            layerFn.alert('监测场所类型不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#real_name')){
+                            layerFn.alert('人员姓名不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#market_name')){
-                            layerFn.alert('市场名称不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#phone')){
+                            layerFn.alert('联系电话不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#vendor_name')){
-                            layerFn.alert('摊主姓名不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#gender')){
+                            layerFn.alert('请选择人员性别',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#vendor_code')){
-                            layerFn.alert('摊位编号不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#age')){
+                            layerFn.alert('年龄不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#source')){
-                            layerFn.alert('产品来源地',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#work_site')){
+                            layerFn.alert('从业场所名称不能为空',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#entrance')){
-                            layerFn.alert('是否为进口产品不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#work_type')){
+                            layerFn.alert('请选择从业场所类型',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#entrance_serial')){
-                            layerFn.alert('若为进口产品请填写批号不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#profession')){
+                            layerFn.alert('请选择工种',AppKey.code.code199);
                             return;
                         }
-                        if(verifyFn.inputRequired('#sample_name')){
-                            layerFn.alert('标本名称不能为空',AppKey.code.code199);
-                            return;
-                        }
-                        if(verifyFn.inputRequired('#freeze_related')){
-                            layerFn.alert('是否冷链相关不能为空',AppKey.code.code199);
+                        if(verifyFn.inputRequired('#cold_chain')){
+                            layerFn.alert('请选择是否冷链相关从业人员',AppKey.code.code199);
                             return;
                         }
                         if(verifyFn.inputRequired('#sample_type')){
-                            layerFn.alert('标本类型不能为空',AppKey.code.code199);
+                            layerFn.alert('请选择样本类型',AppKey.code.code199);
                             return;
                         }
                         if(verifyFn.inputRequired('#sampling_date')){
@@ -680,36 +696,35 @@
                             return;
                         }
                         var params = {
-                            sample_code : winFn.getDomValue('#sample_code'),
-                            site_type : winFn.getDomValue('#site_type'),
+                            age : winFn.getDomValue('#age'),
+                            city_id : winFn.getDomValue('#city_id'),
+                            cold_chain : winFn.getDomValue('#cold_chain'),
+                            county_id : winFn.getDomValue('#county_id'),
+                            detection_date : winFn.getDomValue('#detection_date'),
                             freeze_type : winFn.getDomValue('#freeze_type'),
-                            market_name : winFn.getDomValue('#market_name'),
-                            vendor_name : winFn.getDomValue('#vendor_name'),
-                            vendor_code : winFn.getDomValue('#vendor_code'),
-                            province_id : winFn.getDomValue('#EnvironmentProvinceId'),
-                            city_id : winFn.getDomValue('#EnvironmentCityId'),
-                            county_id : winFn.getDomValue('#EnvironmentCountyId'),
-                            source : winFn.getDomValue('#source'),
-                            entrance : winFn.getDomValue('#entrance'),
-                            entrance_serial : winFn.getDomValue('#entrance_serial'),
-                            sample_name : winFn.getDomValue('#sample_name'),
-                            freeze_related : winFn.getDomValue('#freeze_related'),
+                            gender : winFn.getDomValue('#gender'),
+                            phone : winFn.getDomValue('#phone'),
+                            profession : winFn.getDomValue('#profession'),
+                            province_id : winFn.getDomValue('#province_id'),
+                            real_name : winFn.getDomValue('#real_name'),
+                            remark : winFn.getDomValue('#remark'),
+                            result : winFn.getDomValue('#result'),
+                            sample_code : winFn.getDomValue('#sample_code'),
                             sample_type : winFn.getDomValue('#sample_type'),
                             sampling_date : winFn.getDomValue('#sampling_date'),
-                            detection_date : winFn.getDomValue('#detection_date'),
-                            result : winFn.getDomValue('#result'),
-                            remark : winFn.getDomValue('#remark'),
+                            work_site : winFn.getDomValue('#work_site'),
+                            work_type : winFn.getDomValue('#work_type'),
                             kid : winFn.getDomValue(inputEditKeyId)
                         };
                         var url = urlAdd;
                         if (kid != null && kid != ''){
                             url = urlEdit;
-                            if(verifyFn.inputRequired('#environment_row_edit')){
+                            if(verifyFn.inputRequired('#employee_row_edit')){
                                 layerFn.alert('没有编辑操作权限',AppKey.code.code199);
                                 return;
                             }
                         }else{
-                            if(verifyFn.inputRequired('#environment_btn_add')){
+                            if(verifyFn.inputRequired('#employee_btn_add')){
                                 layerFn.alert('没有添加操作权限',AppKey.code.code199);
                                 return;
                             }
@@ -723,33 +738,37 @@
                         $.each(map.data,function(k,v){
                             try{
                                 $('#'+k).val(v);
-                                if(k == 'site_type'){
-                                    winFn.editDropdown('#dropdownLabelsite_type',v);
+                                if(k == 'cold_chain'){
+                                    winFn.editDropdown('#dropdownLabelcold_chain','cold_chain'+v);
                                 }
-                                if(k == 'market_name'){
-                                    winFn.editDropdown('#dropdownLabelmarket_name',v);
+                                if(k == 'freeze_type'){
+                                    winFn.editDropdown('#dropdownLabelfreeze_type',v);
+                                }
+                                if(k == 'gender'){
+                                    winFn.editDropdown('#dropdownLabelgender','gender'+v);
+                                }
+                                if(k == 'profession'){
+                                    winFn.editDropdown('#dropdownLabelprofession',v);
+                                }
+                                if(k == 'result'){
+                                    winFn.editDropdown('#dropdownLabelresult','result'+v);
                                 }
                                 if(k == 'sample_type'){
                                     winFn.editDropdown('#dropdownLabelsample_type',v);
                                 }
-                                if(k == 'result'){
-                                    winFn.editDropdown('#dropdownLabelresult','result'+v);//v是从后端返回的值
-                                }
-                                if(k == 'freeze_related'){
-                                    winFn.editDropdown('#dropdownfreeze_related','freeze_related'+v);
-                                }
-                                if(k == 'entrance'){
-                                    winFn.editDropdown('#dropdownEntrance','entrance'+v);
+                                if(k == 'work_type'){
+                                    winFn.editDropdown('#dropdownLabelwork_type',v);
                                 }
                             }catch(e){}
                         });
                     }else{
-						winFn.addDropdown('#dropdownLabelsite_type','场所类型');//选择选项
-						winFn.addDropdown('#dropdownLabelmarket_name','市场名称');//选择选项
-						winFn.addDropdown('#dropdownLabelsample_type','标本类型');//选择选项
-						winFn.addDropdown('#dropdownLabelresult','选择检测结果');
-						winFn.addDropdown('#dropdownfreeze_related','选择选项');
-						winFn.addDropdown('#dropdownEntrance','选择选项');
+                        winFn.addDropdown('#dropdownLabelcold_chain','选择选项');
+						winFn.addDropdown('#dropdownLabelfreeze_type','选择冷库类型');
+                        winFn.addDropdown('#dropdownLabelgender','选择性别');
+                        winFn.addDropdown('#dropdownLabelprofession','工种');
+                        winFn.addDropdown('#dropdownLabelresult','选择检测结果');
+						winFn.addDropdown('#dropdownLabelsample_type','样本类型');
+						winFn.addDropdown('#dropdownLabelwork_type','选择类型');
 				    }
                     jQSelect.getAreaData('0','#areaEnvironment','.clsProvince','选择省|市');
                 },
@@ -759,7 +778,7 @@
                 },
                 rowDel : function(index){
                     var row = thisJquery.fnGetData(index);
-                    if(verifyFn.inputRequired('#environment_row_delById')){
+                    if(verifyFn.inputRequired('#employee_row_delById')){
                         layerFn.alert('没有删除操作权限',AppKey.code.code199);
                         return;
                     }
