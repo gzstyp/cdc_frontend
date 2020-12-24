@@ -38,6 +38,12 @@
                             </td>
                         </tr>
                     </table>
+                    <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:2px;">
+                        <label style="font-size:24px;" id="labelShow">核酸日报表 (0:00-24:00)</label>
+                    </div>
+                    <div class="col-xs-12">
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,10 +71,31 @@
                 addEvent : function(){
                     this.btnEvent();
                 },
+                getSelectLabel : function(){
+                    this.showLabel(winFn.select.getText('#key_province_id'),winFn.select.getText('#key_city_id'),winFn.select.getText('#key_county_id'),winFn.getDomValue('#crowd_date'));
+                },
                 btnEvent : function(){
                     $('#btnSearch').on('click',function(){
                         thisPage.viewReport();
                     });
+                },
+                showLabel : function(province,city,county,date){
+                    var label = '';
+                    if(province){
+                        label += province;
+                    }
+                    if(city){
+                        label += city;
+                    }
+                    if(county){
+                        label += county;
+                    }
+                    var _date = '';
+                    if(date){
+                        _date += date;
+                    }
+                    label += '核酸日报表'+_date+' (0:00-24:00)';
+                    $('#labelShow').text(label);
                 },
                 viewReport : function(){
                     var params = {
@@ -77,10 +104,23 @@
                         county_id : winFn.getDomValue('#key_county_id'),
                         crowd_date : winFn.getDomValue('#crowd_date')
                     };
-                    layerFn.queryGetHintResult(urlGetView,params,(data)=>{
-                        console.log(data);
+                    var _this = this;
+                    layerFn.queryGetHint(urlGetView,params,(data)=>{
+                        _this.getSelectLabel();
+                        console.log(data.data)
                     });
-                }
+                },
+                groupBy : function(array,f){
+                    const groups = {};
+                    array.forEach(function (o) {
+                        const group = JSON.stringify(f(o));
+                        groups[group] = groups[group] || [];
+                        groups[group].push(o);
+                    });
+                    return Object.keys(groups).map(function (group) {
+                        return groups[group];
+                    });
+                },
             };
             thisPage.init();
         });
