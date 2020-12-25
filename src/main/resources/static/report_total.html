@@ -11,7 +11,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="crowd_date" class="form-control search-query date-picker" placeholder="选择日期" value="2020-12-21" style="width:90px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="crowd_date" class="form-control search-query date-picker" placeholder="选择日期" style="width:90px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -61,7 +61,7 @@
                     this.addEvent();
                     winFn.initDate();
                     this.initDom();
-                    thisPage.viewReport();
+                    thisPage.viewReport(1);
                 },
                 initDom : function(){
                     thisPage.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
@@ -98,7 +98,7 @@
                     label += '核酸日报表'+_date+' (0:00-24:00)';
                     $('#labelShow').text(label);
                 },
-                viewReport : function(){
+                viewReport : function(type){
                     var params = {
                         province_id : winFn.getDomValue('#key_province_id'),
                         city_id : winFn.getDomValue('#key_city_id'),
@@ -107,11 +107,15 @@
                     };
                     var _this = this;
                     layerFn.queryGetHintResult(urlGetView,params,(data)=>{
+                        _this.getSelectLabel();
                         if(data.code === AppKey.code.code200){
-                            _this.getSelectLabel();
                             _this.renderTable(data.data);
                         }else if(data.code === AppKey.code.code201){
-                            _this.otherData('暂无数据,请换个日期试试');
+                            if(type){
+                                _this.otherData('当日没有数据,请换个日期试试');
+                            }else{
+                                _this.otherData('暂无数据,请换个日期试试');
+                            }
                         }else{
                             _this.otherData(data.msg);
                         }
