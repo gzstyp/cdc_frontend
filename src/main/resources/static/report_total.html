@@ -185,7 +185,6 @@
                         }
                         totalData.push(trIndex);
                     }
-
                     for(var index in columns){
                         var trIndex = 'dataTr'+index;
                         var htmlIndex = 'html'+index;
@@ -216,6 +215,64 @@
                         }
                         $('#' + trIndex).append(htmlIndex);
                     }
+                    for(var index in columns){
+                        var trIndex = 'dataTr'+index;
+                        var htmlIndex = 'html'+index;
+                        htmlIndex = '';
+                        var _arrs = totalData[index];
+
+                        var totalsampling = 'totalsampling'+index;
+                        var totaldetection = 'totaldetection'+index;
+                        var totalmasculine = 'totalmasculine'+index;
+
+                        totalsampling = 0;
+                        totaldetection = 0;
+                        totalmasculine = 0;
+
+                        for(var y = 0; y < _arrs.length; y++){
+                            totalsampling += Number.parseInt(_arrs[y].sampling);
+                            totaldetection += Number.parseInt(_arrs[y].detection);
+                            totalmasculine += Number.parseInt(_arrs[y].masculine);
+                        }
+
+                        var value = columns[index].crowdName;
+
+                        htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0;background:#92D050">';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+value+'合计</td>';
+                        htmlIndex += '<td style="width:210px">';
+                        htmlIndex += '<table style="" width="100%">';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
+                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalsampling+'</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
+                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totaldetection+'</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
+                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalmasculine+'</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '</table>';
+                        htmlIndex += '</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '</table>';
+
+                        $('#' + trIndex).append(htmlIndex);
+                    }
+
+                    var totalAllsampling = 0;
+                    var totalAlldetection = 0;
+                    var totalAllmasculine = 0;
+                    for(var v=0;v < data.length;v++){
+                        totalAllsampling += Number.parseInt(data[v].sampling);
+                        totalAlldetection += Number.parseInt(data[v].detection);
+                        totalAllmasculine += Number.parseInt(data[v].masculine);
+                    }
+                    console.log(totalAllsampling);
+                    console.log(totalAlldetection);
+                    console.log(totalAllmasculine);
                 }
             };
             thisPage.init();
