@@ -42,7 +42,7 @@
                         <label style="font-size:22px;" id="labelShow">核酸日报表 (0:00-24:00)</label>
                     </div>
                     <div class="col-xs-12" style="display:flex;justify-content:center;padding-top:4px;">
-                        <table id="containerTabel" border="1" style="border-spacing:0px 10px;font-size:14px;"></table>
+                        <table id="containerTabel" style="border-spacing:0px 10px;font-size:14px;"></table>
                     </div>
                 </div>
             </div>
@@ -165,6 +165,45 @@
                     html += _tr;
                     //第2行-结束
 
+                    var totalAllsampling = 0;
+                    var totalAlldetection = 0;
+                    var totalAllmasculine = 0;
+                    for(var v=0;v < data.length;v++){
+                        totalAllsampling += Number.parseInt(data[v].sampling);
+                        totalAlldetection += Number.parseInt(data[v].detection);
+                        totalAllmasculine += Number.parseInt(data[v].masculine);
+                    }
+
+                    //第3行,总计-开始
+                    html += tr;
+                    html += '<td colspan="2" align="center" valign="middle" style="border:1px solid #ddd;">';
+
+                    html += '<table style="margin:2px 0;border-right:1px solid #ddd;background:#92D050">';
+                    html += '<tr>';
+                    html += '<td align="center" valign="middle" style="width:510px;border-right:1px solid #ddd;">核酸总计</td>';
+                    html += '<td style="width:510px">';
+                    html += '<table style="" width="100%">';
+                    html += '<tr>';
+                    html += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
+                    html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllsampling+'</td>';
+                    html += '</tr>';
+                    html += '<tr>';
+                    html += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
+                    html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAlldetection+'</td>';
+                    html += '</tr>';
+                    html += '<tr>';
+                    html += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
+                    html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllmasculine+'</td>';
+                    html += '</tr>';
+                    html += '</table>';
+                    html += '</td>';
+                    html += '</tr>';
+                    html += '</table>';
+
+                    html += '</td>';
+                    html += _tr;
+                    //第3行,总计-结束
+
                     $('#' + containerTabel).html(html);//关键点!!!,先初始化先!!!
 
                     var totalData = [];
@@ -237,7 +276,7 @@
 
                         var value = columns[index].crowdName;
 
-                        htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0;background:#92D050">';
+                        htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0;background:#92D050;">';
                         htmlIndex += '<tr>';
                         htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+value+'合计</td>';
                         htmlIndex += '<td style="width:210px">';
@@ -261,18 +300,6 @@
 
                         $('#' + trIndex).append(htmlIndex);
                     }
-
-                    var totalAllsampling = 0;
-                    var totalAlldetection = 0;
-                    var totalAllmasculine = 0;
-                    for(var v=0;v < data.length;v++){
-                        totalAllsampling += Number.parseInt(data[v].sampling);
-                        totalAlldetection += Number.parseInt(data[v].detection);
-                        totalAllmasculine += Number.parseInt(data[v].masculine);
-                    }
-                    console.log(totalAllsampling);
-                    console.log(totalAlldetection);
-                    console.log(totalAllmasculine);
                 }
             };
             thisPage.init();
