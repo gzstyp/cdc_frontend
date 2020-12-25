@@ -152,22 +152,22 @@
                     var tr = '<tr>';
                     var _tr = '</tr>';
 
-                    //分类-开始,列数,第1行
+                    //第1行,列数,分类-开始
                     html += tr;
                     for(var index in columns){
                         html += '<td align="center" valign="middle" style="border:1px solid #ddd;font-size:16px;padding:10px 0;">'+columns[index].crowdName+'</td>';
                     }
                     html += _tr;
-                    //分类-结束,列数,第1行
+                    //第1行,列数,分类-结束
 
-                    //第2行-开始
+                    //第2行,类型-开始
                     html += tr;
                     for(var index in columns){
                         var trIndex = 'dataTr'+index;
                         html += '<td align="center" id="'+trIndex+'" valign="top" style="border:1px solid #ddd;"></td>';
                     }
                     html += _tr;
-                    //第2行-结束
+                    //第2行,类型-结束
 
                     var totalAllsampling = 0;
                     var totalAlldetection = 0;
@@ -228,6 +228,7 @@
                         }
                         totalData.push(trIndex);
                     }
+                    //类型统计显示-开始
                     for(var index in columns){
                         var trIndex = 'dataTr'+index;
                         var htmlIndex = 'html'+index;
@@ -258,6 +259,9 @@
                         }
                         $('#' + trIndex).append(htmlIndex);
                     }
+                    //类型统计显示-结束
+
+                    //各类型合计,附加第2行,类型的到末尾-开始
                     for(var index in columns){
                         var trIndex = 'dataTr'+index;
                         var htmlIndex = 'html'+index;
@@ -304,6 +308,7 @@
 
                         $('#' + trIndex).append(htmlIndex);
                     }
+                    //各类型合计,附加第2行,类型的到末尾-结束
                 }
             };
             thisPage.init();
