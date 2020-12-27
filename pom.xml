@@ -27,12 +27,6 @@
               </exclusion>
           </exclusions>
       </dependency>
-    <!--spring boot 默认情况下是不支持jsp的,若要对jsp的支持仅需此依赖[开始]-->
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-jasper</artifactId>
-      <version>${tomcat.version}</version>
-    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}.${project.version}</finalName>
