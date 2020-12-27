@@ -461,9 +461,9 @@
                     },
                     {
                         mData : "_kid_",
-                        sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作选项</label>",
+                        sTitle : "<label style='color:#000;margin-left:6px;' title='单行操作'>操作</label>",
                         bSortable : false,
-                        sWidth : "6%"
+                        sWidth : "4%"
                     }
                 ],
                 columnDefs : [
@@ -482,14 +482,21 @@
                         }
                     },
                     {
+                        targets: [6,9],
+                        render: function (value,type,row,meta){
+                            return pageDataTable.columnEllipsis(value,8);
+                        }
+                    },
+                    {
                         targets: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
                         render: function (value,type,row,meta){
                             return pageDataTable.formatColumn(value);
                         }
                     },
+
                     {
-                        "visible":false,//列的隐藏显示
-                        "targets": []//指定列
+                        targets : [5,8,11,14,18],//指定列
+                        visible : false//列的隐藏显示
                     }
                 ]
             });
@@ -542,11 +549,11 @@
                         thisPage.search();
                     });
                     //按钮组-自定义显示列
-                    $('#iconColumn').on('click',function(){
+                    $('#iconColumn').parent().parent().on('click',function(){
                         pageDataTable.columnCustom(thisTable,tableDom,'#divKeyColumns');
                     });
                     //按钮组-搜索
-                    $('#iconRefresh').on('click',function(){
+                    $('#iconRefresh').parent().parent().on('click',function(){
                         thisPage.search();
                     });
                     $('#btnDel').on('click',function(){

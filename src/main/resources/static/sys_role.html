@@ -226,11 +226,11 @@
                         thisPage.search();
                     });
                     //按钮组-自定义显示列
-                    $('#iconColumn').on('click',function(){
+                    $('#iconColumn').parent().parent().on('click',function(){
                         pageDataTable.columnCustom(thisTable,tableDom,'#divKeyColumns');
                     });
                     //按钮组-搜索
-                    $('#iconRefresh').on('click',function(){
+                    $('#iconRefresh').parent().parent().on('click',function(){
                         thisPage.search();
                     });
                     $('#btnDel').on('click',function(){

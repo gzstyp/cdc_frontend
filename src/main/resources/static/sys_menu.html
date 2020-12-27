@@ -1410,10 +1410,10 @@
                     $('#btnSearch').on('click',function(){
                         thisPage.search();
                     });
-                    $('#iconColumn').on('click',function(){
+                    $('#iconColumn').parent().parent().on('click',function(){
                         pageDataTable.columnCustom(thisTable,tableDom,'#divKeyColumns');
                     });
-                    $('#iconRefresh').on('click',function(){
+                    $('#iconRefresh').parent().parent().on('click',function(){
                         thisPage.search();
                     });
                     $('#btnDelPid').on('click',function(){

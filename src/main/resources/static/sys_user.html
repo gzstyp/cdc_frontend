@@ -418,11 +418,11 @@
                         thisPage.search();
                     });
                     //按钮组-自定义显示列
-                    $('#iconColumn').on('click',function(){
+                    $('#iconColumn').parent().parent().on('click',function(){
                         pageDataTable.columnCustom(thisTable,tableDom,'#divKeyColumns');
                     });
                     //按钮组-搜索
-                    $('#iconRefresh').on('click',function(){
+                    $('#iconRefresh').parent().parent().on('click',function(){
                         if(verifyFn.inputRequired('#user_btn_listData')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
