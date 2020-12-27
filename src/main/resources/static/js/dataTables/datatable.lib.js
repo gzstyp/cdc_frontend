@@ -310,6 +310,18 @@
                 }
             });
         },
+        //多于length个字符才显示省略号;在 方法 formatColumn 的前面
+        columnEllipsis : function(value,length){
+            if(value){
+                if (value.length > length){
+                    return "<span title='"+value+"'>"+value.substr(0,length) +"<a style='outline:none;text-decoration: none;' href='javascript:;' title='查看' onclick='javascript:layerFn.alert(\""+value+"\")'>…</a></span>";
+                }else{
+                    return "<span title='"+value+"'>"+value+"</span>";
+                }
+            }else{
+                return "";
+            }
+        },
         formatColumn : function(value){
             var width = winFn.fnGetWidth();
             if(width >= 1280){
