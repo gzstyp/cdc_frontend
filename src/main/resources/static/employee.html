@@ -492,6 +492,12 @@
                         }
                     },
                     {
+                        targets: [7],
+                        render: function (value,type,row,meta){
+                            return pageDataTable.columnEllipsis(value,8);
+                        }
+                    },
+                    {
                         targets: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
                         render: function (value,type,row,meta){
                             return pageDataTable.formatColumn(value);
@@ -499,7 +505,7 @@
                     },
                     {
                         "visible":false,//列的隐藏显示
-                        "targets": []//指定列
+                        "targets": [9]//指定列
                     }
                 ]
             });
