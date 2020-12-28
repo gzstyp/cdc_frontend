@@ -177,10 +177,9 @@
                         totalAlldetection += Number.parseInt(data[v].detection);
                         totalAllmasculine += Number.parseInt(data[v].masculine);
                     }
-
                     //第3行,总计-开始
                     html += tr;
-                    html += '<td colspan="2" align="center" valign="middle" style="border:1px solid #ddd;">';
+                    html += '<td colspan="'+columns.length+'" align="center" valign="middle" style="border:1px solid #ddd;">';
 
                     html += '<table style="margin:2px 0;border-right:1px solid #ddd;background:#92D050">';
                     html += '<tr>';
