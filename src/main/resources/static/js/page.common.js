@@ -26,9 +26,9 @@ var refreshFlag = true;
         title : "系统提示",
         msg_error : "哦!网络故障请<a href='javascript:;' onclick='if(self==top){window.location.reload();}else{top.location.reload();}' style='text-decoration:none;color:#3b8cff;outline:none;cursor:pointer;'>刷新</a>或稍后重试",/**连接服务器失败*/
         msg_not_login : "未登录或登录超时,请<a href='javascript:;' onclick='if(self==top){window.location.reload();}else{top.location.reload();}' style='text-decoration:none;color:#3b8cff;outline:none;cursor:pointer;'>刷新</a>重试",/**稍后重试*/
-        token_not_login : "未登录或登录超时,请<a href='/login.html' onclick='if(self==top){window.location.reload();}else{top.location.reload();}' style='text-decoration:none;color:#3b8cff;outline:none;cursor:pointer;'>登录</a>再重试",/**稍后重试*/
+        token_not_login : "未登录或登录超时,请<a href='/index.html' onclick='if(self==top){window.location.reload();}else{top.location.reload();}' style='text-decoration:none;color:#3b8cff;outline:none;cursor:pointer;'>登录</a>再重试",/**稍后重试*/
         notLogin : '未登录或登录超时',
-        loginUrl : '/login.html',/**跳转到登录界面;用法:AppKey.loginUrl*/
+        loginUrl : '/index.html',/**跳转到登录界面;用法:AppKey.loginUrl*/
         control : '/main.html',/**跳转到后台中心;用法:AppKey.control*/
         sysError : '系统出现错误',
         layerArea : '270px',/**AppKey.layerArea*/
