@@ -36,6 +36,16 @@
                                     </span>
                                 </div>
                             </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport">
+                                            <span class="fa fa-download"></span>
+                                            导出
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                     <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:2px;">
@@ -56,6 +66,7 @@
             var urlRoute = '/reportTotal/';/*请求controller层的url*/
             var urlGetView = urlRoute + 'getView';/*查看报表*/
             var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
+            var urlExportExcel = urlRoute + 'exportExcel';/*导出Excel*/
             thisPage = {
                 init : function(){
                     this.addEvent();
@@ -78,6 +89,9 @@
                 btnEvent : function(){
                     $('#btnSearch').on('click',function(){
                         thisPage.viewReport();
+                    });
+                    $('#btnExport').on('click',function(){
+                        thisPage.exportExcel();
                     });
                 },
                 showLabel : function(province,city,county,date){
@@ -120,6 +134,14 @@
                             _this.otherData(data.msg);
                         }
                     });
+                },
+                exportExcel : function(){
+                    var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val()+
+                    '&province_id='+$("#key_province_id").val()+
+                    '&city_id='+$("#key_city_id").val()+
+                    '&county_id='+$("#key_county_id").val()
+                    layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
+                    winFn.getPageHashToken(url);
                 },
                 otherData : function(msg){
                     var html = '';
