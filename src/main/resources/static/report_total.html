@@ -138,8 +138,11 @@
                 exportExcel : function(){
                     var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val()+
                     '&province_id='+$("#key_province_id").val()+
+                    '&province_text='+$("#key_province_id").find("option:selected").text()+
                     '&city_id='+$("#key_city_id").val()+
-                    '&county_id='+$("#key_county_id").val()
+                    '&city_text='+$("#key_city_id").find("option:selected").text()+
+                    '&county_id='+$("#key_county_id").val()+
+                    '&county_text='+$("#key_county_id").find("option:selected").text()
                     layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                     winFn.getPageHashToken(url);
                 },
