@@ -645,8 +645,9 @@ var refreshFlag = true;
                 top.location.href = url;
             }
         },
-        /**下载文件,含文件名的参数拼装在url里:winFn.downloadFile(url);用法:winFn.downloadFile(url);layerFn.alert(AppKey.code.code200,'已进入后台处理,请耐心等待,处理完成将会自动下载!');*/
+        /**下载文件,含文件名的参数拼装在url里:用法:winFn.downloadFile(url);layerFn.alert('已进入后台处理,请耐心等待,处理完成将会自动下载!',AppKey.code.code200);*/
         downloadFile : function(url){
+            url = url + tokenParams;
             $("<form method='post' action='" + urlPrefix + url + "'></form>").appendTo("body").submit().remove();
         },
         /**把字符串解析为json格式:winFn.parseJson(str);*/
@@ -900,7 +901,7 @@ var refreshFlag = true;
         },
         /*winFn.getPageHashToken('/info.html?id=1024');*/
         getPageHashToken : function(url){
-            url = url + tokenParams;
+            url = urlPrefix + url + tokenParams;
             window.open(url,'_blank').location;/*打开新页面*/
         },
         getPageNormal : function(url){
