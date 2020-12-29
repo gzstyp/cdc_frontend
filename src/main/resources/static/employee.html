@@ -148,6 +148,16 @@
                                     </span>
                                 </div>
                             </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='employee_btn_export' style="display:none">
+                                            <span class="fa fa-download"></span>
+                                            导出
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -346,6 +356,7 @@
     <input type="hidden" id="employee_btn_listData"/>
     <input type="hidden" id="employee_btn_add"/>
     <input type="hidden" id="employee_btn_delByKeys"/>
+    <input type="hidden" id="employee_btn_export"/>
     <input type="hidden" id="employee_row_edit"/>
     <input type="hidden" id="employee_row_queryById"/>
     <input type="hidden" id="employee_row_delById"/>
@@ -365,6 +376,7 @@
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
             var urlGetDicts = urlRoute + 'getDicts';
             var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
+            var urlExportExcel = urlRoute + 'exportExcel';/*导出Excel*/
             var thisTable = pageDataTable.initDataTable({
                 tableDom : tableDom,
                 sAjaxSource: getList,
@@ -578,6 +590,14 @@
                     $('#btnDel').on('click',function(){
                         thisPage.delKeys();
                     });
+                    //导出
+                    $('#btnExport').on('click',function(){
+                        if(verifyFn.inputRequired('#employee_btn_export')){
+                            layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        thisPage.exportExcel();
+                    });
                 },
                 /*批量删除*/
                 delKeys : function(){
@@ -608,6 +628,22 @@
                 },
                 trDblclick : function(data){
                     thisPage.edit(data.kid);
+                },
+                exportExcel : function(){
+                    var url = urlExportExcel+'?&sample_code='+$("#key_sample_code").val()+
+                    '&work_site='+$("#key_work_site").val()+
+                    '&province_id='+$("#key_province_id").val()+
+                    '&city_id='+$("#key_city_id").val()+
+                    '&county_id='+$("#key_county_id").val()+
+                    '&sampling_date_start='+$("#sampling_date_start").val()+
+                    '&sampling_date_end='+$("#sampling_date_end").val()+
+                    '&detection_date_start='+$("#detection_date_start").val()+
+                    '&detection_date_end='+$("#detection_date_end").val()+
+                    '&result='+$("#key_result").val()+
+                    '&work_type='+$("#key_work_type").val()+
+                    '&real_name='+$("#key_real_name").val()+'&profession='+$("#key_profession").val()
+                    layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
+                    winFn.getPageHashToken(url);
                 },
                 search : function(){
                     if(verifyFn.inputRequired('#employee_btn_listData')){
