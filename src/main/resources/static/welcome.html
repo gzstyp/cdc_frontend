@@ -1,7 +1,4 @@
 <meta charset="utf-8"/>
-<script type="text/javascript">
-    //$('.breadcrumbs .breadcrumb').text('欢迎使用');
-</script>
 <style type="text/css">
     .welcome-container{
         height:calc(100vh - 176px);
@@ -57,15 +54,15 @@
                     <div class="container-row">
                         <div class="container-card" style="display:flex;justify-content:space-between">
                             <div style="width:50%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:16px;">
-                                <div style="padding:10px;color:#2F4554;width:100%;padding-left:30%;">总采样数:390</div>
-                                <div style="padding:10px;color:#61A0A8;width:100%;padding-left:30%;">未检测数:0</div>
-                                <div style="padding:10px;color:#C23531;width:100%;padding-left:30%;">阳性数:0</div>
-                                <div style="padding:10px;color:#D48265;width:100%;padding-left:30%;">检测比例:100%</div>
+                                <div style="padding:10px;color:#2F4554;width:100%;padding-left:30%;" id="crowd_total_total">总采样数:0</div>
+                                <div style="padding:10px;color:#61A0A8;width:100%;padding-left:30%;" id="crowd_total_notest">未检测数:0</div>
+                                <div style="padding:10px;color:#C23531;width:100%;padding-left:30%;" id="crowd_total_positive">阳性数:0</div>
+                                <div style="padding:10px;color:#D48265;width:100%;padding-left:30%;" id="crowd_total_pc">检测比例:0%</div>
                             </div>
                             <div id="crowd_total" style="width:50%;height:100%;"></div>
                         </div>
                         <div class="container-card">
-                            <div id="totleLine" style="width:100%;height:100%;"></div>
+                            <div id="crowdType" style="width:100%;height:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -74,82 +71,36 @@
     </div>
 </div>
 <script>
-    var crowd_total = echarts.init(document.getElementById('crowd_total'));
-    crowd_total.setOption({
-        title: {
-            text: '核酸日报'
-        },
-        series : [
-            {
-                type: 'pie',    // 设置图表类型为饼图
-                radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
-                data:[          // 数据数组，name 为数据项名称，value 为数据项值
-                    {value:50, name:'阳性数'},
-                    {value:397, name:'总采样数'},
-                    {value:30, name:'未检测数'},
-                    {value:100, name:'检测比例'},
-                ]
-            }
-        ]
-    });
-
-    var totleLine=echarts.init(document.getElementById("totleLine"));
-    Lineoption = {
-        title: {
-            text: '分类采样'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['12-24', '12-25', '12-26', '12-27', '12-28', '12-29', '12-30']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [
-            {
-                name: '外环境',
-                type: 'line',
-                stack: '总量',
-                data: [120, 132, 101, 134, 90, 230, 210]
-            },
-            {
-                name: '从业人员',
-                type: 'line',
-                stack: '总量',
-                data: [220, 182, 191, 234, 290, 330, 310]
-            },
-            {
-                name: '核酸日报',
-                type: 'line',
-                stack: '总量',
-                data: [150, 232, 201, 154, 190, 330, 410]
-            }
-        ]
-    };
-    totleLine.setOption(Lineoption);
     $(function(){
         var urlRoute = '/welcome/';/*请求controller层的url*/
         var urlGetData = urlRoute + 'getData';/*查看报表*/
         thisPage = {
             init : function(){
                 this.getData();
+                this.initDom();
             },
             initDom : function(){
+                var data = {
+                    positive : 0,
+                    total : 0,
+                    notest : 0,
+                    negative : 0,
+                    pc : 0
+                }
+                this.environment(data);
+                this.employee(data);
+                var _crowd = {
+                    positive : 205,
+                    total : 205,
+                    notest : 0,
+                    pc : 0
+                }
+                this.crowdTotal(_crowd);
+                var dates = ['12-24','12-25','12-26','12-27','12-28','12-29','12-30'];
+                var environments = [120, 132, 101, 134, 90, 230, 210];
+                var employees = [220, 182, 191, 234, 290, 330, 310];
+                var dailys = [150, 232, 201, 154, 190, 330, 410];
+                this.crowdType(dates,environments,employees,dailys);
             },
             getData : function(){
                 var _this = this;
@@ -177,7 +128,7 @@
                                 {value:data.total, name:'总采样数'},
                                 {value:data.notest, name:'未检测数'},
                                 {value:data.negative, name:'阴性数'},
-                                {value:data.pc, name:'检测比例'},
+                                {value:data.pc, name:'检测比例'}
                             ]
                         }
                     ]
@@ -196,14 +147,14 @@
                     },
                     series : [
                         {
-                            type: 'pie',    // 设置图表类型为饼图
-                            radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
-                            data:[          // 数据数组，name 为数据项名称，value 为数据项值
+                            type: 'pie',
+                            radius: '55%',
+                            data:[
                                 {value:data.positive, name:'阳性数'},
                                 {value:data.total, name:'总采样数'},
                                 {value:data.notest, name:'未检测数'},
                                 {value:data.negative, name:'阴性数'},
-                                {value:data.pc, name:'检测比例'},
+                                {value:data.pc, name:'检测比例'}
                             ]
                         }
                     ]
@@ -213,6 +164,81 @@
                 $('#employee_negative').text('阴性数:'+data.negative);
                 $('#employee_positive').text('阳性数:'+data.positive);
                 $('#employee_pc').text('检测比例:'+data.pc);
+            },
+            crowdTotal : function(data){
+                var crowd_total = echarts.init(document.getElementById('crowd_total'));
+                crowd_total.setOption({
+                    title: {
+                        text: '核酸日报'
+                    },
+                    series : [
+                        {
+                            type: 'pie',
+                            radius: '55%',
+                            data:[
+                                {value:data.positive, name:'阳性数'},
+                                {value:data.total, name:'总采样数'},
+                                {value:data.notest, name:'未检测数'},
+                                {value:data.pc, name:'检测比例'}
+                            ]
+                        }
+                    ]
+                });
+                $('#crowd_total_total').text('总采样数:'+data.total);
+                $('#crowd_total_notest').text('未检测数:'+data.notest);
+                $('#crowd_total_positive').text('阳性数:'+data.positive);
+                $('#crowd_total_pc').text('检测比例:'+data.pc);
+            },
+            crowdType : function(dates,environments,employees,dailys){
+                var crowdType = echarts.init(document.getElementById("crowdType"));
+                crowdOption = {
+                    title: {
+                        text: '分类采样'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: dates
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [
+                        {
+                            name: '外环境',
+                            type: 'line',
+                            stack: '总量',
+                            data: environments
+                        },
+                        {
+                            name: '从业人员',
+                            type: 'line',
+                            stack: '总量',
+                            data: employees
+                        },
+                        {
+                            name: '核酸日报',
+                            type: 'line',
+                            stack: '总量',
+                            data: dailys
+                        }
+                    ]
+                };
+                crowdType.setOption(crowdOption);
             }
         };
         thisPage.init();
