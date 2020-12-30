@@ -33,19 +33,39 @@
             <div class="col-xs-12">
                 <div class="welcome-container">
                     <div class="container-row">
-                        <div class="container-card">
-                            外环境统计
+                        <div class="container-card" style="display:flex;justify-content:space-between">
+                            <div style="width:50%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:16px;">
+                                <div style="padding:10px;color:#2F4554;width:100%;padding-left:30%;" id="environment_total">总采样数:397</div>
+                                <div style="padding:10px;color:#61A0A8;width:100%;padding-left:30%;" id="environment_notest">未检测数:0</div>
+                                <div style="padding:10px;color:#D48265;width:100%;padding-left:30%;" id="environment_negative">阴性数:391</div>
+                                <div style="padding:10px;color:#C23531;width:100%;padding-left:30%;" id="environment_positive">阳性数:0</div>
+                                <div style="padding:10px;color:#91C7AE;width:100%;padding-left:30%;" id="environment_pc">检测比例:100%</div>
+                            </div>
+                            <div id="environment" style="width:50%;height:100%;"></div>
                         </div>
-                        <div class="container-card">
-                            从业人员统计
+                        <div class="container-card" style="display:flex;justify-content:space-between">
+                            <div style="width:50%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:16px;">
+                                <div style="padding:10px;color:#2F4554;width:100%;padding-left:30%;">总采样数:397</div>
+                                <div style="padding:10px;color:#61A0A8;width:100%;padding-left:30%;">未检测数:0</div>
+                                <div style="padding:10px;color:#D48265;width:100%;padding-left:30%;">阴性数:391</div>
+                                <div style="padding:10px;color:#C23531;width:100%;padding-left:30%;">阳性数:0</div>
+                                <div style="padding:10px;color:#91C7AE;width:100%;padding-left:30%;">检测比例:100%</div>
+                            </div>
+                            <div id="employee" style="width:50%;height:100%;"></div>
                         </div>
                     </div>
                     <div class="container-row">
-                        <div class="container-card">
-                            日报统计
+                        <div class="container-card" style="display:flex;justify-content:space-between">
+                            <div style="width:50%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;font-size:16px;">
+                                <div style="padding:10px;color:#2F4554;width:100%;padding-left:30%;">总采样数:397</div>
+                                <div style="padding:10px;color:#61A0A8;width:100%;padding-left:30%;">未检测数:0</div>
+                                <div style="padding:10px;color:#C23531;width:100%;padding-left:30%;">阳性数:0</div>
+                                <div style="padding:10px;color:#D48265;width:100%;padding-left:30%;">检测比例:100%</div>
+                            </div>
+                            <div id="crowd_total" style="width:50%;height:100%;"></div>
                         </div>
                         <div class="container-card">
-                            统计今天的所有的采样数
+                            <div id="totleLine" style="width:100%;height:100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -53,3 +73,139 @@
         </div>
     </div>
 </div>
+<script>
+    var employee = echarts.init(document.getElementById('employee'));
+    employee.setOption({
+        title: {
+            text: '环境从业人员'
+        },
+        series : [
+            {
+                type: 'pie',    // 设置图表类型为饼图
+                radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                data:[          // 数据数组，name 为数据项名称，value 为数据项值
+                    {value:50, name:'阳性数'},
+                    {value:397, name:'总采样数'},
+                    {value:30, name:'未检测数'},
+                    {value:397, name:'阴性数'},
+                    {value:100, name:'检测比例'},
+                ]
+            }
+        ]
+    });
+    var crowd_total = echarts.init(document.getElementById('crowd_total'));
+    crowd_total.setOption({
+        title: {
+            text: '核酸日报'
+        },
+        series : [
+            {
+                type: 'pie',    // 设置图表类型为饼图
+                radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                data:[          // 数据数组，name 为数据项名称，value 为数据项值
+                    {value:50, name:'阳性数'},
+                    {value:397, name:'总采样数'},
+                    {value:30, name:'未检测数'},
+                    {value:100, name:'检测比例'},
+                ]
+            }
+        ]
+    });
+
+    var totleLine=echarts.init(document.getElementById("totleLine"));
+    Lineoption = {
+        title: {
+            text: '分类采样'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['12-24', '12-25', '12-26', '12-27', '12-28', '12-29', '12-30']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: '外环境',
+                type: 'line',
+                stack: '总量',
+                data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name: '从业人员',
+                type: 'line',
+                stack: '总量',
+                data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name: '核酸日报',
+                type: 'line',
+                stack: '总量',
+                data: [150, 232, 201, 154, 190, 330, 410]
+            }
+        ]
+    };
+    totleLine.setOption(Lineoption);
+    $(function(){
+        var urlRoute = '/welcome/';/*请求controller层的url*/
+        var urlGetData = urlRoute + 'getData';/*查看报表*/
+        thisPage = {
+            init : function(){
+                this.getData();
+            },
+            initDom : function(){
+            },
+            getData : function(){
+                var _this = this;
+                layerFn.queryGetHintResult(urlGetData,{},(data) =>{
+                    if(data.code === AppKey.code.code200){
+                        var environment = data.data.environment;
+                        _this.environment(environment);
+                    }
+                });
+            },
+            environment : function(data){
+                var environment = echarts.init(document.getElementById('environment'));
+                environment.setOption({
+                    title: {
+                        text: '环境采样'
+                    },
+                    series : [
+                        {
+                            type: 'pie',    // 设置图表类型为饼图
+                            radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                            data:[          // 数据数组，name 为数据项名称，value 为数据项值
+                                {value:data.positive, name:'阳性数'},
+                                {value:data.total, name:'总采样数'},
+                                {value:data.notest, name:'未检测数'},
+                                {value:data.negative, name:'阴性数'},
+                                {value:data.pc, name:'检测比例'},
+                            ]
+                        }
+                    ]
+                });
+                $('#environment_total').text('总采样数:'+data.total);
+                $('#environment_notest').text('未检测数:'+data.notest);
+                $('#environment_negative').text('阴性数:'+data.negative);
+                $('#environment_positive').text('阳性数:'+data.positive);
+                $('#environment_pc').text('检测比例:'+data.pc);
+            },
+        };
+        thisPage.init();
+    });
+</script>
