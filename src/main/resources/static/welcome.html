@@ -90,9 +90,9 @@
                 this.environment(data);
                 this.employee(data);
                 var _crowd = {
-                    positive : 205,
-                    total : 205,
-                    notest : 0,
+                    sampling_total : 0,
+                    detection_total : 0,
+                    positive : 0,
                     pc : 0
                 }
                 this.crowdTotal(_crowd);
@@ -108,8 +108,10 @@
                     if(data.code === AppKey.code.code200){
                         var environment = data.data.environment;
                         var employee = data.data.employee;
+                        var crowdTotal = data.data.crowdTotal;
                         _this.environment(environment);
                         _this.employee(employee);
+                        _this.crowdTotal(crowdTotal);
                     }
                 });
             },
@@ -177,15 +179,15 @@
                             radius: '55%',
                             data:[
                                 {value:data.positive, name:'阳性数'},
-                                {value:data.total, name:'总采样数'},
-                                {value:data.notest, name:'未检测数'},
+                                {value:data.sampling_total, name:'总采样数'},
+                                {value:data.detection_total, name:'已检测数'},
                                 {value:data.pc, name:'检测比例'}
                             ]
                         }
                     ]
                 });
-                $('#crowd_total_total').text('总采样数:'+data.total);
-                $('#crowd_total_notest').text('未检测数:'+data.notest);
+                $('#crowd_total_total').text('总采样数:'+data.sampling_total);
+                $('#crowd_total_notest').text('已检测数:'+data.detection_total);
                 $('#crowd_total_positive').text('阳性数:'+data.positive);
                 $('#crowd_total_pc').text('检测比例:'+data.pc);
             },
