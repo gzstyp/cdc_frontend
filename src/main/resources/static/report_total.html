@@ -29,7 +29,7 @@
                             <td style="padding-left:6px;">
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='reportTotal_btn_getView' style="display:none">
                                             <span class="fa fa-eye bigger-110"></span>
                                             查看
                                         </button>
@@ -39,7 +39,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='reportTotal_btn_export' style="display:none">
                                             <span class="fa fa-download"></span>
                                             导出
                                         </button>
@@ -64,12 +64,14 @@
         var urlRoute = '/reportTotal/';/*请求controller层的url*/
         var urlGetView = urlRoute + 'getView';/*查看报表*/
         var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
+        var urlQueryPermissions = urlRoute + 'queryPermissions';
         var urlExportExcel = urlRoute + 'exportExcel';/*导出Excel*/
         thisPage = {
             init : function(){
                 this.addEvent();
                 winFn.initDate();
                 this.initDom();
+                this.permissions();
                 thisPage.viewReport(1);
             },
             initDom : function(){
@@ -80,6 +82,16 @@
             },
             addEvent : function(){
                 this.btnEvent();
+            },
+            permissions : function(){
+                layerFn.ajaxGetResult(urlQueryPermissions,{},(result)=>{
+                    var {code,data} = result;
+                    if(code === AppKey.code.code200){
+                        for(var i=0;i<data.length;i++){
+                            $("[permission='"+data[i]+"']").css({"display":"inline"});
+                        }
+                    }
+                });
             },
             getSelectLabel : function(){
                 this.showLabel(winFn.select.getText('#key_province_id'),winFn.select.getText('#key_city_id'),winFn.select.getText('#key_county_id'),winFn.getDomValue('#crowd_date'));
