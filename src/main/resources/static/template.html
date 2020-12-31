@@ -207,3 +207,13 @@ if(map != null){
 }else{
     winFn.addDropdown('#dropdownLabelresult','选择检测结果');
 }
+
+-- 显示权限按钮
+layerFn.ajaxGetResult(urlQueryPermissions,{},(result)=>{
+	var {code,data} = result;
+	if(code === AppKey.code.code200){
+		for(var i=0;i<data.length;i++){
+			$("[permission='"+data[i]+"']").css({"display":"inline"});
+		}
+	}
+});
