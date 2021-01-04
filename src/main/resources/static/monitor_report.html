@@ -1,0 +1,263 @@
+<meta charset="utf-8"/>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="clearfix">
+                    <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 4px;border-bottom:1px solid #eee;">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='monitorReport_export_word' style="display:none">
+                                    <span class="fa fa-download"></span>
+                                    导出
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" style="display:flex;justify-content:center;padding-top:4px;">
+                        <table id="containerTabel" style="border-spacing:0px 10px;font-size:14px;"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var urlRoute = '/monitorReport/';/*请求controller层的url*/
+        var urlQueryPermissions = urlRoute + 'queryPermissions';
+        var urlExportExcel = urlRoute + 'queryExportWord';/*导出Excel*/
+        var urlQueryExportData = urlRoute + 'queryDataView';
+        thisPage = {
+            init : function(){
+                this.addEvent();
+                this.permissions();
+                thisPage.viewReport();
+            },
+            addEvent : function(){
+                this.btnEvent();
+            },
+            permissions : function(){
+                layerFn.ajaxGetResult(urlQueryPermissions,{},(result)=>{
+                    var {code,data} = result;
+                    if(code === AppKey.code.code200){
+                        for(var i=0;i<data.length;i++){
+                            $("[permission='"+data[i]+"']").css({"display":"inline"});
+                        }
+                    }
+                });
+            },
+            btnEvent : function(){
+                $('#btnExport').on('click',function(){
+                    thisPage.exportExcel();
+                });
+            },
+            viewReport : function(){
+                var _this = this;
+                layerFn.queryGetHintResult(urlQueryExportData,{},(data)=>{
+                    if(data.code === AppKey.code.code200){
+                        _this.renderTable(data.data);
+                    }else if(data.code === AppKey.code.code201){
+                        _this.otherData('没有数据');
+                    }else{
+                        _this.otherData(data.msg);
+                    }
+                });
+            },
+            exportExcel : function(){
+                var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val();
+                layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
+                winFn.getPageHashToken(url);
+            },
+            otherData : function(msg){
+                var html = '';
+                html += '<tr>';
+                html += '<td style="padding:10px 20px;border:1px solid #ddd;">'+msg+'</td>';
+                html += '</tr>';
+                $('#containerTabel').html(html);
+            },
+            renderTable : function(data){
+                var _col = [];
+                var columns = [];//获取分组(分类)的个数
+                for(var i=0;i < data.length;i++){
+                    var obj = data[i];
+                    for(var key in obj){
+                        if(key == 'crowdName'){
+                            var _val = obj[key];
+                            if(_col.indexOf(_val) === -1){
+                                _col.push(_val);
+                                var as = {};
+                                as[key]=_val;
+                                columns.push(as);
+                            }
+                        }
+                    }
+                }
+
+                var containerTabel = 'containerTabel';
+                var html = '';
+
+                var tr = '<tr>';
+                var _tr = '</tr>';
+
+                //第1行,列数,分类[分组]-开始
+                html += tr;
+                for(var index in columns){
+                    html += '<td align="center" valign="middle" style="border:1px solid #ddd;font-size:16px;padding:10px 0;">'+columns[index].crowdName+'</td>';
+                }
+                html += _tr;
+                //第1行,列数,分类[分组]-结束
+
+                //第2行,类型-开始
+                html += tr;
+                for(var index in columns){
+                    var trIndex = 'dataTr'+index;
+                    html += '<td align="center" id="'+trIndex+'" valign="top" style="border:1px solid #ddd;"></td>';
+                }
+                html += _tr;
+                //第2行,类型-结束
+
+                var totalAllsampling = 0;
+                var totalAlldetection = 0;
+                var totalAllmasculine = 0;
+                for(var v=0;v < data.length;v++){
+                    totalAllsampling += Number.parseInt(data[v].sampling);
+                    totalAlldetection += Number.parseInt(data[v].detection);
+                    totalAllmasculine += Number.parseInt(data[v].masculine);
+                }
+                //第3行,总计-开始
+                html += tr;
+                html += '<td colspan="'+columns.length+'" align="center" valign="middle" style="border:1px solid #ddd;">';
+
+                html += '<table style="margin:2px 0;border-right:1px solid #ddd;background:#92D050">';
+                html += '<tr>';
+                html += '<td align="center" valign="middle" style="width:510px;border-right:1px solid #ddd;">核酸总计</td>';
+                html += '<td style="width:510px">';
+                html += '<table style="" width="100%">';
+                html += '<tr>';
+                html += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
+                html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllsampling+'</td>';
+                html += '</tr>';
+                html += '<tr>';
+                html += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
+                html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAlldetection+'</td>';
+                html += '</tr>';
+                html += '<tr>';
+                html += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
+                html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllmasculine+'</td>';
+                html += '</tr>';
+                html += '</table>';
+                html += '</td>';
+                html += '</tr>';
+                html += '</table>';
+
+                html += '</td>';
+                html += _tr;
+                //第3行,总计-结束
+
+                $('#' + containerTabel).html(html);//关键点!!!,先初始化先!!!
+
+                var totalData = [];
+                for(var index in columns){
+                    var trIndex = 'tr'+index;
+                    trIndex = [];
+                    var value = columns[index].crowdName;
+                    for(var x=0;x < data.length;x++){
+                        var obj = data[x];
+                        for(var key in obj){
+                            if(key == 'crowdName'){
+                                var _v = obj[key];
+                                if(value == _v){
+                                    trIndex.push(obj);
+                                }
+                            }
+                        }
+                    }
+                    totalData.push(trIndex);
+                }
+                //类型统计显示-开始
+                for(var index in columns){
+                    var trIndex = 'dataTr'+index;
+                    var htmlIndex = 'html'+index;
+                    htmlIndex = '';
+                    var _arrs = totalData[index];
+                    for(var y = 0; y < _arrs.length; y++){
+                        htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0">';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+_arrs[y].crowdType+'</td>';
+                        htmlIndex += '<td style="width:210px">';
+                        htmlIndex += '<table style="" width="100%">';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
+                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].sampling+'</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
+                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].detection+'</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '<tr>';
+                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
+                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].masculine+'</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '</table>';
+                        htmlIndex += '</td>';
+                        htmlIndex += '</tr>';
+                        htmlIndex += '</table>';
+                    }
+                    $('#' + trIndex).append(htmlIndex);
+                }
+                //类型统计显示-结束
+
+                //各类型合计,附加第2行,类型的到末尾-开始
+                for(var index in columns){
+                    var trIndex = 'dataTr'+index;
+                    var htmlIndex = 'html'+index;
+                    htmlIndex = '';
+                    var _arrs = totalData[index];
+
+                    var totalsampling = 'totalsampling'+index;
+                    var totaldetection = 'totaldetection'+index;
+                    var totalmasculine = 'totalmasculine'+index;
+
+                    totalsampling = 0;
+                    totaldetection = 0;
+                    totalmasculine = 0;
+
+                    for(var y = 0; y < _arrs.length; y++){
+                        totalsampling += Number.parseInt(_arrs[y].sampling);
+                        totaldetection += Number.parseInt(_arrs[y].detection);
+                        totalmasculine += Number.parseInt(_arrs[y].masculine);
+                    }
+
+                    var value = columns[index].crowdName;
+
+                    htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0;background:#92D050;">';
+                    htmlIndex += '<tr>';
+                    htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+value+'合计</td>';
+                    htmlIndex += '<td style="width:210px">';
+                    htmlIndex += '<table style="" width="100%">';
+                    htmlIndex += '<tr>';
+                    htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
+                    htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalsampling+'</td>';
+                    htmlIndex += '</tr>';
+                    htmlIndex += '<tr>';
+                    htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
+                    htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totaldetection+'</td>';
+                    htmlIndex += '</tr>';
+                    htmlIndex += '<tr>';
+                    htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
+                    htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalmasculine+'</td>';
+                    htmlIndex += '</tr>';
+                    htmlIndex += '</table>';
+                    htmlIndex += '</td>';
+                    htmlIndex += '</tr>';
+                    htmlIndex += '</table>';
+
+                    $('#' + trIndex).append(htmlIndex);
+                }
+                //各类型合计,附加第2行,类型的到末尾-结束
+            }
+        };
+        thisPage.init();
+    });
+</script>
