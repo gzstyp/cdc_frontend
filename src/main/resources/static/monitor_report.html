@@ -4,15 +4,48 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="clearfix">
-                    <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 4px;border-bottom:1px solid #eee;">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='monitorReport_export_word' style="display:none">
-                                    <span class="fa fa-download"></span>
-                                    导出
-                                </button>
-                            </span>
-                        </div>
+                    <table class="no-border" style="display:inline">
+                        <tr>
+                            <td class="hidden-480" style="padding: 0px 6px;">
+                                采样时间
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:90px;display:none;" permission='monitorReport_export_page' data-date-format="yyyy-mm-dd"/>
+                                </div>
+                            </td>
+                            <td style="padding-left:4px;">
+                                至
+                            </td>
+                            <td style="padding-left:4px;">
+                                <div class="input-group">
+                                    <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:90px;display:none;" permission='monitorReport_export_page' data-date-format="yyyy-mm-dd"/>
+                                </div>
+                            </td>
+                            <td style="padding-left:2px;">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='monitorReport_export_page' style="display:none;">
+                                            <span class="fa fa-eye bigger-110"></span>
+                                            查看
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='monitorReport_export_word' style="display:none">
+                                            <span class="fa fa-download"></span>
+                                            导出
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="col-xs-12" style="display:flex;justify-content:center;padding:8px 0px;align-items:center;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:2px;">
+                        <div style="font-size:16px;" id="labelShow">监测报告</div>
                     </div>
                     <div class="col-xs-12" style="display:flex;justify-content:center;padding-top:4px;">
                         <table id="containerTabel" style="border-spacing:0px 10px;font-size:14px;"></table>
@@ -30,6 +63,7 @@
         var urlQueryExportData = urlRoute + 'queryDataView';
         thisPage = {
             init : function(){
+                winFn.initDate();
                 this.addEvent();
                 this.permissions();
                 thisPage.viewReport();
@@ -47,14 +81,36 @@
                     }
                 });
             },
+            getSelectLabel : function(){
+                this.showLabel(winFn.getDomValue('#sampling_date_start'),winFn.getDomValue('#sampling_date_end'));
+            },
+            showLabel : function(sampling_date_start,sampling_date_end){
+                var label = '';
+                if(sampling_date_start){
+                    label += sampling_date_start;
+                }
+                if(sampling_date_end){
+                    label = label +"至"+sampling_date_end;
+                }
+                label += '监测报告';
+                $('#labelShow').text(label);
+            },
             btnEvent : function(){
+                $('#btnSearch').on('click',function(){
+                    thisPage.viewReport();
+                });
                 $('#btnExport').on('click',function(){
                     thisPage.exportExcel();
                 });
             },
             viewReport : function(){
                 var _this = this;
-                layerFn.queryGetHintResult(urlQueryExportData,{},(data)=>{
+                var params = {
+                    sampling_date_start : winFn.getDomValue('#sampling_date_start'),
+                    sampling_date_end : winFn.getDomValue('#sampling_date_end')
+                };
+                layerFn.queryGetHintResult(urlQueryExportData,params,(data)=>{
+                    _this.getSelectLabel();
                     if(data.code === AppKey.code.code200){
                         _this.renderTable(data.data);
                     }else if(data.code === AppKey.code.code201){
@@ -65,7 +121,8 @@
                 });
             },
             exportExcel : function(){
-                var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val();
+                var url = urlExportExcel+'?&sampling_date_start='+$("#sampling_date_start").val()+
+                '&sampling_date_end='+$("#sampling_date_end").val();
                 layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                 winFn.getPageHashToken(url);
             },

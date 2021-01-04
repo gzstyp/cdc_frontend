@@ -68,8 +68,8 @@
         var urlExportExcel = urlRoute + 'exportExcel';/*导出Excel*/
         thisPage = {
             init : function(){
-                this.addEvent();
                 winFn.initDate();
+                this.addEvent();
                 this.initDom();
                 this.permissions();
                 thisPage.viewReport(1);
