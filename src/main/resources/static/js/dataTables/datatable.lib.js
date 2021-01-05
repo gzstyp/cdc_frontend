@@ -23,7 +23,7 @@
                     },
                     {
                         "extend" : "csv",
-                        "text" : "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>导出CSV文件</span>",
+                        "text" : "<i class='fa fa-database bigger-110 orange'></i> <span class='hidden'>当前页导出CSV文件</span>",
                         "className": "btn btn-white btn-primary"
                     },
                     {
