@@ -18,7 +18,7 @@
             new $.fn.dataTable.Buttons(dataTable,{
                 buttons: [
                     {
-                        "text" : "<i class='ace-icon fa fa-filter bigger-110 blue' id='iconColumn'></i> <span class='hidden'>自定义显示列</span>",
+                        "text" : "<i class='ace-icon fa fa-filter bigger-110 blue' id='iconColumn'></i> <span class='hidden'>自定义显示|隐藏列</span>",
                         "className" : "btn btn-white btn-primary",
                     },
                     {
