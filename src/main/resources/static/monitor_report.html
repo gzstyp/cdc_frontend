@@ -427,9 +427,9 @@
                         data = data.data;
                         _this.tableEmployee(data.listEmployee);
                     }else if(data.code === AppKey.code.code201){
-                        _this.otherData('没有数据');
+                        _this.tableDataTips('tableEmployee','没有数据');
                     }else{
-                        _this.otherData(data.msg);
+                        _this.tableDataTips('tableEmployee',data.msg);
                     }
                 });
             },
@@ -440,12 +440,11 @@
                 layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                 winFn.getPageHashToken(url);
             },
-            otherData : function(msg){
-                var html = '';
-                html += '<tr>';
-                html += '<td style="padding:10px 20px;border:1px solid #ddd;">'+msg+'</td>';
+            tableDataTips : function(tableDom,msg){
+                var html = '<tr>';
+                html += '<td style="padding:4px 0px" align="center" valign="middle">'+msg+'</td>';
                 html += '</tr>';
-                $('#containerTabel').html(html);
+                $('#'+tableDom).html(html);
             },
             tableEmployee : function(data){
                 var max = this.getMaxValue(data,"profession_total");
