@@ -667,6 +667,19 @@ var refreshFlag = true;
             clock += day;
             return clock;
         },
+        /**获取当前YYYY年MM月DD日格式:winFn.getTodayDate();*/
+        getTodayDate : function(){
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
+            var clock = year + "年";
+            if(month < 10) clock += "0";
+            clock += month + "月";
+            if(day < 10) clock += "0";
+            clock += day+"日";
+            return clock;
+        },
         /**获取当前YYYY-MM-DD HH:MM时间;winFn.getCurrentTime();*/
         getCurrentTime : function(){
             var now = new Date();
