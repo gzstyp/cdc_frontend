@@ -14,7 +14,6 @@
         <div class="row">
             <div class="col-xs-12" style="display:flex;justify-content:center;">
                 <div style="display:flex;flex-direction:column;width:786px;padding:10px 40px;border:1px solid #d0d0d0;margin-top:4px;">
-
                     <div style="width:100%;display:flex;font-size:14px;justify-content:start;">中高风险地区<a href="javascript:thisPage.selecHightArea();" style="color:#1E9FFF" title="请选择中高风险地区">选择</a></div>
                     <div style="width:100%;display:flex;justify-content:start;" id="select_ul_area"></div>
                     <div style="width:100%;display:flex;justify-content:center;margin-top:10px;">
@@ -268,26 +267,26 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><div align="center">黔西南州</div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
+                                    <td><div align="center">贵阳市</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
                                 </tr>
                                 <tr>
                                     <td><div align="center">合计</div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
-                                    <td><div align="center"></div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
+                                    <td><div align="center">0</div></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -451,7 +450,7 @@
             tableEmployee : function(data){
                 var max = this.getMaxValue(data,"profession_total");
                 var items = this.getItems(data,"profession",max);
-                var htmlHeader = this.fillRowData('thead','地区',items.split(','),"合计",max);
+                var htmlHeader = this.fillRowData('thead','地区',items.split(','),"合计",max);//表头
                 $('#tableEmployee').html(htmlHeader);
                 var htmlIndex = '';
                 for(var i=0;i<data.length;i++){
@@ -461,9 +460,9 @@
                     for(var j = 0; j < values.length; j++){
                         total += Number.parseInt(values[j]);
                     }
-                    htmlIndex += this.fillRowData('tbody',rows.name,values,total,max);
+                    htmlIndex += this.fillRowData('tbody',rows.name,values,total,max);//数据行
                 }
-                htmlIndex += this.fillRowData('tbody','合计',null,null,max);
+                htmlIndex += this.fillRowData('tbody','合计',null,null,max);//最后一行合计
                 $('#tableEmployee').append(htmlIndex);
             },
             /**js统计列中计算最大的列作为表头列数 别名的key字段*/
@@ -514,187 +513,6 @@
                     html += '</tr>';
                 html += '</'+node+'>';
                 return html;
-            },
-            renderTable : function(data){
-                var _col = [];
-                var columns = [];//获取分组(分类)的个数
-                for(var i=0;i < data.length;i++){
-                    var obj = data[i];
-                    for(var key in obj){
-                        if(key == 'crowdName'){
-                            var _val = obj[key];
-                            if(_col.indexOf(_val) === -1){
-                                _col.push(_val);
-                                var as = {};
-                                as[key]=_val;
-                                columns.push(as);
-                            }
-                        }
-                    }
-                }
-
-                var containerTabel = 'containerTabel';
-                var html = '';
-
-                var tr = '<tr>';
-                var _tr = '</tr>';
-
-                //第1行,列数,分类[分组]-开始
-                html += tr;
-                for(var index in columns){
-                    html += '<td align="center" valign="middle" style="border:1px solid #ddd;font-size:16px;padding:10px 0;">'+columns[index].crowdName+'</td>';
-                }
-                html += _tr;
-                //第1行,列数,分类[分组]-结束
-
-                //第2行,类型-开始
-                html += tr;
-                for(var index in columns){
-                    var trIndex = 'dataTr'+index;
-                    html += '<td align="center" id="'+trIndex+'" valign="top" style="border:1px solid #ddd;"></td>';
-                }
-                html += _tr;
-                //第2行,类型-结束
-
-                var totalAllsampling = 0;
-                var totalAlldetection = 0;
-                var totalAllmasculine = 0;
-                for(var v=0;v < data.length;v++){
-                    totalAllsampling += Number.parseInt(data[v].sampling);
-                    totalAlldetection += Number.parseInt(data[v].detection);
-                    totalAllmasculine += Number.parseInt(data[v].masculine);
-                }
-                //第3行,总计-开始
-                html += tr;
-                html += '<td colspan="'+columns.length+'" align="center" valign="middle" style="border:1px solid #ddd;">';
-
-                html += '<table style="margin:2px 0;border-right:1px solid #ddd;background:#92D050">';
-                html += '<tr>';
-                html += '<td align="center" valign="middle" style="width:510px;border-right:1px solid #ddd;">核酸总计</td>';
-                html += '<td style="width:510px">';
-                html += '<table style="" width="100%">';
-                html += '<tr>';
-                html += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
-                html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllsampling+'</td>';
-                html += '</tr>';
-                html += '<tr>';
-                html += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
-                html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAlldetection+'</td>';
-                html += '</tr>';
-                html += '<tr>';
-                html += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
-                html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllmasculine+'</td>';
-                html += '</tr>';
-                html += '</table>';
-                html += '</td>';
-                html += '</tr>';
-                html += '</table>';
-
-                html += '</td>';
-                html += _tr;
-                //第3行,总计-结束
-
-                $('#' + containerTabel).html(html);//关键点!!!,先初始化先!!!
-
-                var totalData = [];
-                for(var index in columns){
-                    var trIndex = 'tr'+index;
-                    trIndex = [];
-                    var value = columns[index].crowdName;
-                    for(var x=0;x < data.length;x++){
-                        var obj = data[x];
-                        for(var key in obj){
-                            if(key == 'crowdName'){
-                                var _v = obj[key];
-                                if(value == _v){
-                                    trIndex.push(obj);
-                                }
-                            }
-                        }
-                    }
-                    totalData.push(trIndex);
-                }
-                //类型统计显示-开始
-                for(var index in columns){
-                    var trIndex = 'dataTr'+index;
-                    var htmlIndex = 'html'+index;
-                    htmlIndex = '';
-                    var _arrs = totalData[index];
-                    for(var y = 0; y < _arrs.length; y++){
-                        htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0">';
-                        htmlIndex += '<tr>';
-                        htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+_arrs[y].crowdType+'</td>';
-                        htmlIndex += '<td style="width:210px">';
-                        htmlIndex += '<table style="" width="100%">';
-                        htmlIndex += '<tr>';
-                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
-                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].sampling+'</td>';
-                        htmlIndex += '</tr>';
-                        htmlIndex += '<tr>';
-                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
-                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].detection+'</td>';
-                        htmlIndex += '</tr>';
-                        htmlIndex += '<tr>';
-                        htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
-                        htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].masculine+'</td>';
-                        htmlIndex += '</tr>';
-                        htmlIndex += '</table>';
-                        htmlIndex += '</td>';
-                        htmlIndex += '</tr>';
-                        htmlIndex += '</table>';
-                    }
-                    $('#' + trIndex).append(htmlIndex);
-                }
-                //类型统计显示-结束
-
-                //各类型合计,附加第2行,类型的到末尾-开始
-                for(var index in columns){
-                    var trIndex = 'dataTr'+index;
-                    var htmlIndex = 'html'+index;
-                    htmlIndex = '';
-                    var _arrs = totalData[index];
-
-                    var totalsampling = 'totalsampling'+index;
-                    var totaldetection = 'totaldetection'+index;
-                    var totalmasculine = 'totalmasculine'+index;
-
-                    totalsampling = 0;
-                    totaldetection = 0;
-                    totalmasculine = 0;
-
-                    for(var y = 0; y < _arrs.length; y++){
-                        totalsampling += Number.parseInt(_arrs[y].sampling);
-                        totaldetection += Number.parseInt(_arrs[y].detection);
-                        totalmasculine += Number.parseInt(_arrs[y].masculine);
-                    }
-
-                    var value = columns[index].crowdName;
-
-                    htmlIndex += '<table style="border-top:1px solid #ddd;border-bottom:1px solid #ddd;width:510px;margin:2px 0;background:#92D050;">';
-                    htmlIndex += '<tr>';
-                    htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+value+'合计</td>';
-                    htmlIndex += '<td style="width:210px">';
-                    htmlIndex += '<table style="" width="100%">';
-                    htmlIndex += '<tr>';
-                    htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
-                    htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalsampling+'</td>';
-                    htmlIndex += '</tr>';
-                    htmlIndex += '<tr>';
-                    htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已检测人数</td>';
-                    htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totaldetection+'</td>';
-                    htmlIndex += '</tr>';
-                    htmlIndex += '<tr>';
-                    htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">检测阳性人数</td>';
-                    htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalmasculine+'</td>';
-                    htmlIndex += '</tr>';
-                    htmlIndex += '</table>';
-                    htmlIndex += '</td>';
-                    htmlIndex += '</tr>';
-                    htmlIndex += '</table>';
-
-                    $('#' + trIndex).append(htmlIndex);
-                }
-                //各类型合计,附加第2行,类型的到末尾-结束
             }
         };
         thisPage.init();
