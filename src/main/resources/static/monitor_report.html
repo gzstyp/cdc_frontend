@@ -471,7 +471,7 @@
                 htmlIndex += this.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
                 $('#tableEmployee').append(htmlIndex);
             },
-            //totalKey 一般是指count(xxx)的别名,如 count(xxx) as xxx_total,xxx_total就是该值;columnIndex是列数的索引
+            //totalKey 一般是指count(xxx)的别名,如 count(xxx) as xxx_total,即填入 xxx_total 该值即可;columnIndex是列数的索引
             calculateTotal : function(listData,totalKey,columnIndex){
                 var column = 0;
                 for(var i=0;i<listData.length;i++){
