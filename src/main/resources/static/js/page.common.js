@@ -1049,6 +1049,68 @@ var refreshFlag = true;
                     todayHighlight: true
                 });
             }
+        },
+        /**页面统计,第一步:通过排序js统计列中计算最大的列作为表头列数 别名的key字段*/
+        getMaxValue(listData,key){
+            var list = new Array();
+            for(var index in listData){
+                var obj = listData[index];
+                for(k in obj){
+                    if(k == key){
+                        var arrs = obj[key].split(',');
+                        list.push(arrs.length);
+                    }
+                }
+            }
+            list.sort(function(value1,value2){
+                return value1-value2;
+            })
+            return eval(list[list.length-1]);
+        },
+        /**页面统计,第二步:获取表头行的文本,key一般是类型或类别的字段;len长度;*/
+        getItems : function(listData,key,column){
+            var items = '';
+            for(var x = 0; x < listData.length; x++){
+                var obj = listData[x];
+                var arrs = obj[key].split(',');
+                if(column === arrs.length){
+                    items = obj[key];
+                    break;
+                }
+            }
+            return items;
+        },
+        //页面统计,第三步:填充行[含表头及数据行(通过node来区分,node为thead是表头;node为tbody是数据行;)]
+        fillRowData : function(node,startColumnText,columns,endColumnText,max){
+            var html = '';
+            html += '<'+node+'>';
+            html += '<tr>';
+            html += '<td><div align="center">'+((startColumnText == null || startColumnText == '') ? '' : startColumnText)+'</div></td>';
+            for(var i=0;i<max;i++){
+                if(columns != null){
+                    var text = columns[i];
+                    html += '<td><div align="center">'+((text == null || text == '') ? '' : text)+'</div></td>';
+                }else{
+                    html += '<td><div align="center"></div></td>';
+                }
+            }
+            html += '<td><div align="center">'+((endColumnText == null || endColumnText == '') ? '' : endColumnText)+'</div></td>';
+            html += '</tr>';
+            html += '</'+node+'>';
+            return html;
+        },
+        //页面统计,第四步:用于填充最后1行的合计行;totalKey 一般是指count(xxx)的别名,如 count(xxx) as xxx_total,即填入 xxx_total 该值即可;columnIndex是每一列数的索引
+        calculateTotal : function(listData,totalKey,columnIndex){
+            var column = 0;
+            for(var i=0;i<listData.length;i++){
+                var rows = listData[i];
+                var values = rows[totalKey].split(',');
+                var value = values[columnIndex];
+                if(value != null && value!=''){//todo 两个都不能缺!!!
+                    column += Number.parseInt(value);
+                }
+            }
+            return column;
         }
     }
     /**easyui专属方法,依赖easyui*/
