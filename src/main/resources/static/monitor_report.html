@@ -465,20 +465,20 @@
                 }
                 var list = new Array();
                 for(var k = 0; k < max; k++){
-                    var v = this.calculateTotal(data,k);
+                    var v = this.calculateTotal(data,'profession_total',k);
                     list.push(v);
                 }
                 htmlIndex += this.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
                 $('#tableEmployee').append(htmlIndex);
             },
-            //columnIndex是列数的索引
-            calculateTotal : function(listData,columnIndex){
+            //totalKey 一般是指count(xxx)的别名,如 count(xxx) as xxx_total;columnIndex是列数的索引
+            calculateTotal : function(listData,totalKey,columnIndex){
                 var column = 0;
                 for(var i=0;i<listData.length;i++){
                     var rows = listData[i];
-                    var values = rows.profession_total.split(',');
+                    var values = rows[totalKey].split(',');
                     var value = values[columnIndex];
-                    if(value != null && value!=''){//两个都不能缺!!!
+                    if(value != null && value!=''){//todo 两个都不能缺!!!
                         column += Number.parseInt(value);
                     }
                 }
