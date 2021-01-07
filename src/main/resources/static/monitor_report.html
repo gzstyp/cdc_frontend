@@ -452,7 +452,7 @@
                 var htmlHeader = this.fillRowData('thead','地区',items.split(','),"合计",max);//表头
                 $('#tableEmployee').html(htmlHeader);
                 var htmlIndex = '';
-                var totalAll = 0;
+                var totalAll = 0;//最后1行的最后1列的值的计算
                 for(var i=0;i<data.length;i++){
                     var rows = data[i];
                     var values = rows.profession_total.split(',');
@@ -463,18 +463,26 @@
                     htmlIndex += this.fillRowData('tbody',rows.name,values,total,max);//数据行
                     totalAll += total;
                 }
-                htmlIndex += this.fillRowData('tbody','合计',null,totalAll,max);//最后一行合计
+                var list = new Array();
                 for(var k = 0; k < max; k++){
-                    this.calculateTotal(data,k);
+                    var v = this.calculateTotal(data,k);
+                    list.push(v);
                 }
+                htmlIndex += this.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
                 $('#tableEmployee').append(htmlIndex);
             },
+            //columnIndex是列数的索引
             calculateTotal : function(listData,columnIndex){
+                var column = 0;
                 for(var i=0;i<listData.length;i++){
                     var rows = listData[i];
                     var values = rows.profession_total.split(',');
-                    console.log(columnIndex,values[columnIndex]);
+                    var value = values[columnIndex];
+                    if(value != null && value!=''){//两个都不能缺!!!
+                        column += Number.parseInt(value);
+                    }
                 }
+                return column;
             },
             /**通过排序js统计列中计算最大的列作为表头列数 别名的key字段*/
             getMaxValue(listData,key){
