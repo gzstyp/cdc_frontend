@@ -132,7 +132,7 @@
                         表2 全省不同类型场所监测情况
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
-                        <table width="692" height="106" border="1">
+                        <table width="692" height="106" border="1" id="tableSiteType">
                             <tr>
                                 <td align="center" valign="middle">地区</td>
                                 <td align="center" valign="middle">仓储场所（冷库）</td>
@@ -143,31 +143,22 @@
                                 <td align="center" valign="middle">合计</td>
                             </tr>
                             <tr>
-                                <td align="center" valign="middle">黔西南州</td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                            </tr>
-                            <tr>
-                                <td align="center" valign="middle">黔东南州</td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
+                                <td align="center" valign="middle">贵阳市</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
                             </tr>
                             <tr>
                                 <td align="center" valign="middle">合计</td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
-                                <td align="center" valign="middle"></td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
+                                <td align="center" valign="middle">0</td>
                             </tr>
                         </table>
                     </div>
@@ -426,6 +417,7 @@
                     if(data.code === AppKey.code.code200){
                         data = data.data;
                         _this.tableEmployee(data.listEmployee);
+                        _this.tableSiteType(data.listSiteType);
                     }else if(data.code === AppKey.code.code201){
                         _this.tableDataTips('tableEmployee','没有数据');
                     }else{
@@ -447,10 +439,10 @@
                 $('#'+tableDom).html(html);
             },
             tableEmployee : function(data){
-                var max = winFn.getMaxValue(data,"profession_total");
-                var items = winFn.getItems(data,"profession",max);
+                var max = winFn.getMaxValue(data,"profession_total");//注意1
+                var items = winFn.getItems(data,"profession",max);//注意2
                 var htmlHeader = winFn.fillRowData('thead','地区',items.split(','),"合计",max);//表头
-                $('#tableEmployee').html(htmlHeader);
+                $('#tableEmployee').html(htmlHeader);//注意3
                 var htmlIndex = '';
                 var totalAll = 0;//最后1行的最后1列的值的计算
                 for(var i=0;i<data.length;i++){
@@ -460,16 +452,41 @@
                     for(var j = 0; j < values.length; j++){
                         total += Number.parseInt(values[j]);
                     }
-                    htmlIndex += winFn.fillRowData('tbody',rows.name,values,total,max);//数据行
+                    htmlIndex += winFn.fillRowData('tbody',rows['name'],values,total,max);//数据行,注意4
                     totalAll += total;
                 }
                 var list = new Array();
                 for(var k = 0; k < max; k++){
-                    var v = winFn.calculateTotal(data,'profession_total',k);
+                    var v = winFn.calculateTotal(data,'profession_total',k);//注意5
                     list.push(v);
                 }
                 htmlIndex += winFn.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
-                $('#tableEmployee').append(htmlIndex);
+                $('#tableEmployee').append(htmlIndex);//注意6
+            },
+            tableSiteType : function(data){
+                var max = winFn.getMaxValue(data,"type_total");
+                var items = winFn.getItems(data,"site_type",max);
+                var htmlHeader = winFn.fillRowData('thead','地区',items.split(','),"合计",max);//表头
+                $('#tableSiteType').html(htmlHeader);
+                var htmlIndex = '';
+                var totalAll = 0;//最后1行的最后1列的值的计算
+                for(var i=0;i<data.length;i++){
+                    var rows = data[i];
+                    var values = rows.type_total.split(',');
+                    var total = 0;
+                    for(var j = 0; j < values.length; j++){
+                        total += Number.parseInt(values[j]);
+                    }
+                    htmlIndex += winFn.fillRowData('tbody',rows['area'],values,total,max);//数据行
+                    totalAll += total;
+                }
+                var list = new Array();
+                for(var k = 0; k < max; k++){
+                    var v = winFn.calculateTotal(data,'type_total',k);
+                    list.push(v);
+                }
+                htmlIndex += winFn.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
+                $('#tableSiteType').append(htmlIndex);
             }
         };
         thisPage.init();
