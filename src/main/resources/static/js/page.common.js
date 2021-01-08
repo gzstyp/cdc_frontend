@@ -1091,7 +1091,7 @@ var refreshFlag = true;
                     var text = columns[i];
                     html += '<td><div align="center">'+((text == null || text == '') ? '' : text)+'</div></td>';
                 }else{
-                    html += '<td><div align="center"></div></td>';
+                    html += '<td></td>';
                 }
             }
             html += '<td><div align="center">'+((endColumnText == null || endColumnText == '') ? '' : endColumnText)+'</div></td>';
@@ -1111,6 +1111,42 @@ var refreshFlag = true;
                 }
             }
             return column;
+        },
+        /**
+         * 初始化规则表格并填充数据,不涉及合并单元格
+         * @param domTable 表格dom元素
+         * @param data list数据
+         * @param countAsKey 内层的 count(xxx) as xxx_total,填写该值即可,如 profession_total 或 type_total
+         * @param groupByType 一般是指类型或类别的字段,如工种或场所类型,如工种|场所类型(profession|site_type)
+         * @param startColumnText 指定第1行的第1列的文本内容,如地区|区域
+         * @param startColumnKey 指定遍历每行的每N列的字段,group by xxx 如 name 或 area
+         * @param endColumnText 指定第1行的最后1列的文本内容,如合计
+         * @param endRowStartColumnText 指定最后1行的最后1列的文本内容,如合计|总计
+        */
+        initFillTable : function(domTable,data,countAsKey,groupByType,startColumnText,startColumnKey,endColumnText,endRowStartColumnText){
+            var max = winFn.getMaxValue(data,countAsKey);
+            var items = winFn.getItems(data,groupByType,max);
+            var htmlHeader = winFn.fillRowData('thead',startColumnText,items.split(','),endColumnText,max);//表头
+            $(domTable).html(htmlHeader);
+            var htmlIndex = '';
+            var totalAll = 0;//最后1行的最后1列的值的计算
+            for(var i=0;i<data.length;i++){
+                var rows = data[i];
+                var values = rows[countAsKey].split(',');
+                var total = 0;
+                for(var j = 0; j < values.length; j++){
+                    total += Number.parseInt(values[j]);
+                }
+                htmlIndex += winFn.fillRowData('tbody',rows[startColumnKey],values,total,max);//数据行
+                totalAll += total;
+            }
+            var list = new Array();
+            for(var k = 0; k < max; k++){
+                var v = winFn.calculateTotal(data,countAsKey,k);
+                list.push(v);
+            }
+            htmlIndex += winFn.fillRowData('tbody',endRowStartColumnText,list,totalAll,max);//最后一行合计
+            $(domTable).append(htmlIndex);
         }
     }
     /**easyui专属方法,依赖easyui*/

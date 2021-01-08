@@ -126,7 +126,7 @@
                     </div>
                     <div style="width:100%;display:flex;font-size:18px;font-weight:bold;justify-content:start;margin-top:10px;">二、食品及外环境样本监测结果</div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;">
-                        <div>（一）不同类型场所监测结果   本次共监测5种类型的销售场所，即仓储场所（冷库）、批发市场、超市、农贸市场、其它（如餐饮企业、酒店等）。详见表2。</div>
+                        <div>（一）不同类型场所监测结果   本次共监测5种类型的销售场所，即<span id="span_site_type">仓储场所（冷库）、批发市场、超市、农贸市场、其它（如餐饮企业、酒店等）</span>。详见表2。</div>
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
                         表2 全省不同类型场所监测情况
@@ -236,7 +236,7 @@
                     </div>
                     <div style="width:100%;display:flex;font-size:18px;font-weight:bold;justify-content:start;margin-top:10px;">三、从业人员监测结果</div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;">
-                        <div>本次监测主要采集销售、宰杀、加工、贮存、运输、管理员和其他7类从业人员的咽拭子样本。情况详见表5。</div>
+                        <div>本次监测主要采集<span id="span_employee">销售、宰杀、加工、贮存、运输、管理员和其他7</span>类从业人员的咽拭子样本。情况详见表5。</div>
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
                         表5  不同从业人员监测情况
@@ -438,16 +438,18 @@
                 html += '</tr>';
                 $('#'+tableDom).html(html);
             },
+            /*示例代码*/
             tableEmployee : function(data){
-                var max = winFn.getMaxValue(data,"profession_total");//注意1
-                var items = winFn.getItems(data,"profession",max);//注意2
+                var max = winFn.getMaxValue(data,"profession_total");
+                var items = winFn.getItems(data,"profession",max);
+                $('#span_employee').html(items+max);
                 var htmlHeader = winFn.fillRowData('thead','地区',items.split(','),"合计",max);//表头
-                $('#tableEmployee').html(htmlHeader);//注意3
+                $('#tableEmployee').html(htmlHeader);
                 var htmlIndex = '';
                 var totalAll = 0;//最后1行的最后1列的值的计算
                 for(var i=0;i<data.length;i++){
                     var rows = data[i];
-                    var values = rows['profession_total'].split(',');//注意4
+                    var values = rows['profession_total'].split(',');
                     var total = 0;
                     for(var j = 0; j < values.length; j++){
                         total += Number.parseInt(values[j]);
@@ -457,36 +459,18 @@
                 }
                 var list = new Array();
                 for(var k = 0; k < max; k++){
-                    var v = winFn.calculateTotal(data,'profession_total',k);//注意6
+                    var v = winFn.calculateTotal(data,'profession_total',k);
                     list.push(v);
                 }
                 htmlIndex += winFn.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
-                $('#tableEmployee').append(htmlIndex);//注意7
+                $('#tableEmployee').append(htmlIndex);
             },
+            /*检测场所报告,已高度解耦*/
             tableSiteType : function(data){
+                winFn.initFillTable('#tableSiteType',data,'type_total','site_type','地区','area','合计','合计');
                 var max = winFn.getMaxValue(data,"type_total");
                 var items = winFn.getItems(data,"site_type",max);
-                var htmlHeader = winFn.fillRowData('thead','地区',items.split(','),"合计",max);//表头
-                $('#tableSiteType').html(htmlHeader);
-                var htmlIndex = '';
-                var totalAll = 0;//最后1行的最后1列的值的计算
-                for(var i=0;i<data.length;i++){
-                    var rows = data[i];
-                    var values = rows['type_total'].split(',');
-                    var total = 0;
-                    for(var j = 0; j < values.length; j++){
-                        total += Number.parseInt(values[j]);
-                    }
-                    htmlIndex += winFn.fillRowData('tbody',rows['area'],values,total,max);//数据行
-                    totalAll += total;
-                }
-                var list = new Array();
-                for(var k = 0; k < max; k++){
-                    var v = winFn.calculateTotal(data,'type_total',k);
-                    list.push(v);
-                }
-                htmlIndex += winFn.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
-                $('#tableSiteType').append(htmlIndex);
+                $('#span_site_type').html(items);
             }
         };
         thisPage.init();
