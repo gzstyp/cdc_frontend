@@ -447,21 +447,21 @@
                 var totalAll = 0;//最后1行的最后1列的值的计算
                 for(var i=0;i<data.length;i++){
                     var rows = data[i];
-                    var values = rows.profession_total.split(',');
+                    var values = rows['profession_total'].split(',');//注意4
                     var total = 0;
                     for(var j = 0; j < values.length; j++){
                         total += Number.parseInt(values[j]);
                     }
-                    htmlIndex += winFn.fillRowData('tbody',rows['name'],values,total,max);//数据行,注意4
+                    htmlIndex += winFn.fillRowData('tbody',rows['name'],values,total,max);//数据行,注意5
                     totalAll += total;
                 }
                 var list = new Array();
                 for(var k = 0; k < max; k++){
-                    var v = winFn.calculateTotal(data,'profession_total',k);//注意5
+                    var v = winFn.calculateTotal(data,'profession_total',k);//注意6
                     list.push(v);
                 }
                 htmlIndex += winFn.fillRowData('tbody','合计',list,totalAll,max);//最后一行合计
-                $('#tableEmployee').append(htmlIndex);//注意6
+                $('#tableEmployee').append(htmlIndex);//注意7
             },
             tableSiteType : function(data){
                 var max = winFn.getMaxValue(data,"type_total");
@@ -472,7 +472,7 @@
                 var totalAll = 0;//最后1行的最后1列的值的计算
                 for(var i=0;i<data.length;i++){
                     var rows = data[i];
-                    var values = rows.type_total.split(',');
+                    var values = rows['type_total'].split(',');
                     var total = 0;
                     for(var j = 0; j < values.length; j++){
                         total += Number.parseInt(values[j]);
