@@ -201,13 +201,13 @@
                         </table>
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;">
-                        <div>（三）外环境不同样本类型监测情况   本次主要采集水产品、其他肉类、产品包装、摊位设施用具等物体表面(如台面，刀具，容器)、冰箱冷柜、地面、污水、转运工具、公共场所物体表面（如门把手等）等9类外环境样本类型。本次重点区分产品包装和其余外环境样本，共xx份。详见表4。</div>
+                        <div>（三）外环境不同样本类型监测情况   本次主要采集<span id="span_outerpack_type">水产品、其他肉类、产品包装、摊位设施用具等物体表面(如台面，刀具，容器)、冰箱冷柜、地面、污水、转运工具、公共场所物体表面（如门把手等）等9</span>类外环境样本类型。本次重点区分产品包装和其余外环境样本，共<span id="span_outerpack_total">0</span>份。详见表4。</div>
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
                         表4  外环境样本监测情况
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
-                        <table width="692" border="1">
+                        <table width="692" border="1" id="tableEnvironmentOuterPack">
                             <tr>
                                 <td><div align="center">地区</div></td>
                                 <td><div align="center">产品外包装样本</div></td>
@@ -215,22 +215,16 @@
                                 <td><div align="center">合计</div></td>
                             </tr>
                             <tr>
-                                <td><div align="center">黔西南州</div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                            </tr>
-                            <tr>
-                                <td><div align="center">黔东南州</div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
+                                <td><div align="center">贵阳市</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
                             </tr>
                             <tr>
                                 <td><div align="center">合计</div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
                             </tr>
                         </table>
                     </div>
@@ -416,8 +410,19 @@
                     _this.getSelectLabel();
                     if(data.code === AppKey.code.code200){
                         data = data.data;
-                        _this.tableEmployee(data.listEmployee);
-                        _this.tableSiteType(data.listSiteType);
+                        var listEmployee = data.listEmployee;
+                        var listSiteType = data.listSiteType;
+                        var listEnvironmentOuterPack = data.listEnvironmentOuterPack;
+                        if(listEmployee != null && listEmployee.length > 0){
+                            _this.tableEmployee(listEmployee);
+                        }
+                        if(listSiteType != null && listSiteType.length > 0){
+                            _this.tableSiteType(listSiteType);
+                        }
+                        if(listEnvironmentOuterPack != null && listEnvironmentOuterPack.length > 0){
+                            _this.tableEnvironmentOuterPack(listEnvironmentOuterPack);
+                            _this.calculateSpanOuterPackTotal(data.sampleTypeTotal);
+                        }
                     }else if(data.code === AppKey.code.code201){
                         _this.tableDataTips('tableEmployee','没有数据');
                     }else{
@@ -454,7 +459,7 @@
                     for(var j = 0; j < values.length; j++){
                         total += Number.parseInt(values[j]);
                     }
-                    htmlIndex += winFn.fillRowData('tbody',rows['name'],values,total,max);//数据行,注意5
+                    htmlIndex += winFn.fillRowData('tbody',rows['name'],values,total,max);//数据行
                     totalAll += total;
                 }
                 var list = new Array();
@@ -471,7 +476,28 @@
                 var max = winFn.getMaxValue(data,"type_total");
                 var items = winFn.getItems(data,"site_type",max);
                 $('#span_site_type').html(items);
-            }
+            },
+            tableEnvironmentOuterPack : function(data){
+                winFn.initFillTable('#tableEnvironmentOuterPack',data,'sample_total','sample_type','地区','area_name','合计','合计');
+                var max = winFn.getMaxValue(data,"sample_total");
+                var items = winFn.getItems(data,"sample_type",max);
+                $('#span_site_type').html(items);
+                var totalAll = 0;//最后1行的最后1列的值的计算
+                for(var i=0;i<data.length;i++){
+                    var rows = data[i];
+                    var values = rows['sample_total'].split(',');
+                    var total = 0;
+                    for(var j = 0; j < values.length; j++){
+                        total += Number.parseInt(values[j]);
+                    }
+                    totalAll += total;
+                }
+                $('#span_outerpack_total').html(totalAll);
+            },
+            calculateSpanOuterPackTotal : function(obj){
+                console.log(obj);
+                $('#span_outerpack_type').html(obj.category+obj.total);
+            },
         };
         thisPage.init();
     });
