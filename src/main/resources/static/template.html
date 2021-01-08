@@ -198,16 +198,21 @@ console.info(STATE);
 if(map != null){
     $.each(map.data,function(k,v){
         try{
-            $('#'+k).val(v);//负责赋值,下拉负责下列列表的赋值
+            $('#'+k).val(v);//负责赋值;下面是下拉列表的赋值
             if(k == 'result'){
-                winFn.editDropdown('#dropdownLabelresult下拉的domId','result'+v);//v是从后端返回的值,无需添加#前缀
+                winFn.editDropdown('#dropdownLabelresult下拉的domId','result'+v);//v是从后端返回的值,无需添加#前缀,看下面的例子
+            }
+            if(k == 'risk'){
+                winFn.editDropdown('#dropdownLabel字段xxx','字段xxx'+v);//用于页面下拉固定value值,比如:1是0否;1未检测;2阴性;3阳性
+            }
+            if(k == 'site_type'){
+                winFn.editDropdown('#dropdownLabel字段xxx',v);//下拉列表的value值动态从数据库获取,如学历或场所类型
             }
         }catch(e){}
     });
 }else{
     winFn.addDropdown('#dropdownLabelresult','选择检测结果');
 }
-
 -- 显示权限按钮
 layerFn.ajaxGetResult(urlQueryPermissions,{},(result)=>{
 	var {code,data} = result;

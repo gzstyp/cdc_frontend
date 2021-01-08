@@ -1010,7 +1010,9 @@ var refreshFlag = true;
             winFn.editDropdown('#dropdownLabelresult','xxx'+v);//可以是自定义,也可以是字段,一般推荐是字段,空时用xxx_,其余xxx0;xxx1;v是从后端返回的值,如是对应的1;否对应的0
         }
         */
-        editDropdown(dropdownMenuId,domId){//第二个参数是id,是li下的a标签的id且无需添加#1前缀
+        //第二个参数是id,是li下的a标签的id且无需添加#1前缀
+        // 注意若是页面固定值则是 winFn.editDropdown('#dropdownLabelxxx字段','xxx字段'+v);如是动态从后台获取的话,则是winFn.editDropdown('#dropdownLabelxxx字段',v);
+        editDropdown(dropdownMenuId,domId){
             try{
                 winFn.addDropdown(dropdownMenuId,$('#'+domId).html());
             }catch(e){}

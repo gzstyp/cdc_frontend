@@ -294,9 +294,9 @@
                         mData : "risk",
                         sTitle : "是否含有高中风险地区产品",
                         render : function(value,type,row,meta){
-                            if(value == '0'){
+                            if(value == 0){
                                 return '否';
-                            }else if(value == '1'){
+                            }else if(value == 1){
                                 return '是';
                             }else{
                                 return "";
@@ -560,7 +560,7 @@
                                     winFn.editDropdown('#dropdownLabelentrance','entrance'+v);
                                 }
                                 if(k == 'risk'){
-                                    winFn.editDropdown('#dropdownLabelrisk',v);
+                                    winFn.editDropdown('#dropdownLabelrisk','risk'+v);
                                 }
                                 if(k == 'site_type'){
                                     winFn.editDropdown('#dropdownLabelsite_type',v);
