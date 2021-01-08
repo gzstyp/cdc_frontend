@@ -109,9 +109,15 @@
                         var environment = data.data.environment;
                         var employee = data.data.employee;
                         var crowdTotal = data.data.crowdTotal;
-                        _this.environment(environment);
-                        _this.employee(employee);
-                        _this.crowdTotal(crowdTotal);
+                        if(environment != null && environment.length > 0){
+                            _this.environment(environment);
+                        }
+                        if(employee != null && employee.length > 0){
+                            _this.employee(employee);
+                        }
+                        if(crowdTotal != null && crowdTotal.length > 0){
+                            _this.crowdTotal(crowdTotal);
+                        }
                     }
                 });
             },
