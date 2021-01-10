@@ -109,13 +109,13 @@
                         var environment = data.data.environment;
                         var employee = data.data.employee;
                         var crowdTotal = data.data.crowdTotal;
-                        if(environment != null && environment.length > 0){
+                        if(environment != null && environment != ''){
                             _this.environment(environment);
                         }
-                        if(employee != null && employee.length > 0){
+                        if(employee != null && employee != ''){
                             _this.employee(employee);
                         }
-                        if(crowdTotal != null && crowdTotal.length > 0){
+                        if(crowdTotal != null && crowdTotal != ''){
                             _this.crowdTotal(crowdTotal);
                         }
                     }
@@ -141,11 +141,23 @@
                         }
                     ]
                 });
-                $('#environment_total').text('总采样数:'+data.total);
-                $('#environment_notest').text('未检测数:'+data.notest);
-                $('#environment_negative').text('阴性数:'+data.negative);
-                $('#environment_positive').text('阳性数:'+data.positive);
-                $('#environment_pc').text('检测比例:'+data.pc);
+                for(var key in data){
+                    if(key == 'positive'){
+                        $('#environment_'+key).text('阳性数:'+data[key]);
+                    }
+                    if(key == 'total'){
+                        $('#environment_'+key).text('总采样数:'+data[key]);
+                    }
+                    if(key == 'notest'){
+                        $('#environment_'+key).text('未检测数:'+data[key]);
+                    }
+                    if(key == 'negative'){
+                        $('#environment_'+key).text('阴性数:'+data[key]);
+                    }
+                    if(key == 'pc'){
+                        $('#environment_'+key).text('检测比例:'+data[key]);
+                    }
+                }
             },
             employee : function(data){
                 var employee = echarts.init(document.getElementById('employee'));
@@ -167,11 +179,23 @@
                         }
                     ]
                 });
-                $('#employee_total').text('总采样数:'+data.total);
-                $('#employee_notest').text('未检测数:'+data.notest);
-                $('#employee_negative').text('阴性数:'+data.negative);
-                $('#employee_positive').text('阳性数:'+data.positive);
-                $('#employee_pc').text('检测比例:'+data.pc);
+                for(var key in data){
+                    if(key == 'positive'){
+                        $('#employee_'+key).text('阳性数:'+data[key]);
+                    }
+                    if(key == 'total'){
+                        $('#employee_'+key).text('总采样数:'+data[key]);
+                    }
+                    if(key == 'notest'){
+                        $('#employee_'+key).text('未检测数:'+data[key]);
+                    }
+                    if(key == 'negative'){
+                        $('#employee_'+key).text('阴性数:'+data[key]);
+                    }
+                    if(key == 'pc'){
+                        $('#employee_'+key).text('检测比例:'+data[key]);
+                    }
+                }
             },
             crowdTotal : function(data){
                 var crowd_total = echarts.init(document.getElementById('crowd_total'));
@@ -192,10 +216,18 @@
                         }
                     ]
                 });
-                $('#crowd_total_total').text('总采样数:'+data.sampling_total);
-                $('#crowd_total_notest').text('已检测数:'+data.detection_total);
-                $('#crowd_total_positive').text('阳性数:'+data.positive);
-                $('#crowd_total_pc').text('检测比例:'+data.pc);
+                if(data.sampling_total){
+                    $('#crowd_total_total').text('总采样数:'+data.sampling_total);
+                }
+                if(data.detection_total){
+                    $('#crowd_total_notest').text('已检测数:'+data.detection_total);
+                }
+                if(data.positive){
+                    $('#crowd_total_positive').text('阳性数:'+data.positive);
+                }
+                if(data.pc){
+                    $('#crowd_total_pc').text('检测比例:'+data.pc);
+                }
             },
             crowdType : function(dates,environments,employees,dailys){
                 var crowdType = echarts.init(document.getElementById("crowdType"));
