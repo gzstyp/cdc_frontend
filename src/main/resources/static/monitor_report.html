@@ -169,7 +169,7 @@
                         表3  不同来源食品监测情况
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
-                        <table width="692" border="1">
+                        <table width="692" border="1" id="tableEntranceRisk">
                             <tr>
                                 <td><div align="center">地区</div></td>
                                 <td><div align="center">进口</div></td>
@@ -178,25 +178,18 @@
                                 <td><div align="center">合计</div></td>
                             </tr>
                             <tr>
-                                <td><div align="center">黔西南州</div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                            </tr>
-                            <tr>
-                                <td><div align="center">黔东南州</div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
+                                <td><div align="center">贵阳市</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
                             </tr>
                             <tr>
                                 <td><div align="center">合计</div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
-                                <td><div align="center"></div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
+                                <td><div align="center">0</div></td>
                             </tr>
                         </table>
                     </div>
@@ -413,6 +406,7 @@
                         var listEmployee = data.listEmployee;
                         var listSiteType = data.listSiteType;
                         var listEnvironmentOuterPack = data.listEnvironmentOuterPack;
+                        var listEntranceRisk = data.listEntranceRisk;
                         if(listEmployee != null && listEmployee.length > 0){
                             _this.tableEmployee(listEmployee);
                         }
@@ -422,6 +416,9 @@
                         if(listEnvironmentOuterPack != null && listEnvironmentOuterPack.length > 0){
                             _this.tableEnvironmentOuterPack(listEnvironmentOuterPack);
                             _this.calculateSpanOuterPackTotal(data.sampleTypeTotal);
+                        }
+                        if(listEntranceRisk != null && listEntranceRisk.length > 0){
+                            _this.tableEntranceRisk(listEntranceRisk);
                         }
                     }else if(data.code === AppKey.code.code201){
                         _this.tableDataTips('tableEmployee','没有数据');
@@ -495,9 +492,11 @@
                 $('#span_outerpack_total').html(totalAll);
             },
             calculateSpanOuterPackTotal : function(obj){
-                console.log(obj);
                 $('#span_outerpack_type').html(obj.category+obj.total);
             },
+            tableEntranceRisk : function(list){
+
+            }
         };
         thisPage.init();
     });
