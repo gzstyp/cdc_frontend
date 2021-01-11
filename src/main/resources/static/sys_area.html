@@ -332,10 +332,6 @@
                 },
                 openDialog : function(title,kid,map){
                     layerFn.addOrEdit(title,'#div_sys_area_edit',['380px','220px'],function(index,layero){
-                        var editKey = winFn.getDomValue(inputEditKeyId);//用于某些值在新增时必填,编辑时可填可不填,填时则更新,否则不更新
-                        if(editKey == null){
-
-                        }
                         if(verifyFn.inputRequired('#name')){
                             layerFn.alert('区域名称不能为空',AppKey.code.code199);
                             return;
