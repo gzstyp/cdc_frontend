@@ -1101,7 +1101,7 @@ var refreshFlag = true;
             html += '</'+node+'>';
             return html;
         },
-        //页面统计,第四步:用于填充最后1行的合计行;totalKey 一般是指count(xxx)的别名,如 count(xxx) as xxx_total,即填入 xxx_total 该值即可;columnIndex是每一列数的索引
+        //页面统计,第四步:用于填充最后1行的合计行;totalKey 一般是指count(xxx)的别名,如 count(xxx) as xxx_total,即填入 xxx_total 该值即可;columnIndex是每一列数的索引,通过 for(int i = 0; i < cols; i++){ cols是最大的行数,循环传入,值为:1,2,3……
         calculateTotal : function(listData,totalKey,columnIndex){
             var column = 0;
             for(var i=0;i<listData.length;i++){
