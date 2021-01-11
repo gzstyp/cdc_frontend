@@ -73,7 +73,7 @@
                         <span id="dropdownLabellevel">选择级别</span>
                         <i class="ace-icon fa fa-angle-down"></i>
                     </button>
-                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:333px;min-width:333px;max-width:333px">
+                    <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:205px;min-width:205px;max-width:205px">
                         <li>
                             <a id="level_" href="javascript:winFn.dropdown('#level','','#dropdownLabellevel','选择级别');">选择级别</a>
                         </li>
@@ -302,7 +302,7 @@
                     });
                 },
                 trDblclick : function(data){
-                    thisPage.edit(data);
+                    thisPage.edit(data.kid);
                 },
                 search : function(){
                     if(verifyFn.inputRequired('#area_btn_listData')){
@@ -315,16 +315,18 @@
                 resetForm : function(){
                     winFn.clearFormData('#form_sys_area_edit');
                 },
-                edit : function(row){
+                edit : function(kid){
                     var title = '添加';
-                    if(row != null){
+                    if(kid != '' && kid != undefined){
                         if(verifyFn.inputRequired('#area_row_queryById')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
                         }
                         title = '编辑';
-                        winFn.setDomValue(inputEditKeyId,row.kid);
-                        thisPage.openDialog(title,row.kid,row);
+                        winFn.setDomValue(inputEditKeyId,kid);
+                        layerFn.queryByIdHint(urlQueryById,kid,function(data){
+                            thisPage.openDialog(title,kid,data);
+                        });
                     }else{
                         winFn.setDomValue(inputEditKeyId,'');
                         thisPage.openDialog(title);
@@ -365,7 +367,7 @@
                     });
                     thisPage.resetForm();//清空
                     if(map != null){
-                        $.each(map,function(k,v){
+                        $.each(map.data,function(k,v){
                             try{
                                 $('#'+k).val(v);
                                 if(k == 'level'){
@@ -374,11 +376,12 @@
                             }catch(e){}
                         });
                     }else{
-				    }
+                        winFn.addDropdown('#dropdownLabellevel','选择选项');
+                    }
                 },
                 rowEdit : function(index){
                     var row = thisJquery.fnGetData(index);
-                    thisPage.edit(row);
+                    thisPage.edit(row.kid);
                 },
                 rowDel : function(index){
                     var row = thisJquery.fnGetData(index);
@@ -409,7 +412,7 @@
                             level : winFn.getDomValue('#level'),
                             kid : winFn.getDomValue(inputEditKeyId)
                         };
-                        if (verifyFn.inputRequired('#area_btn_add')){
+                        if(verifyFn.inputRequired('#area_btn_add')){
                             layerFn.alert('没有添加权限',AppKey.code.code199);
                             return;
                         }
