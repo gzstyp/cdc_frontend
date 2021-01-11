@@ -494,8 +494,8 @@
             calculateSpanOuterPackTotal : function(obj){
                 $('#span_outerpack_type').html(obj.category+obj.total);
             },
-            tableEntranceRisk : function(list){
-
+            tableEntranceRisk : function(data){
+                winFn.initFillTable('#tableEntranceRisk',data,'total','entrance','地区','name','合计','合计');
             }
         };
         thisPage.init();
