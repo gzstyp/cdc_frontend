@@ -463,7 +463,7 @@
                             html +='<td align="center" valign="middle">'+totalRow+'</td>';
                             html +='</tr>';
                         }else{
-                            if(position == 2){
+                            if(position == 2){//type=2是外环境样子;
                                 html +='<tr>';
                                 html +='<td align="center" valign="middle">'+obj.name+'</td>';
                                 html +='<td align="center" valign="middle">0</td>';
@@ -474,7 +474,7 @@
                                 html +='<td align="center" valign="middle">0</td>';
                                 html +='<td align="center" valign="middle">'+totalRow+'</td>';
                                 html +='</tr>';
-                            }else if(position == 3){
+                            }else if(position == 3){//type=3是从业人员咽拭子
                                 html +='<tr>';
                                 html +='<td align="center" valign="middle">'+obj.name+'</td>';
                                 html +='<td align="center" valign="middle">0</td>';
@@ -489,7 +489,22 @@
                         }
                     }
                 }
-                $('#tableEnvironmentEmployee').append(html);
+                $('#tableEnvironmentEmployee').append(html);//可以从后端统计最后1行???
+                //console.log($('#tableEnvironmentEmployee').find('tr').eq(2).find('td').text());
+                var tr = $('#tableEnvironmentEmployee').find('tr');//7
+                var treq2 = $('#tableEnvironmentEmployee').find('tr').eq(2);//1
+                var trtd = $('#tableEnvironmentEmployee').find('tr').eq(2).find('td');
+                $($('#tableEnvironmentEmployee').find('tr')).each(function(index,data){
+                    if(index > 1){
+                        //console.log($(data).find('td').text());
+                        //console.log($(data).find('td'));
+                        $($(data).find('td')).each(function(index,data){
+                            if(index > 0){
+                                //console.log($(data).text());
+                            }
+                        })
+                    }
+                });
             }
         };
         thisPage.init();
