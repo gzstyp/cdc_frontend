@@ -208,6 +208,13 @@
                     //console.info(start);//输出结果:0
                     //console.info(end);//输出结果:4]
                     //console.info(display);//输出结果:[0,1,2,3,4]
+                    //$(thead).find('th').css("background","red");//表头样式
+                    var len = $(thead).find('th').length;
+                    $($(thead).find('th')).each(function(index,data){
+                        if(index != 0 && index < len-1){
+                            $(data).attr("title",$(data).text());
+                        }
+                    });
                 },
                 /*tfoot被描画后调用，通常可用于计算合计值*/
                 footerCallback : function (tfoot, data, start, end, display) {
