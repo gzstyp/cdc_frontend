@@ -15,11 +15,19 @@
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
+                                场所名称
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_site_name" class="form-control search-query" placeholder="经营场所名称" style="width:140px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
                                 联系人
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_linkman" class="form-control search-query" placeholder="经营场所联系人" style="width:140px"/>
+                                    <input type="text" id="key_linkman" class="form-control search-query" placeholder="场所联系人" style="width:100px"/>
                                 </div>
                             </td>
                             <td class="hidden-480" style="padding: 0px 6px;">
@@ -27,7 +35,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_craete_userid" class="form-control search-query hidden-480" placeholder="登记人登录账号" style="width:140px"/>
+                                    <input type="text" id="key_craete_userid" class="form-control search-query hidden-480" placeholder="登记人账号" style="width:100px"/>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='manageLocation_btn_listData' style="display:none">
                                             <span class="ace-icon fa fa-search bigger-110"></span>
@@ -226,7 +234,7 @@
                 tableDom : tableDom,
                 sAjaxSource: getList,
                 fnServerParams : function(params){
-                    params.push({"name":"site_letter","value":$("#key_site_letter").val()},{"name":"linkman","value":$("#key_linkman").val()},{"name":"craete_userid","value":$("#key_craete_userid").val()});
+                    params.push({"name":"site_letter","value":$("#key_site_letter").val()},{"name":"site_name","value":$("#key_site_name").val()},{"name":"linkman","value":$("#key_linkman").val()},{"name":"craete_userid","value":$("#key_craete_userid").val()});
                 },
                 aoColumns : [
                     {
