@@ -76,7 +76,7 @@
                         表1 全省食品、外环境（含包装）及相关从业人员监测情况
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
-                        <table width="692" height="106" border="1">
+                        <table width="692" height="106" border="1" id="tableEnvironmentEmployee">
                             <tr>
                                 <td width="72" rowspan="2" align="center" valign="middle">地区</td>
                                 <td colspan="2" align="center" valign="middle">食品样本</td>
@@ -91,16 +91,6 @@
                                 <td width="98" align="center" valign="middle">阳性份数</td>
                                 <td width="88" align="center" valign="middle">检测份数</td>
                                 <td width="77" align="center" valign="middle">阳性份数</td>
-                            </tr>
-                            <tr>
-                                <td width="71" align="center" valign="middle">贵阳市</td>
-                                <td width="78" align="center" valign="middle">0</td>
-                                <td width="81" align="center" valign="middle">0</td>
-                                <td width="98" align="center" valign="middle">3</td>
-                                <td width="88" align="center" valign="middle">4</td>
-                                <td width="77" align="center" valign="middle">5</td>
-                                <td width="77" align="center" valign="middle">6</td>
-                                <td width="77" align="center" valign="middle">7</td>
                             </tr>
                         </table>
                     </div>
@@ -333,6 +323,7 @@
                         var listSiteType = data.listSiteType;
                         var listEnvironmentOuterPack = data.listEnvironmentOuterPack;
                         var listEntranceRisk = data.listEntranceRisk;
+                        var listEnvironmentEmployee = data.listEnvironmentEmployee;
                         if(listEmployee != null && listEmployee.length > 0){
                             _this.tableEmployee(listEmployee);
                         }else{
@@ -353,6 +344,11 @@
                             _this.tableEntranceRisk(listEntranceRisk);
                         }else{
                             _this.tableDataTips('#tableEntranceRisk','暂无数据');
+                        }
+                        if(listEnvironmentEmployee != null && listEnvironmentEmployee.length > 0){
+                            _this.tableEnvironmentEmployee(listEnvironmentEmployee);
+                        }else{
+                            _this.tableDataTips('#tableEnvironmentEmployee','暂无数据');
                         }
                     }else if(data.code === AppKey.code.code201){
                         _this.tableDataTips('#tableSiteType','暂无数据');
@@ -430,6 +426,70 @@
             },
             tableEntranceRisk : function(data){
                 winFn.initFillTable('#tableEntranceRisk',data,'total','entrance','地区','name','合计','合计');
+            },
+            //注意：其中type=2是外环境样子;type=3是从业人员咽拭子,total或positive的第一个值是'外环境样子'；第2个值是'从业人员咽拭子',因为现在的数据仅知道‘外环境样子’、'从业人员咽拭子'；'食品样本'是不知道
+            tableEnvironmentEmployee : function(data){
+                var max = winFn.getMaxValue(data,"positive");// name	total	positive
+                var html = '';
+                if(max === 2){
+                    for(var i = 0;i < data.length; i++){
+                        var obj = data[i];
+                        var total = obj.total.split(',');//检测份数
+                        var positive = obj.positive.split(',');//阳性份数
+
+                        var totalRow = 0;
+
+                        for(var x = 0; x < total.length; x++){
+                            totalRow += Number.parseInt(total[x]);
+                        }
+                        for(var y = 0; y < positive.length; y++){
+                            totalRow += Number.parseInt(positive[y]);
+                        }
+
+                        var type = obj.type.split(',');//type
+                        var position = 0;//仅当只有一项时,默认是 外环境样子
+                        if(type.length ===1){
+                            position = type[0];
+                        }
+                        if(position == 0){
+                            html +='<tr>';
+                            html +='<td align="center" valign="middle">'+obj.name+'</td>';
+                            html +='<td align="center" valign="middle">0</td>';
+                            html +='<td align="center" valign="middle">0</td>';
+                            html +='<td align="center" valign="middle">'+total[0]+'</td>';
+                            html +='<td align="center" valign="middle">'+positive[0]+'</td>';
+                            html +='<td align="center" valign="middle">'+total[1]+'</td>';
+                            html +='<td align="center" valign="middle">'+positive[1]+'</td>';
+                            html +='<td align="center" valign="middle">'+totalRow+'</td>';
+                            html +='</tr>';
+                        }else{
+                            if(position == 2){
+                                html +='<tr>';
+                                html +='<td align="center" valign="middle">'+obj.name+'</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">'+total[0]+'</td>';
+                                html +='<td align="center" valign="middle">'+positive[0]+'</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">'+totalRow+'</td>';
+                                html +='</tr>';
+                            }else if(position == 3){
+                                html +='<tr>';
+                                html +='<td align="center" valign="middle">'+obj.name+'</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">0</td>';
+                                html +='<td align="center" valign="middle">'+total[0]+'</td>';
+                                html +='<td align="center" valign="middle">'+positive[0]+'</td>';
+                                html +='<td align="center" valign="middle">'+totalRow+'</td>';
+                                html +='</tr>';
+                            }
+                        }
+                    }
+                }
+                $('#tableEnvironmentEmployee').append(html);
             }
         };
         thisPage.init();
