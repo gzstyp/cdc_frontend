@@ -115,7 +115,9 @@
                                 <td align="center" valign="middle">其它</td>
                                 <td align="center" valign="middle">合计</td>
                             </tr>
-                            <td colspan="7"><div align="center">暂无数据</div></td>
+                            <tr>
+                                <td colspan="7"><div align="center">暂无数据</div></td>
+                            </tr>
                         </table>
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;">
@@ -326,21 +328,29 @@
                         var listEntranceRisk = data.listEntranceRisk;
                         if(listEmployee != null && listEmployee.length > 0){
                             _this.tableEmployee(listEmployee);
+                        }else{
+                            _this.tableDataTips('#tableEmployee','暂无数据');
                         }
                         if(listSiteType != null && listSiteType.length > 0){
                             _this.tableSiteType(listSiteType);
+                        }else{
+                            _this.tableDataTips('#tableSiteType','暂无数据');
                         }
                         if(listEnvironmentOuterPack != null && listEnvironmentOuterPack.length > 0){
                             _this.tableEnvironmentOuterPack(listEnvironmentOuterPack);
                             _this.calculateSpanOuterPackTotal(data.sampleTypeTotal);
+                        }else{
+                            _this.tableDataTips('#tableEnvironmentOuterPack','暂无数据');
                         }
                         if(listEntranceRisk != null && listEntranceRisk.length > 0){
                             _this.tableEntranceRisk(listEntranceRisk);
+                        }else{
+                            _this.tableDataTips('#tableEntranceRisk','暂无数据');
                         }
                     }else if(data.code === AppKey.code.code201){
-                        _this.tableDataTips('tableEmployee','没有数据');
+                        _this.tableDataTips('#tableSiteType','暂无数据');
                     }else{
-                        _this.tableDataTips('tableEmployee',data.msg);
+                        _this.tableDataTips('#tableSiteType',data.msg);
                     }
                 });
             },
@@ -355,7 +365,7 @@
                 var html = '<tr>';
                 html += '<td style="padding:4px 0px" align="center" valign="middle">'+msg+'</td>';
                 html += '</tr>';
-                $('#'+tableDom).html(html);
+                $(tableDom).html(html);
             },
             /*示例代码*/
             tableEmployee : function(data){
