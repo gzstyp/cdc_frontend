@@ -76,23 +76,7 @@
                         表1 全省食品、外环境（含包装）及相关从业人员监测情况
                     </div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;justify-content:center;">
-                        <table width="692" height="106" border="1" id="tableEnvironmentEmployee">
-                            <tr>
-                                <td width="72" rowspan="2" align="center" valign="middle">地区</td>
-                                <td colspan="2" align="center" valign="middle">食品样本</td>
-                                <td colspan="2" align="center" valign="middle">外环境样子</td>
-                                <td colspan="2" align="center" valign="middle">从业人员咽拭子</td>
-                                <td width="75" rowspan="2" align="center" valign="middle">合计</td>
-                            </tr>
-                            <tr>
-                                <td width="71" align="center" valign="middle">检测份数</td>
-                                <td width="78" align="center" valign="middle">阳性份数</td>
-                                <td width="81" align="center" valign="middle">检测份数</td>
-                                <td width="98" align="center" valign="middle">阳性份数</td>
-                                <td width="88" align="center" valign="middle">检测份数</td>
-                                <td width="77" align="center" valign="middle">阳性份数</td>
-                            </tr>
-                        </table>
+                        <table width="692" height="106" border="1" id="tableEnvironmentEmployee"></table>
                     </div>
                     <div style="width:100%;display:flex;font-size:18px;font-weight:bold;justify-content:start;margin-top:10px;">二、食品及外环境样本监测结果</div>
                     <div style="width:100%;display:flex;font-size:14px;line-height:1.6;margin-top:10px;">
@@ -429,9 +413,26 @@
             },
             //注意：其中type=2是外环境样子;type=3是从业人员咽拭子,total或positive的第一个值是'外环境样子'；第2个值是'从业人员咽拭子',因为现在的数据仅知道‘外环境样子’、'从业人员咽拭子'；'食品样本'是不知道
             tableEnvironmentEmployee : function(data){
-                var _this = this;
-                var max = winFn.getMaxValue(data,"positive");// name	total	positive
+                var max = winFn.getMaxValue(data,"positive");
+                var _domTable = '#tableEnvironmentEmployee';
+                $(_domTable).empty();
                 var html = '';
+                html +='<tr>';
+                html +='<td width="72" rowspan="2" align="center" valign="middle">地区</td>';
+                html +='<td colspan="2" align="center" valign="middle">食品样本</td>';
+                html +='<td colspan="2" align="center" valign="middle">外环境样子</td>';
+                html +='<td colspan="2" align="center" valign="middle">从业人员咽拭子</td>';
+                html +='<td width="75" rowspan="2" align="center" valign="middle">合计</td>';
+                html +='</tr>';
+                html +='<tr>';
+                html +='<td width="71" align="center" valign="middle">检测份数</td>';
+                html +='<td width="78" align="center" valign="middle">阳性份数</td>';
+                html +='<td width="81" align="center" valign="middle">检测份数</td>';
+                html +='<td width="98" align="center" valign="middle">阳性份数</td>';
+                html +='<td width="88" align="center" valign="middle">检测份数</td>';
+                html +='<td width="77" align="center" valign="middle">阳性份数</td>';
+                html +='</tr>';
+                $(_domTable).html(html);
                 if(max === 2){
                     for(var i = 0;i < data.length; i++){
                         var obj = data[i];
@@ -490,8 +491,7 @@
                         }
                     }
                 }
-                var _domTable = '#tableEnvironmentEmployee';
-                $(_domTable).append(html);
+                $(_domTable).html(html);//todo 此处要.html(html);不能用.append(html);否则有bug
                 //console.log($(_domTable).find('tr').eq(2).find('td').text());
                 //var tr = $(_domTable).find('tr');//7,行数
                 var trtd = $(_domTable).find('tr').eq(2).find('td');//列数
@@ -518,14 +518,6 @@
                 }
                 htmlTotal +='</tr>';
                 $(_domTable).append(htmlTotal);//处理最后1行合计
-            },
-            //是列数的索引,通过 for(int i = 0; i < cols; i++){
-            extractTotal : function(arrs,columnIndex){
-                try{
-                    return arrs[columnIndex];
-                }catch(e){
-                    return 0;
-                }
             }
         };
         thisPage.init();
