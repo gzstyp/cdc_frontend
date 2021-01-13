@@ -429,6 +429,7 @@
             },
             //注意：其中type=2是外环境样子;type=3是从业人员咽拭子,total或positive的第一个值是'外环境样子'；第2个值是'从业人员咽拭子',因为现在的数据仅知道‘外环境样子’、'从业人员咽拭子'；'食品样本'是不知道
             tableEnvironmentEmployee : function(data){
+                var _this = this;
                 var max = winFn.getMaxValue(data,"positive");// name	total	positive
                 var html = '';
                 if(max === 2){
@@ -489,22 +490,42 @@
                         }
                     }
                 }
-                $('#tableEnvironmentEmployee').append(html);//可以从后端统计最后1行???
-                //console.log($('#tableEnvironmentEmployee').find('tr').eq(2).find('td').text());
-                var tr = $('#tableEnvironmentEmployee').find('tr');//7
-                var treq2 = $('#tableEnvironmentEmployee').find('tr').eq(2);//1
-                var trtd = $('#tableEnvironmentEmployee').find('tr').eq(2).find('td');
-                $($('#tableEnvironmentEmployee').find('tr')).each(function(index,data){
-                    if(index > 1){
-                        //console.log($(data).find('td').text());
-                        //console.log($(data).find('td'));
-                        $($(data).find('td')).each(function(index,data){
-                            if(index > 0){
-                                //console.log($(data).text());
+                var _domTable = '#tableEnvironmentEmployee';
+                $(_domTable).append(html);//可以从后端统计最后1行???
+                //console.log($(_domTable).find('tr').eq(2).find('td').text());
+                //var tr = $(_domTable).find('tr');//7,行数
+                var trtd = $(_domTable).find('tr').eq(2).find('td');//列数
+                var rowArras = [];
+                $($(_domTable).find('tr')).each(function(rowIndex,data){
+                    if(rowIndex > 1){
+                        var columnArras = [];
+                        $($(data).find('td')).each(function(columnIndex,data){
+                            if(columnIndex > 0){
+                                columnArras.push($(data).text());
                             }
-                        })
+                        });
+                        rowArras.push(columnArras);
                     }
                 });
+                var htmlTotal = '<tr><td align="center" valign="middle">合计</td>';
+                for(var w = 0;w < trtd.length-1; w++){//todo 注意这个位置,trtd.length-1;因为除去每行的第1列是地区区域文本
+                    var columnTotal = 0;
+                    for(var k = 0;k < rowArras.length; k++){
+                        var values = rowArras[k];
+                        columnTotal += Number.parseInt(values[w]);
+                    }
+                    htmlTotal +='<td align="center" valign="middle">'+columnTotal+'</td>';
+                }
+                htmlTotal +='</tr>';
+                $(_domTable).append(htmlTotal);
+            },
+            //是列数的索引,通过 for(int i = 0; i < cols; i++){
+            extractTotal : function(arrs,columnIndex){
+                try{
+                    return arrs[columnIndex];
+                }catch(e){
+                    return 0;
+                }
             }
         };
         thisPage.init();
