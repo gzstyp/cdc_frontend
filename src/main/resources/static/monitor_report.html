@@ -491,7 +491,7 @@
                     }
                 }
                 var _domTable = '#tableEnvironmentEmployee';
-                $(_domTable).append(html);//可以从后端统计最后1行???
+                $(_domTable).append(html);
                 //console.log($(_domTable).find('tr').eq(2).find('td').text());
                 //var tr = $(_domTable).find('tr');//7,行数
                 var trtd = $(_domTable).find('tr').eq(2).find('td');//列数
@@ -517,7 +517,7 @@
                     htmlTotal +='<td align="center" valign="middle">'+columnTotal+'</td>';
                 }
                 htmlTotal +='</tr>';
-                $(_domTable).append(htmlTotal);
+                $(_domTable).append(htmlTotal);//处理最后1行合计
             },
             //是列数的索引,通过 for(int i = 0; i < cols; i++){
             extractTotal : function(arrs,columnIndex){
