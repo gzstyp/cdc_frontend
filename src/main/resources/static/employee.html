@@ -109,13 +109,13 @@
                                 </div>
                             </td>
                             <td class="hidden-480" style="padding: 0px 6px;">
-                                从业场所类型
+                                场所类型
                             </td>
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <button data-toggle="dropdown" class="btn btn-primary btn-white dropdown-toggle col-sm-12" style="margin-left:0.01em">
-                                            <span id="searchDropdownwork_type">从业场所类型</span>
+                                            <span id="searchDropdownwork_type">全部类型</span>
                                             <i class="ace-icon fa fa-angle-down"></i>
                                         </button>
                                         <ul class="dropdown-menu col-sm-12" style="margin-left:-1px;width:270px;min-width:270px;max-width:270px" id="dropdownOptionskey_work_type"></ul>
@@ -155,6 +155,26 @@
                                         <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='employee_btn_export' style="display:none">
                                             <span class="fa fa-download"></span>
                                             导出
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" title="仅发布当前阳性的样本标本" id="btnEditPositive" permission='employee_btn_positive' style="display:none">
+                                            <span class="fa fa-mars"></span>
+                                            阳性
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" title="仅发布当前阴性的样本标本" id="btnEditNegative" permission='employee_btn_negative' style="display:none">
+                                            <span class="fa fa-venus"></span>
+                                            阴性
                                         </button>
                                     </span>
                                 </div>
@@ -559,7 +579,7 @@
                     layerFn.ajaxGet(urlGetDicts,{pid:'fffffffffd06f648ffffffff98c8eec6'},function(data){
                         if(data.code === AppKey.code.code200){
                             winFn.initDropdown(data.data,'#dropdownOptionswork_type','#work_type','#dropdownLabelwork_type','从业场所类型');
-                            winFn.initDropdown(data.data,'#dropdownOptionskey_work_type','#key_work_type','#dropdownLabelkey_work_type','从业场所类型');
+                            winFn.initDropdown(data.data,'#dropdownOptionskey_work_type','#key_work_type','#dropdownLabelkey_work_type','全部类型');
                         }
                     });
                 },

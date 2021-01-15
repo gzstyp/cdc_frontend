@@ -11,7 +11,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_sample_code" class="form-control search-query" placeholder="标本实验编号" style="width:140px"/>
+                                    <input type="text" id="key_sample_code" class="form-control search-query" placeholder="标本实验编号" style="width:150px"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -39,22 +39,22 @@
                     <div class="hidden-480 pull-right tableTools-container" permission='environment_btn_listData' style="display:none;"></div>
                     <table class="no-border">
                         <tr permission='environment_btn_listData' style="display:none">
-                            <td style="padding: 0px 6px;">
+                            <td style="padding: 0px 2px;">
                                 采样日期
                             </td>
                             <td>
                                 <div class="input-group">
                                     <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
-                                    <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;margin-left:4px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;margin-left:2px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
-                            <td style="padding: 0px 6px;">
+                            <td style="padding: 0px 2px;">
                                 检测日期
                             </td>
                             <td>
                                 <div class="input-group">
                                     <input type="text" id="detection_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
-                                    <input type="text" id="detection_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;margin-left:4px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="detection_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;margin-left:2px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -129,9 +129,29 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='environment_btn_export' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" title="导出Excel数据" id="btnExport" permission='environment_btn_export' style="display:none">
                                             <span class="fa fa-download"></span>
                                             导出
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" title="仅发布当前阳性的样本标本" id="btnEditPositive" permission='environment_btn_positive' style="display:none">
+                                            <span class="fa fa-mars"></span>
+                                            阳性
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" title="仅发布当前阴性的样本标本" id="btnEditNegative" permission='environment_btn_negative' style="display:none">
+                                            <span class="fa fa-venus"></span>
+                                            阴性
                                         </button>
                                     </span>
                                 </div>
