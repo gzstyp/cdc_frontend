@@ -917,6 +917,11 @@ var refreshFlag = true;
             url = urlPrefix + url + tokenParams;
             window.open(url,'_blank').location;/*打开新页面*/
         },
+        //用于页面宽度很宽,带token
+        openPageHashToken : function(url){
+            url = url + tokenParams;
+            window.open(url,'_blank').location;/*打开新页面*/
+        },
         getPageNormal : function(url){
             window.location.href = url;
         },

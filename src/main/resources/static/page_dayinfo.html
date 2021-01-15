@@ -54,6 +54,16 @@
                                     </span>
                                 </div>
                             </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" id="viewExcel" style="display:none;">
+                                            <span class="fa fa-download"></span>
+                                            Excel
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                     <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:2px;">
@@ -110,6 +120,9 @@
                 });
                 $('#btnExport').on('click',function(){
                     thisPage.exportExcel();
+                });
+                $('#viewExcel').on('click',function(){
+                    winFn.openPageHashToken('/viewExcel.html?id=1024');
                 });
             },
             showLabel : function(province,city,county,date){
