@@ -623,7 +623,7 @@
                             layerFn.alert('请选择要发布的阳性数据!',AppKey.code.code199);
                             return;
                         }
-                        layerFn.confirm('将要发布['+index+']条为阳性数据,确定要继续吗?',function(){
+                        layerFn.confirm('将要发布['+index+']条为阳性,确定要继续吗?',function(){
                             layerFn.delBatchHint(urlEditPositive,kids,function(data){
                                 thisPage.complete(data,null,true);
                             });
@@ -634,13 +634,26 @@
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
                         }
-                        thisPage.searchParams();
+                        var params = thisPage.searchParams();
+                        layerFn.confirm('确定要发布以当前搜索条件的结果为阴性吗?',function(){
+                            layerFn.submit(urlEditNegative,params,function(data){
+
+                            });
+                        });
                     });
                 },
                 searchParams : function(){
                     var params = [];
                     params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"market_name","value":$("#key_market_name").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"site_type","value":$("#key_site_type").val()});
-                    return params;
+                    var values = {};
+                    for(var index in params){
+                        var name = params[index].name;
+                        var value = params[index].value;
+                        if(value != null && value.length > 0){
+                            values[name]=value;
+                        }
+                    }
+                    return values;
                 },
                 /*批量删除*/
                 delKeys : function(){
