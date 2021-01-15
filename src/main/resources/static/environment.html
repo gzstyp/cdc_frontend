@@ -137,9 +137,9 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="input-group">
+                                <div class="input-group">支持勾选样本标本发布,支持当前搜索条件批量发布
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" title="仅发布当前阳性的样本标本" id="btnEditPositive" permission='environment_btn_positive' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" title="支持勾选样本标本发布" id="btnEditPositive" permission='environment_btn_positive' style="display:none">
                                             <span class="fa fa-mars"></span>
                                             阳性
                                         </button>
@@ -149,7 +149,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" title="仅发布当前阴性的样本标本" id="btnEditNegative" permission='environment_btn_negative' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" title="支持当前搜索条件批量发布" id="btnEditNegative" permission='environment_btn_negative' style="display:none">
                                             <span class="fa fa-venus"></span>
                                             阴性
                                         </button>
@@ -353,6 +353,8 @@
     <input type="hidden" id="environment_btn_add"/>
     <input type="hidden" id="environment_btn_delByKeys"/>
     <input type="hidden" id="environment_btn_export"/>
+    <input type="hidden" id="environment_btn_positive"/>
+    <input type="hidden" id="environment_btn_negative"/>
     <input type="hidden" id="environment_row_edit"/>
     <input type="hidden" id="environment_row_queryById"/>
     <input type="hidden" id="environment_row_delById"/>
@@ -597,8 +599,27 @@
                             layerFn.alert('没有删除操作权限',AppKey.code.code199);
                             return;
                         }
-                        thisPage.exportExcel();
+                        var params = thisPage.searchParams();
                     });
+                    $('#btnEditPositive').on('click',function(){
+                        if(verifyFn.inputRequired('#environment_btn_positive')){
+                            layerFn.alert('没有操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        var params = thisPage.searchParams();
+                    });
+                    $('#btnEditNegative').on('click',function(){
+                        if(verifyFn.inputRequired('#environment_btn_negative')){
+                            layerFn.alert('没有操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        thisPage.searchParams();
+                    });
+                },
+                searchParams : function(){
+                    var params = [];
+                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"market_name","value":$("#key_market_name").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"site_type","value":$("#key_site_type").val()});
+                    return params;
                 },
                 /*批量删除*/
                 delKeys : function(){
