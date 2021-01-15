@@ -373,6 +373,8 @@
             var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
             var urlExportExcel = urlRoute + 'exportExcel';/*导出Excel*/
+            var urlEditPositive = urlRoute + 'editPositive';/*阳性发布*/
+            var urlEditNegative = urlRoute + 'editNegative';/*阴性发布*/
             //根据字典父级id获取数据
             var urlGetDicts = urlRoute + 'getDicts';
             var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
@@ -599,14 +601,33 @@
                             layerFn.alert('没有删除操作权限',AppKey.code.code199);
                             return;
                         }
-                        var params = thisPage.searchParams();
+                        thisPage.exportExcel();
                     });
                     $('#btnEditPositive').on('click',function(){
                         if(verifyFn.inputRequired('#environment_btn_positive')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
                         }
-                        var params = thisPage.searchParams();
+                        var kids = '';
+                        var index = 0;
+                        $(tableDom + ' tbody input:checked').each(function(){
+                            index ++;
+                            var value = this.value;
+                            if(value != null && value != ''){
+                                if(kids.length > 0)
+                                    kids += ",";
+                                kids += value;
+                            }
+                        });
+                        if(kids == ''){
+                            layerFn.alert('请选择要发布的阳性数据!',AppKey.code.code199);
+                            return;
+                        }
+                        layerFn.confirm('将要发布['+index+']条为阳性数据,确定要继续吗?',function(){
+                            layerFn.delBatchHint(urlEditPositive,kids,function(data){
+                                thisPage.complete(data,null,true);
+                            });
+                        });
                     });
                     $('#btnEditNegative').on('click',function(){
                         if(verifyFn.inputRequired('#environment_btn_negative')){
