@@ -657,7 +657,7 @@
                         var params = thisPage.searchParams();
                         layerFn.confirm('确定要发布以当前搜索条件的结果为阴性吗?',function(){
                             layerFn.submit(urlEditNegative,params,function(data){
-
+                                thisPage.complete(data,null,true);
                             });
                         });
                     });
