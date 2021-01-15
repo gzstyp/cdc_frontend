@@ -116,8 +116,8 @@
                 <select class="col-sm-12 clsProvince" id="userProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
                 <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCounty','请选择地州市');"><option value=''></option></select>
                 <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsTowns','请选择区|县');"><option value=''></option></select>
-                <select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsVallage','请选择乡|镇|社区');"><option value=''></option></select>
-                <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsXxx','请选择村|居委会');"><option value=''></option></select>
+                <!--<select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsVallage','请选择乡|镇|社区');"><option value=''></option></select>
+                <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsXxx','请选择村|居委会');"><option value=''></option></select>-->
             </div>
         </div>
         <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>场所地址</label>
@@ -463,12 +463,7 @@
                     }
                 },
                 openDialog : function(title,kid,map){
-                    var height = 330;
-                    var lines = 9;
-                    if(lines > 3){
-                        height = height + (lines - 3) * 40;
-                    }
-                    layerFn.addOrEdit(title,'#div_bs_manage_edit',['700px',height+'px'],function(index,layero){
+                    layerFn.addOrEdit(title,'#div_bs_manage_edit',['700px','550px'],function(index,layero){
                         var editKey = winFn.getDomValue(inputEditKeyId);
                         if(verifyFn.inputRequired('#site_name')){
                             layerFn.alert('经营场所名称不能为空',AppKey.code.code199);

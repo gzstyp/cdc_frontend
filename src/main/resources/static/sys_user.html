@@ -101,8 +101,8 @@
             <select class="col-sm-12 clsProvince" id="userProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
             <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsCounty','请选择地州市');"><option value=''></option></select>
             <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsTowns','请选择区|县');"><option value=''></option></select>
-            <select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsVallage','请选择乡|镇|社区');"><option value=''></option></select>
-            <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsXxx','请选择村|居委会');"><option value=''></option></select>
+            <!--<select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsVallage','请选择乡|镇|社区');"><option value=''></option></select>
+            <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#clsUser','.clsXxx','请选择村|居委会');"><option value=''></option></select>-->
         </div>
     </form>
 </div>
@@ -728,7 +728,7 @@
                         return;
                     }
                     var row = thisJquery.fnGetData(index);
-                    layerFn.addOrEdit('['+row.user_name+']员绑定划分区域,若是不选则取消绑定区域','#div_user_area',['650px','450px'],(layerIndex)=>{
+                    layerFn.addOrEdit('['+row.user_name+']员绑定划分区域,若是不选则取消绑定区域','#div_user_area',['480px','266px'],(layerIndex)=>{
                         if(verifyFn.inputRequired('#user_row_queryTreeArea')){
                             layerFn.alert('没有操作权限',AppKey.code.code199);
                             return;
