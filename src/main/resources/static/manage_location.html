@@ -234,6 +234,11 @@
                 tableDom : tableDom,
                 sAjaxSource: getList,
                 fnServerParams : function(params){
+                    var areaKid = sessionStorage.getItem("areaKid");
+                    var areaLevel = sessionStorage.getItem("areaLevel");
+                    if(areaKid != null && areaKid != undefined){
+                        params.push({"name":"areaKid","value":areaKid},{"name":"areaLevel","value":areaLevel});
+                    }
                     params.push({"name":"site_letter","value":$("#key_site_letter").val()},{"name":"site_name","value":$("#key_site_name").val()},{"name":"linkman","value":$("#key_linkman").val()},{"name":"craete_userid","value":$("#key_craete_userid").val()});
                 },
                 aoColumns : [

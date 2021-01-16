@@ -30,16 +30,12 @@
                                     <input type="text" id="key_work_site" class="form-control search-query" placeholder="从业场所名称" style="width:140px"/>
                                 </div>
                             </td>
-                            <td style="padding: 0px 6px;">
+                            <td style="padding: 0px 6px;" class="areaSelectText">
                                 区域位置
                             </td>
-                            <td>
+                            <td class="areaSelectText">
                                 <div class="input-group">
-                                    <div id="environmentSearch" style="">
-                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
-                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择地州市');"><option value=''></option></select>
-                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
-                                    </div>
+                                    <div id="environmentSearch"></div>
                                 </div>
                             </td>
                         </tr>
@@ -406,6 +402,11 @@
                 tableDom : tableDom,
                 sAjaxSource: getList,
                 fnServerParams : function(params){
+                    var areaKid = sessionStorage.getItem("areaKid");
+                    var areaLevel = sessionStorage.getItem("areaLevel");
+                    if(areaKid != null && areaKid != undefined){
+                        params.push({"name":"areaKid","value":areaKid},{"name":"areaLevel","value":areaLevel});
+                    }
                     params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"work_site","value":$("#key_work_site").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"work_type","value":$("#key_work_type").val()},{"name":"real_name","value":$("#key_real_name").val()},{"name":"profession","value":$("#key_profession").val()});
                 },
                 aoColumns : [
@@ -557,7 +558,8 @@
                     this.initDom();
                 },
                 initDom : function(){
-                    thisPage.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
+                    var pid = '';
+                    userArea.renderUserArea(urlQueryAreaSelect,pid,'#environmentSearch',3);
                     this.createDropdown();
                 },
                 getAreaData : function(pid,containerDom,selectDom,labelText){

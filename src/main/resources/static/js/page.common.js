@@ -2291,6 +2291,12 @@ var refreshFlag = true;
         var type = options.type || 'GET';
         var url = options.url;
         var params = options.params || {};
+        /*var areaKid = sessionStorage.getItem("areaKid");
+        var areaLevel = sessionStorage.getItem("areaLevel");
+        if(areaKid != null && areaKid != undefined){
+            params['areaKid']=areaKid;
+            params['areaLevel']=areaLevel;
+        }*/
         var beforeSend = options.beforeSend || null;
         var success = options.success;
         var error = options.error || null;
