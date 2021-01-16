@@ -53,9 +53,15 @@
                         var obj = Object.keys(areaData);
                         if(obj.length){
                             sessionStorage.setItem("areaKid",areaData.kid);
+                            sessionStorage.setItem("areaProvince",areaData.province_id);
+                            sessionStorage.setItem("areaCity",areaData.city_id);
+                            sessionStorage.setItem("areaCounty",areaData.county_id);
                             sessionStorage.setItem("areaLevel",areaData.area_level);
                         }else{
                             sessionStorage.removeItem("areaKid");
+                            sessionStorage.removeItem("areaProvince");
+                            sessionStorage.removeItem("areaCity");
+                            sessionStorage.removeItem("areaCounty");
                             sessionStorage.removeItem("areaLevel");
                         }
                         var menuData = token.menuData;
