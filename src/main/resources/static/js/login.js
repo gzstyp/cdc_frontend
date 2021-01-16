@@ -49,6 +49,15 @@
                         sessionStorage.setItem("accessToken",token.accessToken);
                         sessionStorage.setItem("refreshToken",token.refreshToken);
                         sessionStorage.setItem("userName",token.userName);
+                        var areaData = token.areaData[0];
+                        var obj = Object.keys(areaData);
+                        if(obj.length){
+                            sessionStorage.setItem("areaKid",areaData.kid);
+                            sessionStorage.setItem("areaLevel",areaData.area_level);
+                        }else{
+                            sessionStorage.removeItem("areaKid");
+                            sessionStorage.removeItem("areaLevel");
+                        }
                         var menuData = token.menuData;
                         if(menuData != null && menuData != ''){
                             sessionStorage.setItem("menuData",menuData);
