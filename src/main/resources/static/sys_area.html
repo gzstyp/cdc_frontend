@@ -84,14 +84,14 @@
                             <a id="level2" href="javascript:winFn.dropdown('#level',2,'#dropdownLabellevel','市');">市</a>
                         </li>
                         <li>
-                            <a id="level3" href="javascript:winFn.dropdown('#level',3,'#dropdownLabellevel','县');">县</a>
+                            <a id="level3" href="javascript:winFn.dropdown('#level',3,'#dropdownLabellevel','区|县');">区|县</a>
                         </li>
-                        <li>
+                        <!--<li>
                             <a id="level4" href="javascript:winFn.dropdown('#level',4,'#dropdownLabellevel','镇');">镇</a>
                         </li>
                         <li>
                             <a id="level5" href="javascript:winFn.dropdown('#level',5,'#dropdownLabellevel','村');">村</a>
-                        </li>
+                        </li>-->
                     </ul>
                     <input id="level" type="hidden"/>
                 </span>
@@ -138,64 +138,12 @@
                     },
                     {
                         mData : "name",
-                        sTitle : "区域名称",
-                        sWidth : "30%"
-                    },
-                    {
-                        mData : "type",
-                        sTitle : "城乡分类代码",
-                        render : function(value,type,row,meta){
-                            if(value == 100){
-                                return "城镇";
-                            }else if(value == 110){
-                                return "城区";
-                            }else if(value == 111){
-                                return "主城区";
-                            }else if(value == 112){
-                                return "城乡结合区";
-                            }else if(value == 120){
-                                return "镇区";
-                            }else if(value == 121){
-                                return "镇中心区";
-                            }else if(value == 122){
-                                return "镇乡结合区";
-                            }else if(value == 123){
-                                return "特殊区域";
-                            }else if(value == 200){
-                                return "乡村";
-                            }else if(value == 210){
-                                return "乡中心区";
-                            }else if(value == 220){
-                                return "村庄";
-                            }else{
-                                return "";
-                            }
-                        }
+                        sTitle : "区域名称"
                     },
                     {
                         mData : "pName",
                         sTitle : "父级区域",
-                        sWidth : "30%"
-                    },
-                    {
-                        mData : "level",
-                        sTitle : "区域级别",
-                        sWidth : "10%",
-                        render : function(value,type,row,meta){
-                            if(value == 1){
-                                return "省";
-                            }else if(value == 2){
-                                return "市";
-                            }else if(value == 3){
-                                return "县";
-                            }else if(value == 4){
-                                return "镇";
-                            }else if(value == 5){
-                                return "村";
-                            }else{
-                                return "";
-                            }
-                        }
+                        sWidth : "40%"
                     },
                     {
                         mData : "_kid_",
@@ -221,7 +169,7 @@
                         }
                     },
                     {
-                        targets: [1,2,3,4],
+                        targets: [1,2,3],
                         render: function (value,type,row,meta){
                             return pageDataTable.formatColumn(value);
                         }
