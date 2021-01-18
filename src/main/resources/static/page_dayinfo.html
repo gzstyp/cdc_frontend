@@ -27,7 +27,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <div id="environmentSearch" style="">
+                                    <div id="environmentSearch">
                                         <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
                                         <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择地州市');"><option value=''></option></select>
                                         <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
@@ -241,7 +241,7 @@
                 html += '<tr>';
                 html += '<td align="center" valign="middle" style="width:510px;border-right:1px solid #ddd;">核酸总计</td>';
                 html += '<td style="width:510px">';
-                html += '<table style="" width="100%">';
+                html += '<table width="100%">';
                 html += '<tr>';
                 html += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
                 html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllsampling+'</td>';
@@ -294,7 +294,7 @@
                         htmlIndex += '<tr>';
                         htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+_arrs[y].crowdType+'</td>';
                         htmlIndex += '<td style="width:210px">';
-                        htmlIndex += '<table style="" width="100%">';
+                        htmlIndex += '<table width="100%">';
                         htmlIndex += '<tr>';
                         htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
                         htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+_arrs[y].sampling+'</td>';
@@ -343,7 +343,7 @@
                     htmlIndex += '<tr>';
                     htmlIndex += '<td align="center" valign="middle" style="width:300px;border-right:1px solid #ddd;">'+value+'合计</td>';
                     htmlIndex += '<td style="width:210px">';
-                    htmlIndex += '<table style="" width="100%">';
+                    htmlIndex += '<table width="100%">';
                     htmlIndex += '<tr>';
                     htmlIndex += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
                     htmlIndex += '<td align="right" valign="middle" style="padding-right:2px;">'+totalsampling+'</td>';
