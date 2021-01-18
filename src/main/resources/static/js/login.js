@@ -52,7 +52,12 @@
                         var areaData = token.areaData[0];
                         var obj = Object.keys(areaData);
                         if(obj.length){
-                            sessionStorage.setItem("areaKid",areaData.kid);
+                            var _kid = areaData.kid;
+                            if(_kid != undefined && _kid != null){
+                                sessionStorage.setItem("areaKid",areaData.kid);
+                            }else{
+                                sessionStorage.removeItem("areaKid");
+                            }
                             sessionStorage.setItem("areaProvince",areaData.province_id);
                             sessionStorage.setItem("areaCity",areaData.city_id);
                             sessionStorage.setItem("areaCounty",areaData.county_id);
