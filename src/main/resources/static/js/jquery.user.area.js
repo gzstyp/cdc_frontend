@@ -16,7 +16,6 @@
             this.displayShow(containerDom,selectDom);
             this.displayHide(containerDom,selectDom);
             this.clearValue(containerDom,selectDom);
-            userArea.levelType(containerDom,selectDom,'.areaSelectText');
         },
         displayShow : function(containerDom,selectDom){
             $(containerDom +' '+ selectDom).css({"display":"inline"});
@@ -78,7 +77,6 @@
             this.clearValue(containerDom,clsProvince);
             $(containerDom +' '+ clsProvince).val('');
             this.displayHide(containerDom,clsProvince);
-            //$(containerDom +' '+ clsProvince).css({"display":"none"});弹出框时取消其注释在没有操作权限时会导致排版错乱
         },
         getData : function(url,pid,containerDom,selectDom,labelText){
             if(selectDom == clsProvince){
@@ -106,32 +104,41 @@
                 }
             });
         },
-        renderUserArea : function(url,pid,containerDom,level){
+        renderUserArea : function(url,containerDom){
+            var pid = '0';
+            var level = sessionStorage.getItem("areaLevel");
+            var provinceId = sessionStorage.getItem("areaProvince");
+            var cityId = sessionStorage.getItem("areaCity");
+            var selectDom = '';
             var html = '';
-            if(level ==1){
-                html += '<select class="clsProvince" style="display:none;"><option value="">选择省|市</option></select>';
-                html += '<select class="clsCity" onchange=""><option value="">选择地州市</option></select>';
-                html += '<select class="clsCounty" onchange=""><option value="">选择区|县</option></select>';
-            }else if(level ==2){
-                html += '<select class="clsProvince" style="display:none;"><option value="">选择省|市</option></select>';
-                html += '<select class="clsCity" style="display:none;"><option value="">选择地州市</option></select>';
-                html += '<select class="clsCounty" onchange=""><option value="">选择区|县</option></select>';
+            var labelText = '请选择省|市';
+            if(level == 8){
+                pid = '0';
+                selectDom = '.clsProvince';
+                labelText = '请选择省|市';
+                html += '<select class="clsProvince" style="display:none;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCity\',\'选择地州市\');"></select>';
+                html += '<select class="clsCity" style="display:none;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCounty\',\'请选择区|县\');"></select>';
+                html += '<select class="clsCounty" style="display:none;"><option>选择区|县</option></select>';
+            }
+            if(level ==1){//显示2,3
+                pid = provinceId;
+                selectDom = '.clsCity';
+                labelText = '请选择地州市';
+                html += '<select class="clsCity" style="display:none;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCounty\',\'请选择区|县\');"></select>';
+                html += '<select class="clsCounty" style="display:none;"></select>';
+            }else if(level ==2){//显示3
+                pid = cityId;
+                selectDom = '.clsCounty';
+                labelText = '请选择区|县';
+                html += '<select class="clsCounty" style="display:none;"></select>';
+            }else if(level==3){//不显示
+                $('.areaSelectText').remove();
             }
             $(containerDom).html(html);
-            if(level==3){
-                $('.areaSelectText').css({"display":"none"});
-            }
+            this.getData(url,pid,containerDom,selectDom,labelText);
         },
-        levelType : function(containerDom,selectDom,labelTextDom,level){
-            if(areaLevel != null && areaLevel != undefined){
-                if(areaLevel == 3){
-                    $(containerDom +' '+ selectDom).css({"display":"none"});
-                    $(labelTextDom).css({"display":"none"});
-                }else if(level == 2){
-                    this.level2Css(containerDom);
-                    this.level2Value(containerDom);
-                }
-            }
+        selectChange : function(value,url,containerDom,subDom,labelText){
+            this.getData(url,value,containerDom,subDom,labelText);
         }
 	};
 })(jQuery);
