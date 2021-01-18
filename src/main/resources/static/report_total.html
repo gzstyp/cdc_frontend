@@ -14,16 +14,12 @@
                                     <input type="text" id="crowd_date" class="form-control search-query date-picker" placeholder="选择日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
-                            <td style="padding: 0px 6px;">
+                            <td class="areaSelectText" style="padding: 0px 6px;">
                                 区域位置
                             </td>
-                            <td>
+                            <td class="areaSelectText">
                                 <div class="input-group">
-                                    <div id="environmentSearch" style="">
-                                        <select class="clsProvince" id="key_province_id" style="height:34px;cursor:pointer;margin-top:-1px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
-                                        <select class="clsCity" id="key_city_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-4px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsCounty','请选择地州市');"><option value=''></option></select>
-                                        <select class="clsCounty" id="key_county_id" style="display:none;margin-top:4px;height:34px;cursor:pointer;margin-top:-8px;" onchange="thisPage.getAreaData(this.value,'#environmentSearch','.clsTowns','请选择区|县');"><option value=''></option></select>
-                                    </div>
+                                    <div id="report_total"></div>
                                 </div>
                             </td>
                             <td style="padding-left:6px;">
@@ -75,7 +71,7 @@
                 thisPage.viewReport(1);
             },
             initDom : function(){
-                thisPage.getAreaData('0','#environmentSearch','.clsProvince','选择省|市');
+                userArea.renderUserArea(urlQueryAreaSelect,'#report_total');
             },
             getAreaData : function(pid,containerDom,selectDom,labelText){
                 selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
@@ -94,7 +90,7 @@
                 });
             },
             getSelectLabel : function(){
-                this.showLabel(winFn.select.getText('#key_province_id'),winFn.select.getText('#key_city_id'),winFn.select.getText('#key_county_id'),winFn.getDomValue('#crowd_date'));
+                this.showLabel(winFn.select.getText('#report_total .clsProvince'),winFn.select.getText('#report_total .clsCity'),winFn.select.getText('#report_total .clsCounty'),winFn.getDomValue('#crowd_date'));
             },
             btnEvent : function(){
                 $('#btnSearch').on('click',function(){
@@ -123,12 +119,23 @@
                 $('#labelShow').text(label);
             },
             viewReport : function(type){
-                var params = {
-                    province_id : winFn.getDomValue('#key_province_id'),
-                    city_id : winFn.getDomValue('#key_city_id'),
-                    county_id : winFn.getDomValue('#key_county_id'),
-                    crowd_date : winFn.getDomValue('#crowd_date')
-                };
+                var params = {};
+                var clsProvince = winFn.getDomValue('#report_total .clsProvince');
+                var clsCity = winFn.getDomValue('#report_total .clsCity');
+                var clsCounty = winFn.getDomValue('#report_total .clsCounty');
+                if(clsProvince != undefined || clsCity != undefined || clsCounty != undefined){
+                    params = {
+                        province_id : winFn.getDomValue('#report_total .clsProvince'),
+                        city_id : winFn.getDomValue('#report_total .clsCity'),
+                        county_id : winFn.getDomValue('#report_total .clsCounty')
+                    };
+                }else{
+                    var areaKid = sessionStorage.getItem("areaKid");//默认
+                    if(areaKid != null && areaKid != undefined){
+                        params['areaKid']=areaKid;
+                    }
+                }
+                params['crowd_date']=winFn.getDomValue('#crowd_date');
                 var _this = this;
                 layerFn.queryGetHintResult(urlGetView,params,(data)=>{
                     _this.getSelectLabel();
@@ -147,12 +154,12 @@
             },
             exportExcel : function(){
                 var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val()+
-                '&province_id='+$("#key_province_id").val()+
-                '&province_text='+$("#key_province_id").find("option:selected").text()+
-                '&city_id='+$("#key_city_id").val()+
-                '&city_text='+$("#key_city_id").find("option:selected").text()+
-                '&county_id='+$("#key_county_id").val()+
-                '&county_text='+$("#key_county_id").find("option:selected").text()
+                '&province_id='+$("#report_total .clsProvince").val()+
+                '&province_text='+$("#report_total .clsProvince").find("option:selected").text()+
+                '&city_id='+$("#report_total .clsCity").val()+
+                '&city_text='+$("#report_total .clsCity").find("option:selected").text()+
+                '&county_id='+$("#report_total .clsCounty").val()+
+                '&county_text='+$("#report_total .clsCounty").find("option:selected").text()
                 layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                 winFn.getPageHashToken(url);
             },
@@ -220,7 +227,7 @@
                 html += '<tr>';
                 html += '<td align="center" valign="middle" style="width:510px;border-right:1px solid #ddd;">核酸总计</td>';
                 html += '<td style="width:510px">';
-                html += '<table style="" width="100%">';
+                html += '<table width="100%">';
                 html += '<tr>';
                 html += '<td align="left" valign="middle" style="padding-left:2px;">已采样人数</td>';
                 html += '<td align="right" valign="middle" style="padding-right:2px;">'+totalAllsampling+'</td>';
