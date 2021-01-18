@@ -153,13 +153,23 @@
                 });
             },
             exportExcel : function(){
-                var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val()+
-                '&province_id='+$("#report_total .clsProvince").val()+
-                '&province_text='+$("#report_total .clsProvince").find("option:selected").text()+
-                '&city_id='+$("#report_total .clsCity").val()+
-                '&city_text='+$("#report_total .clsCity").find("option:selected").text()+
-                '&county_id='+$("#report_total .clsCounty").val()+
-                '&county_text='+$("#report_total .clsCounty").find("option:selected").text()
+                var url = urlExportExcel+'?&crowd_date='+$("#crowd_date").val();
+                var clsProvince = winFn.getDomValue('#report_total .clsProvince');
+                var clsCity = winFn.getDomValue('#report_total .clsCity');
+                var clsCounty = winFn.getDomValue('#report_total .clsCounty');
+                if(clsProvince != undefined || clsCity != undefined || clsCounty != undefined){
+                    url = url+'&province_id='+$("#report_total .clsProvince").val()+
+                    '&province_text='+$("#report_total .clsProvince").find("option:selected").text()+
+                    '&city_id='+$("#report_total .clsCity").val()+
+                    '&city_text='+$("#report_total .clsCity").find("option:selected").text()+
+                    '&county_id='+$("#report_total .clsCounty").val()+
+                    '&county_text='+$("#report_total .clsCounty").find("option:selected").text();
+                }else{
+                    var areaKid = sessionStorage.getItem("areaKid");//默认
+                    if(areaKid != null && areaKid != undefined){
+                        url = url+'&areaKid='+areaKid;
+                    }
+                }
                 layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                 winFn.getPageHashToken(url);
             },
