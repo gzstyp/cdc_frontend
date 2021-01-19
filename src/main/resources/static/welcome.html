@@ -104,7 +104,12 @@
             },
             getData : function(){
                 var _this = this;
-                layerFn.queryGetHintResult(urlGetData,{},(data) =>{
+                var params = {};
+                var areaKid = sessionStorage.getItem("areaKid");//默认
+                if(areaKid != null && areaKid != undefined){
+                    params['areaKid']=areaKid;
+                }
+                layerFn.queryGetHintResult(urlGetData,params,(data) =>{
                     if(data.code === AppKey.code.code200){
                         var environment = data.data.environment;
                         var employee = data.data.employee;
