@@ -97,10 +97,27 @@
                 }
                 this.crowdTotal(_crowd);
                 var dates = ['12-24','12-25','12-26','12-27','12-28','12-29','12-30'];
-                var environments = [120, 132, 101, 134, 90, 230, 210];
-                var employees = [220, 182, 191, 234, 290, 330, 310];
-                var dailys = [150, 232, 201, 154, 190, 330, 410];
-                this.crowdType(dates,environments,employees,dailys);
+                var series = [
+                    {
+                        name: '外环境',
+                        type: 'line',
+                        stack: '总量',
+                        data: [120, 132, 101, 134, 90, 230, 210]
+                    },
+                    {
+                        name: '从业人员',
+                        type: 'line',
+                        stack: '总量',
+                        data: [220, 182, 191, 234, 290, 330, 310]
+                    },
+                    {
+                        name: '核酸日报',
+                        type: 'line',
+                        stack: '总量',
+                        data: [150, 232, 201, 154, 190, 330, 410]
+                    }
+                ]
+                this.crowdType(dates,series);
             },
             getData : function(){
                 var _this = this;
@@ -114,6 +131,7 @@
                         var environment = data.data.environment;
                         var employee = data.data.employee;
                         var crowdTotal = data.data.crowdTotal;
+                        var typeSample7Day = data.data.typeSample7Day;
                         if(environment != null && environment != ''){
                             _this.environment(environment);
                         }
@@ -122,6 +140,9 @@
                         }
                         if(crowdTotal != null && crowdTotal != ''){
                             _this.crowdTotal(crowdTotal);
+                        }
+                        if(typeSample7Day != null && typeSample7Day != ''){
+                            _this.typeSampleData(typeSample7Day);
                         }
                     }
                 });
@@ -234,7 +255,7 @@
                     $('#crowd_total_pc').text('检测比例:'+data.pc);
                 }
             },
-            crowdType : function(dates,environments,employees,dailys){
+            crowdType : function(dates,series){
                 var crowdType = echarts.init(document.getElementById("crowdType"));
                 crowdOption = {
                     title: {
@@ -262,28 +283,24 @@
                     yAxis: {
                         type: 'value'
                     },
-                    series: [
-                        {
-                            name: '外环境',
-                            type: 'line',
-                            stack: '总量',
-                            data: environments
-                        },
-                        {
-                            name: '从业人员',
-                            type: 'line',
-                            stack: '总量',
-                            data: employees
-                        },
-                        {
-                            name: '核酸日报',
-                            type: 'line',
-                            stack: '总量',
-                            data: dailys
-                        }
-                    ]
+                    series : series
                 };
                 crowdType.setOption(crowdOption);
+            },
+            typeSampleData : function(data){
+                var maxValue = winFn.getMaxValue(data,'dates');
+                var dates = winFn.getItems(data,'dates',maxValue).split(',') || ['12-24','12-25','12-26','12-27','12-28','12-29','12-30'];
+                var series = [];
+                for(index in data){
+                    var obj = {
+                        name: data[index].type || '',
+                        type: 'line',
+                        stack: '总量',
+                        data: data[index].total.split(',') || ''
+                    }
+                    series.push(obj);
+                }
+                this.crowdType(dates,series);
             }
         };
         thisPage.init();
