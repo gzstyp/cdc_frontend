@@ -11,7 +11,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_site_letter" class="form-control search-query" placeholder="经营场所首字母" style="width:140px"/>
+                                    <input type="text" id="key_site_letter" class="form-control search-query" placeholder="经营场所首字母" style="width:120px"/>
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
@@ -19,23 +19,23 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_site_name" class="form-control search-query" placeholder="经营场所名称" style="width:140px"/>
+                                    <input type="text" id="key_site_name" class="form-control search-query" placeholder="经营场所名称" style="width:120px"/>
                                 </div>
                             </td>
-                            <td style="padding: 0px 6px;">
+                            <td style="padding: 0px 6px;" class="areaSelectText">
+                                区域位置
+                            </td>
+                            <td class="areaSelectText">
+                                <div class="input-group">
+                                    <div id="manageSearch"></div>
+                                </div>
+                            </td>
+                            <td class="hidden-480" style="padding: 0px 6px;">
                                 联系人
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="key_linkman" class="form-control search-query" placeholder="场所联系人" style="width:100px"/>
-                                </div>
-                            </td>
-                            <td class="hidden-480" style="padding: 0px 6px;">
-                                登记人
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <input type="text" id="key_craete_userid" class="form-control search-query hidden-480" placeholder="登记人账号" style="width:100px"/>
+                                    <input type="text" id="key_linkman" class="form-control search-query hidden-480" placeholder="场所联系人" style="width:80px"/>
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='manageLocation_btn_listData' style="display:none">
                                             <span class="ace-icon fa fa-search bigger-110"></span>
@@ -239,7 +239,7 @@
                     if(areaKid != null && areaKid != undefined){
                         params.push({"name":"areaKid","value":areaKid},{"name":"areaLevel","value":areaLevel});
                     }
-                    params.push({"name":"site_letter","value":$("#key_site_letter").val()},{"name":"site_name","value":$("#key_site_name").val()},{"name":"linkman","value":$("#key_linkman").val()},{"name":"craete_userid","value":$("#key_craete_userid").val()});
+                    params.push({"name":"site_letter","value":$("#key_site_letter").val()},{"name":"site_name","value":$("#key_site_name").val()},{"name":"linkman","value":$("#key_linkman").val()},{"name":"province_id","value":$("#manageSearch .clsProvince").val()},{"name":"city_id","value":$("#manageSearch .clsCity").val()},{"name":"county_id","value":$("#manageSearch .clsCounty").val()});
                 },
                 aoColumns : [
                     {
@@ -371,6 +371,7 @@
                     this.initDom();
                 },
                 initDom : function(){
+                    userArea.renderUserArea(urlQueryAreaSelect,'#manageSearch');
                     layerFn.ajaxGet(urlGetManagerLocation,{},function(data){
                         if(data.code === AppKey.code.code200){
                             winFn.initDropdown(data.data,'#dropdownOptionssite_type','#site_type','#dropdownLabelsite_type','选择场所类型');
