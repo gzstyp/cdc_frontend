@@ -192,6 +192,8 @@ iframe {
     align-items: center;
     padding: 15px;
     background-image:url('../images/login_image.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%;
 }
 
 
