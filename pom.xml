@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
         <relativePath/>
     </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -13,7 +13,7 @@
   <version>v1.0.0</version>
 
   <description>
-    前后端分离,通过自定义属性控制页面的按钮是否显示,默认是隐藏,获取拥有的角色按钮再显示
+    市疾控前端页面
   </description>
 
   <dependencies>
