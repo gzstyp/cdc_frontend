@@ -418,21 +418,43 @@
                 $(_domTable).empty();
                 var html = '';
                 html +='<tr>';
-                html +='<td width="72" rowspan="2" align="center" valign="middle">地区</td>';
+                html +='<td rowspan="2" align="center" valign="middle">地区</td>';
                 html +='<td colspan="2" align="center" valign="middle">食品样本</td>';
                 html +='<td colspan="2" align="center" valign="middle">外环境样子</td>';
                 html +='<td colspan="2" align="center" valign="middle">从业人员咽拭子</td>';
-                html +='<td width="75" rowspan="2" align="center" valign="middle">合计</td>';
+                html +='<td width="80" rowspan="2" align="center" valign="middle">合计</td>';
                 html +='</tr>';
                 html +='<tr>';
-                html +='<td width="71" align="center" valign="middle">检测份数</td>';
-                html +='<td width="78" align="center" valign="middle">阳性份数</td>';
-                html +='<td width="81" align="center" valign="middle">检测份数</td>';
-                html +='<td width="98" align="center" valign="middle">阳性份数</td>';
-                html +='<td width="88" align="center" valign="middle">检测份数</td>';
-                html +='<td width="77" align="center" valign="middle">阳性份数</td>';
+                html +='<td width="80" align="center" valign="middle">检测份数</td>';
+                html +='<td width="80" align="center" valign="middle">阳性份数</td>';
+                html +='<td width="80" align="center" valign="middle">检测份数</td>';
+                html +='<td width="80" align="center" valign="middle">阳性份数</td>';
+                html +='<td width="80" align="center" valign="middle">检测份数</td>';
+                html +='<td width="80" align="center" valign="middle">阳性份数</td>';
                 html +='</tr>';
                 $(_domTable).html(html);
+                if(max === 1){
+                    var obj = data[0];
+                    var type = obj.type;
+                    html += '<tr>';//此处的 html 不能重新定义var来操作,否则也也有bug
+                    html += '<td align="center" valign="middle">'+obj.name+'</td>';
+                    html += '<td align="center" valign="middle"></td>';
+                    html += '<td align="center" valign="middle"></td>';
+                    if(type == 2){//其中type=2是外环境样子;type=3是从业人员咽拭子
+                        html += '<td align="center" valign="middle">'+obj.total+'</td>';
+                        html += '<td align="center" valign="middle">'+obj.positive+'</td>';
+                        html += '<td align="center" valign="middle"></td>';
+                        html += '<td align="center" valign="middle"></td>';
+                    }else if(type == 3){
+                        html += '<td align="center" valign="middle"></td>';
+                        html += '<td align="center" valign="middle"></td>';
+                        html += '<td align="center" valign="middle">'+obj.total+'</td>';
+                        html += '<td align="center" valign="middle">'+obj.positive+'</td>';
+                    }
+                    html += '<td align="center" valign="middle">'+(Number.parseInt(obj.total)+Number.parseInt(obj.positive))+'</td>';
+                    html += '</tr>';
+                    $(_domTable).html(html);
+                }
                 if(max === 2){
                     for(var i = 0;i < data.length; i++){
                         var obj = data[i];
@@ -507,17 +529,22 @@
                         rowArras.push(columnArras);
                     }
                 });
-                var htmlTotal = '<tr><td align="center" valign="middle">合计</td>';
-                for(var w = 0;w < trtd.length-1; w++){//todo 注意这个位置,trtd.length-1;因为除去每行的第1列是地区区域文本
-                    var columnTotal = 0;
-                    for(var k = 0;k < rowArras.length; k++){
-                        var values = rowArras[k];
-                        columnTotal += Number.parseInt(values[w]);
+                if(trtd.length > 0){
+                    var htmlTotal = '<tr><td align="center" valign="middle">合计</td>';
+                    for(var w = 0;w < trtd.length-1; w++){//todo 注意这个位置,trtd.length-1;因为除去每行的第1列是地区区域文本
+                        var columnTotal = 0;
+                        for(var k = 0;k < rowArras.length; k++){
+                            var values = rowArras[k];
+                            var v = values[w];
+                            if(v != undefined && v.length > 0){
+                                columnTotal += Number.parseInt(v);
+                            }
+                        }
+                        htmlTotal +='<td align="center" valign="middle">'+columnTotal+'</td>';
                     }
-                    htmlTotal +='<td align="center" valign="middle">'+columnTotal+'</td>';
+                    htmlTotal +='</tr>';
+                    $(_domTable).append(htmlTotal);//若有数据处理最后1行合计
                 }
-                htmlTotal +='</tr>';
-                $(_domTable).append(htmlTotal);//处理最后1行合计
             }
         };
         thisPage.init();
