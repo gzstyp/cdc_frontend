@@ -51,8 +51,8 @@
 </div>
 <div id="div_bs_crowd_edit" style="display:none;padding:20px 0px;">
     <form class="form-horizontal" id="form_bs_crowd_edit" role="form">
-        <label class="col-sm-3 control-label no-padding-right" for="name"><div class="hr-4"></div>人群类型名称</label>
-        <div class="col-sm-7">
+        <label class="col-sm-4 control-label no-padding-right" for="name"><div class="hr-4"></div>人群类型名称</label>
+        <div class="col-sm-6">
             <div class="hr-4"></div>
             <input type="text" id="name" placeholder="人群类型名称" class="form-control"/>
         </div>
@@ -226,12 +226,7 @@
                     }
                 },
                 openDialog : function(title,kid,map){
-                    var height = 240;
-                    var lines = 1;
-                    if(lines > 3){
-                        height = height + (lines - 3) * 40;
-                    }
-                    layerFn.addOrEdit(title,'#div_bs_crowd_edit',['500px',height+'px'],function(index,layero){
+                    layerFn.addOrEdit(title,'#div_bs_crowd_edit',['380px','180px'],function(index,layero){
                         if(verifyFn.inputRequired('#name')){
                             layerFn.alert('人群类型名称不能为空',AppKey.code.code199);
                             return;
