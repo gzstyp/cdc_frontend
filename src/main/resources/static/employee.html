@@ -23,6 +23,14 @@
                                 </div>
                             </td>
                             <td style="padding: 0px 6px;">
+                                身份证号
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="text" id="key_id_card" class="form-control search-query" placeholder="从业人员身份证号码" style="width:136px"/>
+                                </div>
+                            </td>
+                            <td style="padding: 0px 6px;">
                                 从业场所名称
                             </td>
                             <td>
@@ -407,7 +415,7 @@
                     if(areaKid != null && areaKid != undefined){
                         params.push({"name":"areaKid","value":areaKid},{"name":"areaLevel","value":areaLevel});
                     }
-                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"work_site","value":$("#key_work_site").val()},{"name":"province_id","value":$("#employeeSearch .clsProvince").val()},{"name":"city_id","value":$("#employeeSearch .clsCity").val()},{"name":"county_id","value":$("#employeeSearch .clsCounty").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"work_type","value":$("#key_work_type").val()},{"name":"real_name","value":$("#key_real_name").val()},{"name":"profession","value":$("#key_profession").val()});
+                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"work_site","value":$("#key_work_site").val()},{"name":"province_id","value":$("#employeeSearch .clsProvince").val()},{"name":"city_id","value":$("#employeeSearch .clsCity").val()},{"name":"county_id","value":$("#employeeSearch .clsCounty").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"work_type","value":$("#key_work_type").val()},{"name":"real_name","value":$("#key_real_name").val()},{"name":"id_card","value":$("#key_id_card").val()},{"name":"profession","value":$("#key_profession").val()});
                 },
                 aoColumns : [
                     {
@@ -665,7 +673,7 @@
                 },
                 searchParams : function(){
                     var params = [];
-                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"work_site","value":$("#key_work_site").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"work_type","value":$("#key_work_type").val()},{"name":"real_name","value":$("#key_real_name").val()},{"name":"profession","value":$("#key_profession").val()});
+                    params.push({"name":"sample_code","value":$("#key_sample_code").val()},{"name":"work_site","value":$("#key_work_site").val()},{"name":"province_id","value":$("#key_province_id").val()},{"name":"city_id","value":$("#key_city_id").val()},{"name":"county_id","value":$("#key_county_id").val()},{"name":"sampling_date_start","value":$("#sampling_date_start").val()},{"name":"sampling_date_end","value":$("#sampling_date_end").val()},{"name":"detection_date_start","value":$("#detection_date_start").val()},{"name":"detection_date_end","value":$("#detection_date_end").val()},{"name":"result","value":$("#key_result").val()},{"name":"work_type","value":$("#key_work_type").val()},{"name":"real_name","value":$("#key_real_name").val()},{"name":"id_card","value":$("#key_id_card").val()},{"name":"profession","value":$("#key_profession").val()});
                     var values = {};
                     for(var index in params){
                         var name = params[index].name;
@@ -718,6 +726,7 @@
                     '&detection_date_end='+$("#detection_date_end").val()+
                     '&result='+$("#key_result").val()+
                     '&work_type='+$("#key_work_type").val()+
+                    '&id_card='+$("#key_id_card").val()+
                     '&real_name='+$("#key_real_name").val()+'&profession='+$("#key_profession").val()
                     layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                     winFn.getPageHashToken(url);
