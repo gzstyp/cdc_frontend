@@ -11,15 +11,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
-                                </div>
-                            </td>
-                            <td style="padding-left:4px;">
-                                至
-                            </td>
-                            <td style="padding-left:4px;">
-                                <div class="input-group">
-                                    <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="采样日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td class="areaSelectText" style="padding: 0px 6px;">
@@ -53,7 +45,7 @@
                         </tr>
                     </table>
                     <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:2px;">
-                        <label style="font-size:22px;" id="labelShow">区域日报统计 (0:00-24:00)</label>
+                        <label style="font-size:22px;" id="labelShow">区域日报统计 (00:00-24:00)</label>
                     </div>
                     <div class="col-xs-12" style="display:flex;justify-content:center;padding-top:4px;">
                         <table id="containerTabel" style="border-spacing:0px 10px;font-size:14px;"></table>
@@ -123,7 +115,7 @@
                 if(date){
                     _date += date;
                 }
-                label += '区域日报统计'+_date+' (0:00-24:00)';
+                label += '区域日报统计'+_date+' (00:00-24:00)';
                 $('#labelShow').text(label);
             },
             viewReport : function(type){
@@ -131,7 +123,7 @@
                     province_id : $("#group_day .clsProvince").val(),
                     city_id : $("#group_day .clsCity").val(),
                     county_id : $("#group_day .clsCounty").val(),
-                    sampling_date_start : winFn.getDomValue('#sampling_date_start')
+                    sampling_date : winFn.getDomValue('#sampling_date_start')
                 };
                 var areaKid = sessionStorage.getItem("areaKid");
                 if(areaKid != null && areaKid != undefined){
@@ -160,8 +152,7 @@
                 var province_id = $(domProvince).val();
                 var city_id = $(domCity).val();
                 var county_id = $(domCounty).val();
-                var url = urlExportExcel+'?&sampling_date_start='+$("#sampling_date_start").val()+
-                '&sampling_date_end='+$("#sampling_date_end").val();
+                var url = urlExportExcel+'?&sampling_date='+$("#sampling_date_start").val();
 
                 if(province_id != undefined && province_id != ''){
                     url = url+'&province_id='+province_id;
