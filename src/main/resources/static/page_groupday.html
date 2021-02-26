@@ -11,7 +11,7 @@
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="sampling_date_start" value="2020-12-17" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td style="padding-left:4px;">
@@ -19,7 +19,7 @@
                             </td>
                             <td style="padding-left:4px;">
                                 <div class="input-group">
-                                    <input type="text" id="sampling_date_end" value="2020-12-24" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td class="areaSelectText" style="padding: 0px 6px;">
@@ -53,7 +53,7 @@
                         </tr>
                     </table>
                     <div class="col-xs-12" style="display:flex;justify-content:center;align-items:center;padding:6px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:2px;">
-                        <label style="font-size:22px;" id="labelShow">核酸日报表 (0:00-24:00)</label>
+                        <label style="font-size:22px;" id="labelShow">日期分类统计 (0:00-24:00)</label>
                     </div>
                     <div class="col-xs-12" style="display:flex;justify-content:center;padding-top:4px;">
                         <table id="containerTabel" style="border-spacing:0px 10px;font-size:14px;"></table>
@@ -123,14 +123,14 @@
                 if(date){
                     _date += date;
                 }
-                label += '核酸日报表'+_date+' (0:00-24:00)';
+                label += '日期分类统计'+_date+' (0:00-24:00)';
                 $('#labelShow').text(label);
             },
             viewReport : function(type){
                 var params = {
-                    province_id : winFn.getDomValue('#key_province_id'),
-                    city_id : winFn.getDomValue('#key_city_id'),
-                    county_id : winFn.getDomValue('#key_county_id'),
+                    province_id : $("#group_day .clsProvince").val(),
+                    city_id : $("#group_day .clsCity").val(),
+                    county_id : $("#group_day .clsCounty").val(),
                     sampling_date_start : winFn.getDomValue('#sampling_date_start')
                 };
                 var areaKid = sessionStorage.getItem("areaKid");
@@ -154,19 +154,32 @@
                 });
             },
             exportExcel : function(){
+                var domProvince = '#group_day .clsProvince';
+                var domCity = '#group_day .clsCity';
+                var domCounty = '#group_day .clsCounty';
+                var province_id = $(domProvince).val();
+                var city_id = $(domCity).val();
+                var county_id = $(domCounty).val();
                 var url = urlExportExcel+'?&sampling_date_start='+$("#sampling_date_start").val()+
-                '&sampling_date_end='+$("#sampling_date_end").val()+
-                '&province_id='+$("#key_province_id").val()+
-                '&province_text='+$("#key_province_id").find("option:selected").text()+
-                '&city_id='+$("#key_city_id").val()+
-                '&city_text='+$("#key_city_id").find("option:selected").text()+
-                '&county_id='+$("#key_county_id").val()+
-                '&county_text='+$("#key_county_id").find("option:selected").text()
-                layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
+                '&sampling_date_end='+$("#sampling_date_end").val();
+
+                if(province_id != undefined && province_id != ''){
+                    url = url+'&province_id='+province_id;
+                    url = url+'&province_text='+$(domProvince).find("option:selected").text();
+                }
+                if(city_id != undefined && city_id != ''){
+                    url = url+'&city_id='+city_id;
+                    url = url+'&city_text='+$(domCity).find("option:selected").text();
+                }
+                if(county_id != undefined && county_id != ''){
+                    url = url+'&county_id='+county_id;
+                    url = url+'&county_text='+$(domCounty).find("option:selected").text();
+                }
                 var areaKid = sessionStorage.getItem("areaKid");
                 if(areaKid != null && areaKid != undefined){
                     url = url+'&areaKid='+areaKid;
                 }
+                layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                 winFn.getPageHashToken(url);
             },
             otherData : function(msg){

@@ -128,10 +128,11 @@
             },
             viewReport : function(type){
                 var params = {
-                    province_id : winFn.getDomValue('#key_province_id'),
-                    city_id : winFn.getDomValue('#key_city_id'),
-                    county_id : winFn.getDomValue('#key_county_id'),
-                    sampling_date_start : winFn.getDomValue('#sampling_date_start')
+                    province_id : $("#group_day .clsProvince").val(),
+                    city_id : $("#group_day .clsCity").val(),
+                    county_id : $("#group_day .clsCounty").val(),
+                    sampling_date_start : winFn.getDomValue('#sampling_date_start'),
+                    sampling_date_end : winFn.getDomValue('#sampling_date_end')
                 };
                 var areaKid = sessionStorage.getItem("areaKid");
                 if(areaKid != null && areaKid != undefined){
@@ -154,19 +155,26 @@
                 });
             },
             exportExcel : function(){
+                var province_id = $("#group_day .clsProvince").val();
+                var city_id = $("#group_day .clsCity").val();
+                var county_id = $("#group_day .clsCounty").val();
+
                 var url = urlExportExcel+'?&sampling_date_start='+$("#sampling_date_start").val()+
-                '&sampling_date_end='+$("#sampling_date_end").val()+
-                '&province_id='+$("#key_province_id").val()+
-                '&province_text='+$("#key_province_id").find("option:selected").text()+
-                '&city_id='+$("#key_city_id").val()+
-                '&city_text='+$("#key_city_id").find("option:selected").text()+
-                '&county_id='+$("#key_county_id").val()+
-                '&county_text='+$("#key_county_id").find("option:selected").text()
-                layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
+                '&sampling_date_end='+$("#sampling_date_end").val();
+                if(province_id != undefined && province_id != ''){
+                    url = url+'&province_id='+province_id;
+                }
+                if(city_id != undefined && city_id != ''){
+                    url = url+'&city_id='+city_id;
+                }
+                if(county_id != undefined && county_id != ''){
+                    url = url+'&county_id='+county_id;
+                }
                 var areaKid = sessionStorage.getItem("areaKid");
                 if(areaKid != null && areaKid != undefined){
                     url = url+'&areaKid='+areaKid;
                 }
+                layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                 winFn.getPageHashToken(url);
             },
             otherData : function(msg){
