@@ -7,11 +7,11 @@
                     <table class="no-border" style="display:inline">
                         <tr>
                             <td class="hidden-480" style="padding: 0px 6px;">
-                                采样日期
+                                登记日期
                             </td>
                             <td>
                                 <div class="input-group">
-                                    <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="采样日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
+                                    <input type="text" id="sampling_date_start" value="2020-12-18" class="form-control search-query date-picker" placeholder="选择日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                 </div>
                             </td>
                             <td class="areaSelectText" style="padding: 0px 6px;">
@@ -25,7 +25,7 @@
                             <td style="padding-left:6px;">
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='dateCategory_btn_getView' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnSearch" permission='areaDay_btn_getView' style="display:none">
                                             <span class="fa fa-eye bigger-110"></span>
                                             查看
                                         </button>
@@ -35,7 +35,7 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='dateCategory_btn_export' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='areaDay_btn_export' style="display:none">
                                             <span class="fa fa-download"></span>
                                             导出
                                         </button>
@@ -57,7 +57,7 @@
 </div>
 <script type="text/javascript">
     $(function(){
-        var urlRoute = '/dateCategory/';/*请求controller层的url*/
+        var urlRoute = '/areaDay/';/*请求controller层的url*/
         var urlGetView = urlRoute + 'getView';/*查看报表*/
         var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
         var urlQueryPermissions = urlRoute + 'queryPermissions';
