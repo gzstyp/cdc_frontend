@@ -116,21 +116,21 @@
                 pid = '0';
                 selectDom = '.clsProvince';
                 labelText = '请选择省|市';
-                html += '<select class="clsProvince" style="display:none;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCity\',\'选择地州市\');"></select>';
-                html += '<select class="clsCity" style="display:none;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCounty\',\'请选择区|县\');"></select>';
-                html += '<select class="clsCounty" style="display:none;"><option>选择区|县</option></select>';
+                html += '<select class="clsProvince" style="display:none;cursor:pointer;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCity\',\'选择地州市\');"></select>';
+                html += '<select class="clsCity" style="display:none;cursor:pointer;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCounty\',\'请选择区|县\');"></select>';
+                html += '<select class="clsCounty" style="display:none;cursor:pointer;"><option>选择区|县</option></select>';
             }
             if(level ==1){//显示2,3
                 pid = provinceId;
                 selectDom = '.clsCity';
                 labelText = '请选择地州市';
-                html += '<select class="clsCity" style="display:none;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCounty\',\'请选择区|县\');"></select>';
-                html += '<select class="clsCounty" style="display:none;"></select>';
+                html += '<select class="clsCity" style="display:none;cursor:pointer;" onchange="userArea.selectChange(this.value,\''+url+'\',\''+containerDom+'\',\'.clsCounty\',\'请选择区|县\');"></select>';
+                html += '<select class="clsCounty" style="display:none;cursor:pointer;"></select>';
             }else if(level ==2){//显示3
                 pid = cityId;
                 selectDom = '.clsCounty';
                 labelText = '请选择区|县';
-                html += '<select class="clsCounty" style="display:none;"></select>';
+                html += '<select class="clsCounty" style="display:none;cursor:pointer;"></select>';
             }else if(level==3){//不显示
                 $('.areaSelectText').remove();
             }
