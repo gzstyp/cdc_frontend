@@ -2345,7 +2345,7 @@ var refreshFlag = true;
     }
     function status404(response){
         var json = eval('('+ response.responseText +')');
-        layerFn.alert("访问("+json.path+")路径不存在,你可以试试<a href='http://www.dwz.cloud' target='_blank'>引路者</a>解决找不到网页问题",AppKey.code.code199);
+        layerFn.alert("访问("+json.path+")路径不存在,你可以试试<a style='color:#1e9fff;' href='http://www.dwz.cloud' target='_blank'>引路者</a>解决找不到网页问题",AppKey.code.code199);
     }
     function status500(){
         layerFn.alert(AppKey.msg.msg204,AppKey.code.code204);
