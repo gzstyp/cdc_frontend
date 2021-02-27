@@ -149,6 +149,14 @@
                 var province_id = $(domProvince).val();
                 var city_id = $(domCity).val();
                 var county_id = $(domCounty).val();
+                if (verifyFn.inputRequired(domProvince)){
+                    layerFn.alert('请选择省级',AppKey.code.code199);
+                    return;
+                }
+                if (verifyFn.inputRequired(domCity)){
+                    layerFn.alert('请选择市级',AppKey.code.code199);
+                    return;
+                }
                 var url = urlExportExcel+'?&sampling_date='+$("#sampling_date_start").val();
 
                 if(province_id != undefined && province_id != ''){
