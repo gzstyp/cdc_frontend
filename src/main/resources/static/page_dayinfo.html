@@ -14,15 +14,15 @@
         <div class="row">
             <div class="col-xs-12" style="display:flex;justify-content:center;">
                 <div style="display:flex;flex-direction:column;width:786px;padding:10px 40px;border:1px solid #d0d0d0;margin-top:4px;">
-                    <div style="width:100%;display:flex;justify-content:center;margin-top:10px;">
-                        <table class="no-border" style="display:inline">
+                    <div style="width:100%;display:flex;justify-content:left;margin-top:10px;">
+                        <table class="no-border" style="">
                             <tr>
                                 <td class="hidden-480" style="padding: 0px 6px;">
-                                    采样日期
+                                    登记日期
                                 </td>
                                 <td>
                                     <div class="input-group">
-                                        <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;display:none;" data-date-format="yyyy-mm-dd"/>
+                                        <input type="text" id="sampling_date_start" class="form-control search-query date-picker" placeholder="起始日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                     </div>
                                 </td>
                                 <td style="padding-left:4px;">
@@ -30,10 +30,16 @@
                                 </td>
                                 <td style="padding-left:4px;">
                                     <div class="input-group">
-                                        <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;display:none;" data-date-format="yyyy-mm-dd"/>
+                                        <input type="text" id="sampling_date_end" class="form-control search-query date-picker" placeholder="结束日期" style="width:86px;" data-date-format="yyyy-mm-dd"/>
                                     </div>
                                 </td>
-                                <td class="areaSelectText" style="padding: 0px 6px;display:none;">
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="width:100%;display:flex;justify-content:left;margin-top:10px;">
+                        <table class="no-border" style="display:inline">
+                            <tr>
+                                <td class="areaSelectText" style="padding: 0px 6px;">
                                     区域位置
                                 </td>
                                 <td class="areaSelectText">
@@ -54,7 +60,7 @@
                                 <td>
                                     <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='dailyDetails_btn_export' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" id="btnExport" permission='dailyDetails_btn_export' style="display:none;">
                                             <span class="fa fa-download"></span>
                                             导出
                                         </button>
