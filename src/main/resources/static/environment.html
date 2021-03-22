@@ -687,11 +687,35 @@
                     thisPage.edit(data.kid);
                 },
                 exportExcel : function(){
-                    var url = urlExportExcel+'?sample_code='+$("#key_sample_code").val()+
-                    '&province_id='+$("#key_province_id").val()+
-                    '&city_id='+$("#key_city_id").val()+
-                    '&county_id='+$("#key_county_id").val()+
-                    '&market_name='+$("#key_market_name").val()+
+                    var domProvince = '#environmentSearch .clsProvince';
+                    var domCity = '#environmentSearch .clsCity';
+                    var domCounty = '#environmentSearch .clsCounty';
+                    var province_id = $(domProvince).val();
+                    var city_id = $(domCity).val();
+                    var county_id = $(domCounty).val();
+
+                    var url = urlExportExcel+'?&sample_code='+$("#key_sample_code").val();
+
+                    if(province_id != undefined && province_id != ''){
+                        url = url+'&province_id='+province_id;
+                    }else{
+                        url = url+'&province_id='+$("#key_province_id").val();
+                    }
+                    if(city_id != undefined && city_id != ''){
+                        url = url+'&city_id='+city_id;
+                    }else{
+                        url = url+'&city_id='+$("#key_city_id").val();
+                    }
+                    if(county_id != undefined && county_id != ''){
+                        url = url+'&county_id='+county_id;
+                    }else{
+                        url = url+'&county_id='+$("#key_county_id").val();
+                    }
+                    var areaKid = sessionStorage.getItem("areaKid");
+                    if(areaKid != null && areaKid != undefined){
+                        url = url+'&areaKid='+areaKid;
+                    }
+                    url = url+'&market_name='+$("#key_market_name").val()+
                     '&sampling_date_start='+$("#sampling_date_start").val()+
                     '&sampling_date_end='+$("#sampling_date_end").val()+
                     '&detection_date_start='+$("#detection_date_start").val()+
