@@ -1026,8 +1026,8 @@ var refreshFlag = true;
         writeBack: function(textDom,text){
             $(textDom).text(text);
         },
-        /* 基于ace框架 winFn.initFileInput('#id-input-file-1,#PHOTO');支持多个dom,如: $('#id-input-file-1,#PHOTO')*/
-        initFileInput : function(doms){
+        /*基于ace框架选择文件,winFn.initFileShoose('#file_import',['xls','xlsx'],()=>{});*/
+        initFileShoose : function(doms,allowExt,change){
             $(doms).ace_file_input({
                 no_file:'未选择任何文件',
                 btn_choose:'选择文件',
@@ -1035,13 +1035,19 @@ var refreshFlag = true;
                 droppable:false,
                 onchange:null,
                 thumbnail:false,
-                allowExt: ["jpeg","jpg","png","gif","bmp"],
-                allowMime : ["image/jpg","image/jpeg","image/png","image/gif","image/bmp"]
+                allowExt: allowExt || ["jpeg","jpg","png","gif","bmp"]
             }).on('change',function(data){
                 if(!data.result){
-                    layerFn.alert('请选择图片格式',AppKey.code.code199);
+                    if(change){
+                        change();
+                    }
+                    layerFn.alert('请选择正确的文件格式',AppKey.code.code199);
                 }
             });
+        },
+        /**移除基于ace框架文件选择 winFn.removeInputFile('');*/
+        removeInputFile : function(parentDom){
+            $(parentDom+' .ace-file-input a.remove').click();
         },
         /*默认初始化日期格式,属于bootstrap-datepicker.js;用法:winFn.initDate();或winFn.initDate('#id或.class');*/
         initDate : function(dom){

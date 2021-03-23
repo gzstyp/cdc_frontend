@@ -627,7 +627,7 @@
                     //导出
                     $('#btnExport').on('click',function(){
                         if(verifyFn.inputRequired('#employee_btn_export')){
-                            layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                            layerFn.alert('没有导出操作权限',AppKey.code.code199);
                             return;
                         }
                         thisPage.exportExcel();

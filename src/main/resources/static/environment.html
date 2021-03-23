@@ -125,8 +125,18 @@
                             <td>
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-inverse btn-white" title="导出Excel数据" id="btnExport" permission='environment_btn_export' style="display:none">
+                                        <button type="button" class="btn btn-inverse btn-white" title="导入Excel数据" id="btnImport" permission='environment_btn_import' style="display:none">
                                             <span class="fa fa-download"></span>
+                                            导入
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" title="导出Excel数据" id="btnExport" permission='environment_btn_export' style="display:none">
+                                            <span class="fa fa-upload"></span>
                                             导出
                                         </button>
                                     </span>
@@ -344,10 +354,19 @@
 </div>
 <div id="divKeyColumns" style="display:none;padding:1px 0px;"></div>
 <input type="hidden" id="bs_environment_edit_keyId"/>
+<div id="div_environment_import" style="display:none;padding-top:60px">
+    <form class="form-horizontal" id="form_environment_import" role="form">
+        <div class="col-sm-12">
+            <div class="hr-4"></div>
+            <input type="file" id="file_import" class="form-control"/>
+        </div>
+    </form>
+</div>
 <div style="display:none;">
     <input type="hidden" id="environment_btn_listData"/>
     <input type="hidden" id="environment_btn_add"/>
     <input type="hidden" id="environment_btn_delByKeys"/>
+    <input type="hidden" id="environment_btn_import"/>
     <input type="hidden" id="environment_btn_export"/>
     <input type="hidden" id="environment_btn_positive"/>
     <input type="hidden" id="environment_btn_negative"/>
@@ -368,6 +387,7 @@
             var urlQueryById = urlRoute + 'queryById';/*根据id查询对应的数据*/
             var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
+            var urlImportExcel = urlRoute + 'importExcel';/*导入Excel*/
             var urlExportExcel = urlRoute + 'exportExcel';/*导出Excel*/
             var urlEditPositive = urlRoute + 'editPositive';/*阳性发布*/
             var urlEditNegative = urlRoute + 'editNegative';/*阴性发布*/
@@ -530,7 +550,6 @@
                             return pageDataTable.formatColumn(value);
                         }
                     },
-
                     {
                         targets : [5,8,11,14,18],//指定列
                         visible : false//列的隐藏显示
@@ -551,6 +570,7 @@
                     winFn.initDate();
                     this.createDropdown();
                     userArea.renderUserArea(urlQueryAreaSelect,'#environmentSearch');
+                    winFn.initFileShoose('#file_import',['xls','xlsx']);
                 },
                 getAreaData : function(pid,containerDom,selectDom,labelText){
                     selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
@@ -596,10 +616,18 @@
                     $('#btnDel').on('click',function(){
                         thisPage.delKeys();
                     });
+                    //导入
+                    $('#btnImport').on('click',function(){
+                        if(verifyFn.inputRequired('#environment_btn_import')){
+                            layerFn.alert('没有导入操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        thisPage.exportImport();
+                    });
                     //导出
                     $('#btnExport').on('click',function(){
                         if(verifyFn.inputRequired('#environment_btn_export')){
-                            layerFn.alert('没有删除操作权限',AppKey.code.code199);
+                            layerFn.alert('没有导出操作权限',AppKey.code.code199);
                             return;
                         }
                         thisPage.exportExcel();
@@ -724,6 +752,35 @@
                     '&site_type='+$("#key_site_type").val()
                     layerFn.handleTop('请耐心等待,处理完成将会自动下载!',AppKey.code.code200);
                     winFn.getPageHashToken(url);
+                },
+                exportImport : function(){
+                    winFn.removeInputFile('#form_environment_import');
+                    layerFn.addOrEdit('导入数据','#div_environment_import',['400px','250px'],(index,layero)=>{
+                        if(verifyFn.inputRequired('#file_import')){
+                            layerFn.alert('请选择Excel文件',AppKey.code.code199);
+                            return;
+                        }
+                        var areaKid = sessionStorage.getItem("areaKid");
+                        if(areaKid == null || areaKid == '' || areaKid == undefined){
+                            layerFn.alert('当前账号缺少参数!',AppKey.code.code199);
+                            return;
+                        }
+                        var params = {
+                            excel : winFn.getDomValue('#file_import'),
+                            province_id : sessionStorage.getItem("areaProvince"),
+                            city_id : sessionStorage.getItem("areaCity"),
+                            county_id : sessionStorage.getItem("areaCounty"),
+                            area_level : sessionStorage.getItem("areaLevel")
+                        };
+                        var formData = new FormData();
+                        for(var key in params){
+                            formData.append(key,params[key]);
+                        }
+                        formData.append("file_excel",document.getElementById("file_import").files[0]);//获取上传文件
+                        layerFn.formSubmit(urlImportExcel,formData,function(data){
+                            thisPage.complete(data,index,true);
+                        });
+                    });
                 },
                 search : function(){
                     if(verifyFn.inputRequired('#environment_btn_listData')){
