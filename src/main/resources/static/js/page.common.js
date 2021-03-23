@@ -1041,7 +1041,7 @@ var refreshFlag = true;
                     if(change){
                         change();
                     }
-                    layerFn.alert('请选择正确的文件格式',AppKey.code.code199);
+                    layerFn.alert('请选择正确的文件格式!',AppKey.code.code199);
                 }
             });
         },
