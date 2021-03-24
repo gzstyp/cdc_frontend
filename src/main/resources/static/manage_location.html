@@ -90,11 +90,6 @@
             <div class="hr-4"></div>
             <input type="text" id="site_name" placeholder="经营场所名称" class="form-control"/>
         </div>
-        <!--<label class="col-sm-3 control-label no-padding-right" for="site_letter"><div class="hr-4"></div>首写字母</label>
-        <div class="col-sm-7">
-            <div class="hr-4"></div>
-            <input type="text" id="site_letter" placeholder="经营场所首写字母" class="form-control"/>
-        </div>-->
         <label class="col-sm-3 control-label no-padding-right" for="site_type"><div class="hr-4"></div>经营场所类型</label>
         <div class="col-sm-7">
             <div class="hr-4"></div>
@@ -123,11 +118,11 @@
         <div class="col-sm-7" title="编辑|修改时不选择则保持原数据原区域">
             <div class="hr-4"></div>
             <div id="manageLocation">
-                <select class="col-sm-12 clsProvince" id="userProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
-                <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCounty','请选择地州市');"><option value=''></option></select>
-                <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsTowns','请选择区|县');"><option value=''></option></select>
-                <!--<select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsVallage','请选择乡|镇|社区');"><option value=''></option></select>
-                <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsXxx','请选择村|居委会');"><option value=''></option></select>-->
+                <select class="col-sm-12 clsProvince" id="userProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCity','请选择市|区');"><option value=''></option></select>
+                <select class="col-sm-12 clsCity" id="userCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsCounty','请选择区|县');"><option value=''></option></select>
+                <select class="col-sm-12 clsCounty" id="userCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsTowns','请选择乡|镇|社区');"><option value=''></option></select>
+                <!--<select class="col-sm-12 clsTowns" id="userTownsId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsVallage','请选择村|居委会');"><option value=''></option></select>
+                <select class="col-sm-12 clsVallage" id="userVallageId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#manageLocation','.clsXxx','请选择区域');"><option value=''></option></select>-->
             </div>
         </div>
         <label class="col-sm-3 control-label no-padding-right" for="address"><div class="hr-4"></div>场所地址</label>
@@ -222,9 +217,9 @@
         <div class="col-sm-10" title="请选择经营场所区域">
             <div class="hr-4"></div>
             <div id="div_area_import">
-                <select class="col-sm-12 clsProvince" id="excelImportProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
-                <select class="col-sm-12 clsCity" id="excelImportCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsCounty','请选择地州市');"><option value=''></option></select>
-                <select class="col-sm-12 clsCounty" id="excelImportCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsTowns','请选择区|县');"><option value=''></option></select>
+                <select class="col-sm-12 clsProvince" id="excelImportProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsCity','请选择市|区');"><option value=''></option></select>
+                <select class="col-sm-12 clsCity" id="excelImportCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsCounty','请选择区|县');"><option value=''></option></select>
+                <select class="col-sm-12 clsCounty" id="excelImportCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsTowns','请选择乡|镇|社区');"><option value=''></option></select>
             </div>
         </div>
         <div class="col-sm-12" id="div_manage_file_import">
