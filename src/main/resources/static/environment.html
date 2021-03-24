@@ -358,7 +358,7 @@
     <form class="form-horizontal" id="form_environment_import" role="form">
         <div class="col-sm-12">
             <div class="hr-4"></div>
-            <input type="file" id="file_import" class="form-control"/>
+            <input type="file" id="file_environment_import" class="form-control"/>
         </div>
     </form>
 </div>
@@ -570,7 +570,7 @@
                     winFn.initDate();
                     this.createDropdown();
                     userArea.renderUserArea(urlQueryAreaSelect,'#environmentSearch');
-                    winFn.initFileShoose('#file_import',['xls','xlsx']);
+                    winFn.initFileShoose('#file_environment_import',['xls','xlsx']);
                 },
                 getAreaData : function(pid,containerDom,selectDom,labelText){
                     selectArea.getData(urlQueryAreaSelect,pid,containerDom,selectDom,labelText);
@@ -756,7 +756,7 @@
                 exportImport : function(){
                     winFn.removeInputFile('#form_environment_import');
                     layerFn.addOrEdit('导入数据','#div_environment_import',['400px','250px'],(index,layero)=>{
-                        if(verifyFn.inputRequired('#file_import')){
+                        if(verifyFn.inputRequired('#file_environment_import')){
                             layerFn.alert('请选择Excel文件',AppKey.code.code199);
                             return;
                         }
@@ -766,7 +766,7 @@
                             return;
                         }
                         var params = {
-                            excel : winFn.getDomValue('#file_import'),
+                            excel : winFn.getDomValue('#file_environment_import'),
                             province_id : sessionStorage.getItem("areaProvince"),
                             city_id : sessionStorage.getItem("areaCity"),
                             county_id : sessionStorage.getItem("areaCounty"),
@@ -776,7 +776,7 @@
                         for(var key in params){
                             formData.append(key,params[key]);
                         }
-                        formData.append("file_excel",document.getElementById("file_import").files[0]);//获取上传文件
+                        formData.append("file_excel",document.getElementById("file_environment_import").files[0]);//获取上传文件
                         layerFn.formSubmit(urlImportExcel,formData,function(data){
                             thisPage.complete(data,index,true);
                         });
