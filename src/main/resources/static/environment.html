@@ -356,7 +356,7 @@
 <input type="hidden" id="bs_environment_edit_keyId"/>
 <div id="div_environment_import" style="display:none;padding-top:60px">
     <form class="form-horizontal" id="form_environment_import" role="form">
-        <div class="col-sm-12">
+        <div class="col-sm-12" id="div_environment_file_import">
             <div class="hr-4"></div>
             <input type="file" id="file_environment_import" class="form-control"/>
         </div>
@@ -754,7 +754,7 @@
                     winFn.getPageHashToken(url);
                 },
                 exportImport : function(){
-                    winFn.removeInputFile('#form_environment_import');
+                    winFn.removeInputFile('#div_environment_file_import');
                     layerFn.addOrEdit('导入数据','#div_environment_import',['400px','250px'],(index,layero)=>{
                         if(verifyFn.inputRequired('#file_environment_import')){
                             layerFn.alert('请选择Excel文件',AppKey.code.code199);
