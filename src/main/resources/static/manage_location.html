@@ -64,6 +64,16 @@
                                     </span>
                                 </div>
                             </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-inverse btn-white" title="导入Excel数据" id="btnImport" permission='manageLocation_btn_import' style="display:none">
+                                            <span class="fa fa-download"></span>
+                                            导入
+                                        </button>
+                                    </span>
+                                </div>
+                            </td>
                         </tr>
                     </table>
                     <div class="hidden-480 pull-right tableTools-container" permission='manageLocation_btn_listData' style="display:none"></div>
@@ -206,10 +216,28 @@
 </div>
 <div id="divKeyColumns" style="display:none;padding:1px 0px;"></div>
 <input type="hidden" id="bs_manage_edit_keyId"/>
+<div id="div_manage_import" style="display:none;padding-top:10px">
+    <form class="form-horizontal" id="form_manage_import" role="form">
+        <label class="col-sm-2 control-label no-padding-right"><div class="hr-2"></div>导入区域</label>
+        <div class="col-sm-10" title="请选择经营场所区域">
+            <div class="hr-4"></div>
+            <div id="div_area_import">
+                <select class="col-sm-12 clsProvince" id="excelImportProvinceId" style="cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsCity','请选择省|市');"><option value=''>请选择省|市</option></select>
+                <select class="col-sm-12 clsCity" id="excelImportCityId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsCounty','请选择地州市');"><option value=''></option></select>
+                <select class="col-sm-12 clsCounty" id="excelImportCountyId" style="display:none;margin-top:4px;cursor:pointer;" onchange="thisPage.getAreaData(this.value,'#div_area_import','.clsTowns','请选择区|县');"><option value=''></option></select>
+            </div>
+        </div>
+        <div class="col-sm-12" id="div_manage_file_import">
+            <div class="hr-4"></div>
+            <input type="file" id="file_manage_import" class="form-control"/>
+        </div>
+    </form>
+</div>
 <div style="display:none;">
     <input type="hidden" id="manageLocation_btn_listData"/>
     <input type="hidden" id="manageLocation_btn_add"/>
     <input type="hidden" id="manageLocation_btn_delByKeys"/>
+    <input type="hidden" id="manageLocation_btn_import"/>
     <input type="hidden" id="manageLocation_row_edit"/>
     <input type="hidden" id="manageLocation_row_queryById"/>
     <input type="hidden" id="manageLocation_row_delById"/>
@@ -229,6 +257,7 @@
             var urlGetManagerLocation = urlRoute + 'getManagerLocation';/*获取经营场所*/
             var urlDelById = urlRoute + 'delById';/*根据id删除对应的数据*/
             var urlDelByKeys = urlRoute + 'delByKeys';/*批量删除*/
+            var urlImportExcel = urlRoute + 'importExcel';/*导入Excel*/
             var urlQueryAreaSelect = urlRoute + 'queryAreaSelect';/*获取区域数据*/
             var thisTable = pageDataTable.initDataTable({
                 tableDom : tableDom,
@@ -377,6 +406,7 @@
                             winFn.initDropdown(data.data,'#dropdownOptionssite_type','#site_type','#dropdownLabelsite_type','选择场所类型');
                         }
                     });
+                    winFn.initFileShoose('#file_manage_import',['xls','xlsx']);
                 },
                 addEvent : function(){
                     this.btnEvent();
@@ -409,6 +439,14 @@
                     $('#btnDel').on('click',function(){
                         thisPage.delKeys();
                     });
+                    //导入
+                    $('#btnImport').on('click',function(){
+                        if(verifyFn.inputRequired('#manageLocation_btn_import')){
+                            layerFn.alert('没有导入操作权限',AppKey.code.code199);
+                            return;
+                        }
+                        thisPage.exportImport();
+                    });
                 },
                 /*批量删除*/
                 delKeys : function(){
@@ -439,6 +477,42 @@
                 },
                 trDblclick : function(data){
                     thisPage.edit(data.kid);
+                },
+                exportImport : function(){
+                    winFn.removeInputFile('#div_manage_file_import');
+                    layerFn.addOrEdit('区域的经营场所数据导入','#div_manage_import',['400px','250px'],(index,layero)=>{
+                        if(verifyFn.inputRequired('#excelImportProvinceId')){
+                            layerFn.alert('请选择区域省|市',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#excelImportCityId')){
+                            layerFn.alert('请选择区域市|区',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#excelImportCountyId')){
+                            layerFn.alert('请选择区域区|县',AppKey.code.code199);
+                            return;
+                        }
+                        if(verifyFn.inputRequired('#file_manage_import')){
+                            layerFn.alert('请选择Excel文件',AppKey.code.code199);
+                            return;
+                        }
+                        var params = {
+                            excel : winFn.getDomValue('#file_manage_import'),
+                            province_id : winFn.getDomValue('#excelImportProvinceId'),
+                            city_id : winFn.getDomValue('#excelImportCityId'),
+                            county_id : winFn.getDomValue('#excelImportCountyId')
+                        };
+                        var formData = new FormData();
+                        for(var key in params){
+                            formData.append(key,params[key]);
+                        }
+                        formData.append("file_excel",document.getElementById("file_manage_import").files[0]);//获取上传文件
+                        layerFn.formSubmit(urlImportExcel,formData,function(data){
+                            thisPage.complete(data,index,true);
+                        });
+                    });
+                    thisPage.getAreaData('0','#div_area_import','.clsProvince','选择省|市');
                 },
                 search : function(){
                     if(verifyFn.inputRequired('#manageLocation_btn_listData')){
